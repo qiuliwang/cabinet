@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+<title>animate</title> 
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+   <script type="text/javascript">
+        $(document).ready(function() {
+ 
+            $(".aa").toggle(function() {
+                $(this).next().find('div').animate({
+                    height: 'hide',
+                    opacity: 'hide'
+                }, 'slow');
+            }, function() {
+                $(this).next().find('div').animate({
+                    height: 'show',
+                    opacity: 'show'
+                }, 'slow');
+            });
+            $(".aa").click(function(event) { }).trigger("click");
+ 
+        });
+         
+		function show()
+		{
+			if (document.getelementbyid('test').display == "none") //展
+			{
+				document.getelementbyid('test').display = ""; (展)
+			}
+			else //隐藏
+			{
+				document.getelementbyid('test').display = "none"; (隐藏)
+			}
+		}
+    </script>
+
+</head> 
+<body> 
+<a class="a1" href="#">text1</a>
+<a class="aa" href="#" onclick="JSTest()">test2</a>
+ 
+<div class="stuff">
+	javascript!!!
+</div>
+<div class="mystuff">
+	javascript!!!
+</div>
+
+<a href="" onclick="show()">this one</a>
+<div id="test" style="display:none">
+	javascript!!!
+</div>
+	
+</body> 
+</html> 

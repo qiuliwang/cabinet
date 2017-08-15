@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+<title>animate</title> 
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+
+   <script type="text/javascript">
+        $(document).ready(function() {
+ 
+            $(".aa").toggle(function() {
+                $(this).next().find('div').animate({
+                    height: 'hide',
+                    opacity: 'hide'
+                }, 'slow');
+            }, function() {
+                $(this).next().find('div').animate({
+                    height: 'show',
+                    opacity: 'show'
+                }, 'slow');
+            });
+            $(".aa").click(function(event) { }).trigger("click");
+ 
+        });
+         
+    </script>
+
+</head> 
+<body> 
+<a class="a1" href="#">text1</a>
+<a class="aa" href="#">text2</a> 
+ 
+<div class="stuff">
+	fuck you javascript!!!
+</div>
+<div class="mystuff">
+	fuck you javascript!!!
+</div>
+</body> 
+</html> 

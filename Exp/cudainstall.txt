@@ -1,0 +1,23 @@
+cuda
+	sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+	sudo apt-get update
+	sudo apt-get install cuda
+
+cudnn
+	#解压文件
+	tar -zxvf cudnn-6.5-linux-x64-v2.tgz
+	#切换路径
+	cd cudnn-6.5-linux-x64-v2
+	#复制lib文件到cuda安装路径下的lib64/
+	sudo cp lib* /usr/local/cuda/lib64/
+	#复制头文件
+	sudo cp cudnn.h /usr/local/cuda/include/
+
+	#更新软连接
+	cd /usr/local/cuda/lib64/ 
+	sudo rm -rf libcudnn.so libcudnn.so.6.5 
+	sudo ln -s libcudnn.so.6.5.48 libcudnn.so.6.5 
+	sudo ln -s libcudnn.so.6.5 libcudnn.so 
+
+test
+	nvcc -V

@@ -1,0 +1,6 @@
+problem:
+	dpkg status database is locked by another process
+
+solution:
+	sudo rm /var/lib/dpkg/lock
+	sudo dpkg --configure -a

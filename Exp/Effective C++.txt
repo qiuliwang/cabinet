@@ -1,0 +1,176 @@
+第一章 让自己习惯C++    Accustoming Yourself to C++
+条款01：视C++为一个语言联邦 
+	View C++ as a federation of languages
+
+	C++高效编程守则视状况而变化，取决于你使用C++的哪一部分。
+
+条款02：尽量以const, enum, inline替换 #define 
+	Prefer consts, enums, and inlines to #defines
+
+	对于单纯常量，最好以const对象或enums替换#defines。
+	对于形似函数的宏（macros），最好改用inline函数替换#define
+
+条款03：尽可能使用const
+	Use const whenever possible
+
+	将某些东西声明为const可帮助编译器侦测出错误用法，const可被施加于任何作用域内的对象、函数参数、函数返回类型、成员函数本体。
+	编译器强制实施bitwise constness，但你编写程序时，应该使用“概念上的常量性”（conceptual constness）.
+	当const和non-const成员函数有着实质等价的实现时，令non-const版本调用const版本可避免代码重复。
+
+条款04：确定对象被使用前已先被初始化
+	Make sure that objects are initialized before they're used
+
+	为内置型对象进行手工初始化，因为C++不保证初始化它们。
+	构造函数最好使用成员初值列（member initialization list），而不要在构造函数本体内使用赋值操作（assignment）。初值列列出的成员变量，其排列次序应该和它们在class中的声明次序相同。
+	为免除“跨编译单元之初始化次序”问题，请以local static对象替换non-local static对象。
+
+========================================
+
+第二章 构造/析构/赋值运算    Constructors, Destructors, and Assignment Operators
+条款05：了解C++默默编写并调用哪些函数
+	Know what functions C++ silently writes and calls.
+
+	编译器可以暗自为class创建default构造函数、copy构造函数、copy assignment操作符，以及析构函数。
+
+条款06：若不想使用编译器自动生成的函数，就该明确拒绝
+	Explicitly disallow the use of compiler-generated functions you do not want
+
+	为驳回编译器自动（暗自）提供的机能，可将相应的成员函数申明为private并且不予实现。使用像Uncopyable这样的base class也是一种做法。
+
+条款07：为多态基类申明virtual析构函数
+	Declare destructors virtual in polymorphic base classes.
+
+	polymorphic（带多态性质的）base classes应该声明一个virtual析构函数。如果class带有任何virtual函数，它就应该拥有一个virtual析构函数。
+
+	Classes的设计目的如果不是作为base classes使用，或不是为了具备多态性（polymorphically），就不应该声明virtual析构函数。
+
+条款08：别让异常逃出析构函数
+	Prevent exceptions from leaving destructors.
+
+	析构函数绝对不要吐出异常。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下它们（不传播）或结束程序。
+
+	如果客户需要对某个操作函数运行期间抛出的异常做出反应，那么class应该提供一个普通函数（而非在析构函数中）执行该操作。
+
+
+条款09：绝不在构造和析构过程中调用virtual函数
+	Never call virtual functions during construction or destruction.
+
+	在构造和析构期间不要调用virtual函数，因为这些类调用从不下降至derived class（比起当前执行构造函数和析构函数的那层）。
+
+条款10：令operator=返回一个reference to *this
+	Have assignment operators return a reference to *this
+
+	令赋值（assignment）操作符返回一个reference to *this。
+
+条款11：在operator=中处理“自我赋值”
+	Handle assignment to self in operator=.
+
+	确保党对象自我赋值时operator=有良好的行为。其中技术包括比较“来源对象”和“目标对象”的地址、精心周到的语句顺序、以及copy-and-swap。
+
+	确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确。
+
+条款12：复制对象时勿忘其每一个成分
+	Copy all parts of an object
+
+	Copying函数应该确保复制“对象内的所有成员变量”及“所有base class成分”。
+
+	不要尝试以某个copying函数实现另一个copying函数。应该将共同机能放进第三个函数中，并由两个copying函数共同调用。
+
+========================================
+
+第三章 资源管理    Resource Management
+
+条款13：以对象管理资源
+	Use objects to manage resources.
+
+	为防止资源泄露，请使用RAII（Resource Acquisition Is Initialization: RAII）对象，它们在构造函数中获得资源并在析构函数中释放资源。
+
+	两个常被使用的RAII classes分别是tr1::shared_ptr和auto_ptr。前者通常是较佳选择，因为其copy行为比较直观。若选择auto_ptr，复制动作会使它（被复制物）指向null。
+
+条款14：在资源管理类中小心copying行为
+	Think carefully about copying behavior in resource-managing classes.
+
+	复制RAII对象必须一并复制它所管理的资源，所以资源的copying行为决定RAII对象的copying行为。
+
+	普遍而常见的RAII class copying行为是：抑制copying行为、实施引用计数法（reference counting）。不过其他行为也都可能被实现。
+
+条款15：在资源管理类中提供对原始资源的访问
+	Provide access to raw resources in resources-managing classes.
+
+	APIs往往要求访问原始资源（raw resources），所以每一个RAII classes应该提供一个“取得其所管理之资源”的办法。
+
+	对原始资源的访问可能经由显示转换或隐式转换。一般而言显示转换比较安全，但隐式转换对客户比较方便。
+
+条款16：成对使用new和delete时要采取相同形式
+	Use the same form in corresponding uses of new and delete.
+
+	如果你在new表达式中使用[]，必须在相应的delete表达式中也使用[]。如果你在new表达式中不使用[]，一定不要在相应的delete表达式中使用[]。
+
+条款17：以独立语句将newed对象置入智能指针
+	Store newed objects in smart pointers in standalone statements.
+
+	//未完成阅读章节
+
+	以独立语句将newed对象存储于（置入）智能指针内。如果不这样做，一旦异常被抛出，有可能导致难以察觉的资源泄露。
+
+========================================
+
+第四章 设计与声明    Designs and Declarations
+
+条款18：让接口容易被正确使用，不易被误用
+	Make interfaces easy to use correctly and hard to use incorrectly.
+
+	好的接口很容易被正确使用，不容易被误用。你应该在你的所有接口中努力达成这些性质。
+
+	“促进正确使用”的办法包括接口的一致性，以及与内置类型的行为兼容。
+
+	“阻止误用”的办法包括建立新类型、限制类型上的操作，束缚对象值，以及消除客户的资源管理责任。
+
+	trl::shared_ptr支持定制型删除器（custom deleter）。这可以防范DLL问题，可被用来自动解除互斥锁（mutexes；见条款14）等等。
+
+条款19：设计class犹如设计type    
+	Treat class design as type design.
+	
+	Class的设计就是type的设计。在定义一个新type之前，请确定你已经考虑过本条款覆盖的所有讨论主题。
+
+	新type的对象应该如何被创建和销毁？
+	对象的初始化和对象的赋值应该有什么样的差别？
+	新type的对象如果被passed by value（以值传递）意味着什么？
+	什么是新type的“合法值”？
+	你的新type需要配合某个继承图系（inheritance graph）吗？
+	你的新type需要什么样的转换？
+	什么样的操作符和函数对此新type而言是合理的？
+	什么样的标准函数应该驳回？
+	谁该取用新type的成员？
+	什么是新type的“未声明接口”（undeclared interface）？
+	你的新type有多么一般化？
+	你真的需要一个新type吗？
+
+条款20：宁以pass-by-reference-to-const替换pass-by-value
+	Prefer pass-by-reference-to-const to pass-by-value
+
+	尽量以pass-by-reference-to-const替换pass-by-value。前者通常比较高效，并可避免切割问题（slicing problem）。
+
+	以上规则并不适用于内置类型，以及STL的迭代器和函数对象。对它们而言，pass-by-value往往比较适当。
+
+条款21：必须返回对象时，别妄想返回其reference
+	Don't try to return a reference when you must return an object.
+
+	绝不要返回pointer或reference指向一个local stack对象，或返回reference指向一个heap-allocated对象，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。条款4已经为“在单线程环境中合理返回reference指向一个local static对象”提供了一份设计实例。
+
+条款22：将成员变量声明为private
+	Declare data members private
+
+	切记将成员变量声明为private。这可赋予客户访问数据的一致性、可细微划分访问控制、允诺约束条件获得保证，并提供class作者以充分的实现弹性。
+
+	protected并不比public更具封装性。
+
+条款23：宁以non-member、non-friend替换member函数
+	Prefer non-member non-friend functions to member functions.
+
+	宁可拿non-member non-friend函数替换membera函数。这样做可以增加封装性、包裹弹性（packaging flexibility）和机能扩充性。
+
+条款24：若所有参数皆需类型转换，请为此采用non-member函数
+	Declare non-member functions when type conversions should apply to all parameters.
+
+	如果你需要为某个函数的所有参数（包括被this指针所指的那个隐喻参数）进行类型转换，那么这个函数必须是个non-member。

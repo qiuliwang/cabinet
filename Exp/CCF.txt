@@ -1,0 +1,31 @@
+期刊
+A
+	TSE(IEEE Transactions on Software Engineering) http://dblp.uni-trier.de/db/journals/tse/
+
+B
+	ASE(Automated Software Engineering) http://dblp.uni-trier.de/db/journals/ase/
+
+	ESE(Empirical Software Engineering) http://dblp.uni-trier.de/db/journals/ese/
+
+	JSS(Journal of Systems and Software) http://dblp.uni-trier.de/db/journals/jss/
+
+会议
+A
+	ICSE(ACM SIGSOFT Symposium on the Foundation of Software Engineering/ European Software Engineering Conference) http://dblp.uni-trier.de/db/conf/sigsoft/
+
+	FSE/ESEC(ACM SIGSOFT Symposium on the Foundation of Software Engineering/ European Software Engineering Conference) http://dblp.uni-trier.de/db/conf/sigsoft/
+
+	ASE(International Conference on Automated Software Engineering) http://dblp.uni-trier.de/db/conf/kbse/
+B
+	ICPC(IEEE International Conference on Program Comprehension) http://dblp.uni-trier.de/db/conf/iwpc/
+
+	ICSME(International Conference on Software Maintenance and Evolution) http://dblp.uni-trier.de/db/conf/icsm/
+
+	ISSRE(International Symposium on Software Reliability Engineering) http://dblp.uni-trier.de/db/conf/issre/
+
+	SANER(International Conference on Software Analysis, Evolution, and Reengineering) http://dblp.uni-trier.de/db/conf/wcre/
+
+	ESEM(International Symposium on Empirical Software Engineering and Measurement) http://dblp.uni-trier.de/db/conf/esem/
+	
+C
+	MSR(Working Conference on Mining Software Repositories) http://dblp.uni-trier.de/db/conf/msr/
