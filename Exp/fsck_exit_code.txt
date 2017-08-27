@@ -1,0 +1,8 @@
+0    - No errors
+1    - File system errors corrected
+2    - System should be rebooted
+4    - File system errors left uncorrected
+8    - Operational error
+16   - Usage or syntax error
+32   - Fsck canceled by user request
+128  - Shared library error
