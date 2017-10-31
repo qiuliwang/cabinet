@@ -6,3 +6,60 @@ sudo pon VPN_NAME
 
 #logout
 sudo poff VPN_NAME
+
+
+2017/10/31
+windows下是可以连接vpn的，上网啊都没什么问题。想以centos为客户端，连接远程的VPN，发现不是那么容易，找了半天资料，找到了方法。
+
+1，安装ppp pptp pptp-setup
+	# yum install ppp pptp pptp-setup
+
+2，创建VPN连接
+	# pptpsetup --create test --server ip地址 --username test --password test --start
+
+如果报以下错误：
+
+	FATAL: Module ppp_mppe not found.
+	/usr/sbin/pptpsetup: couldn't find MPPE support in kernel.
+解决方法：
+	# modprobe ppp_mppe
+
+3，连接VPN连接
+	[root@localhost peers]# pppd call test  //这里的test是上面创建vpn连接
+如果报以下错误：
+	Using interface ppp0
+	Connect: ppp0 <--> /dev/pts/3
+	CHAP authentication succeeded
+	LCP terminated by peer (MPPE required but peer refused)
+	Modem hangup
+解决方法：
+	# vim /etc/ppp/peers/test  //test是上面创建的连接	 
+    	文件尾部，加上以下内容	 
+	require-mppe-128
+成功后会多出一个虚拟网口ppp0
+	[root@localhost peers]# route -n
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	112.124.132.142 192.168.10.1    255.255.255.255 UGH   0      0        0 eth0
+	192.168.8.1     0.0.0.0         255.255.255.255 UH    0      0        0 ppp0
+	192.168.10.0    0.0.0.0         255.255.255.0   U     1      0        0 eth0
+	0.0.0.0         192.168.10.1    0.0.0.0         UG    0      0        0 eth0
+并且用ifconfig也可以看到
+
+centos_client_vpn
+
+4，添加默认路由
+	[root@localhost peers]# route add -net 0.0.0.0 dev ppp0 //添加默认路由
+	[root@localhost peers]# route -n
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	112.124.132.142 192.168.10.1    255.255.255.255 UGH   0      0        0 eth0
+	192.168.8.1     0.0.0.0         255.255.255.255 UH    0      0        0 ppp0
+	192.168.10.0    0.0.0.0         255.255.255.0   U     1      0        0 eth0
+	0.0.0.0         0.0.0.0         0.0.0.0         U     0      0        0 ppp0
+	0.0.0.0         192.168.10.1    0.0.0.0         UG    0      0        0 eth0
+到这儿VPN就设置好了，根WINDOWS下一样的。你可以通过IP查询工具查一下。
+
+5，断开vpn连接，只需要把网络重启就行了。
+
+	[root@localhost peers]# /etc/init.d/network restart
