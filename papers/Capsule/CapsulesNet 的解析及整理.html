@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://zhuanlan.zhihu.com/p/30970675 -->
+<html lang="zh" class=" no-touch" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>CapsulesNet 的解析及整理</title><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="google-site-verification" content="FTeR0c8arOPKh8c5DYh_9uu98_zJbaWw53J-Sch9MTg"><link rel="shortcut icon" href="https://static.zhihu.com/static/favicon.ico" type="image/x-icon"><link href="./CapsulesNet 的解析及整理_files/app.1156fa3ce265c6a3d1a8fc7ef1601ba6.css" rel="stylesheet"><style></style><script type="text/javascript" charset="utf-8" async="" src="./CapsulesNet 的解析及整理_files/editor.e0a41e3b485c1da88725.js.下载"></script><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Notification {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 499;
+  padding: 14px 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  font-size: 14px;
+  color: #262626;
+  pointer-events: all;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px 0 #afbdcf;
+          box-shadow: 0 1px 3px 0 #afbdcf;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+
+ .Notification {
+  width: calc(100vw - 32px)
+ }
+}
+
+@media (min-width: 769px) {
+
+ .Notification {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 600px;
+  min-width: 520px
+ }
+}
+
+.Notification-textSection {
+  width: 100%;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+
+ .Notification-textSection {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+ }
+}
+
+.Notification-textSection--withButton {
+ text-align: left;
+}
+
+.Notification-textSection--withoutButton {
+ text-align: center;
+}
+
+.Notification-actionsSection {
+  white-space: nowrap;
+  height: 100%;
+  margin: auto 0 auto 32px;
+}
+
+.Notification-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 503;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.Notification-white {
+  color: #262626;
+  background: #fff;
+}
+
+.Notification-red {
+  color: #fff;
+  background: #f75659;
+}
+
+.Notification-red-ghost {
+  color: #f75659;
+  background: #fff;
+}
+
+@-webkit-keyframes spring-in {
+  from {
+    -webkit-transform: translate(-50%, -20px);
+            transform: translate(-50%, -20px);
+    opacity: 0.01;
+  }
+
+  to {
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-in {
+  from {
+    -webkit-transform: translate(-50%, -20px);
+            transform: translate(-50%, -20px);
+    opacity: 0.01;
+  }
+
+  to {
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes spring-out {
+  from {
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: translate(-50%, -20px);
+            transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+}
+
+@keyframes spring-out {
+  from {
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: translate(-50%, -20px);
+            transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+}
+
+.Notification-enter {
+  -webkit-animation: spring-in 0.3s;
+          animation: spring-in 0.3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.Notification-leave {
+  -webkit-animation: spring-out 0.3s;
+          animation: spring-out 0.3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Formula {
+  display: inline-block;
+  vertical-align: middle;
+  background: no-repeat center;
+  background-size: contain; /* 防止两端被截断 */
+  font-size: 0;
+}
+
+.Formula.isEditable {
+ cursor: pointer;
+}
+
+.Formula-image {
+  max-width: 100%;
+  opacity: 0; /* will see element on Edge even `visibility: hidden` set, don't know why */
+  visibility: hidden;
+}
+
+.Formula-placeholder {
+  opacity: 0;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.MathToolbar {
+  display: block;
+  padding: 4px 12px;
+  border-radius: inherit inherit 0 0;
+  background: #f7f8fa;
+  border-bottom: 1px solid #e7eaf1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.MathToolbar-button {
+  height: 28px;
+  padding: 2px 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid transparent;
+  vertical-align: middle;
+}
+
+.MathToolbar-button + .MathToolbar-button {
+ margin-left: 16px;
+}
+
+.MathToolbar-button:hover {
+ background: #fcfcfc;
+ border-color: #ebeef5;
+}
+
+.MathToolbar-palettes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: -4px;
+  padding: 16px;
+  max-width: 384px;
+}
+
+.MathToolbar-palettesButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 4px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+  color: #8590a6;
+  border-radius: 4px;
+}
+
+.MathToolbar-palettesButton:hover {
+ background-color: #f7f8fa;
+}
+
+.MathToolbar-paletteIcon {
+  max-width: calc(100% - 2px);
+}
+
+.MathToolbar-palettes--math {
+  max-width: 380px;
+}
+
+.MathToolbar-palettes--math .MathToolbar-palettesButton {
+ padding: 0 3px;
+ width: 30px;
+ height: 60px;
+}
+
+.MathToolbar-palettes--arrow .MathToolbar-palettesButton {
+ height: 35px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.FormulaModal {
+  width: 550px;
+}
+
+.FormulaModal-input {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.FormulaModal-input .Input {
+ padding: 6px 12px;
+ min-height: 100px;
+ -webkit-box-sizing: border-box;
+ box-sizing: border-box;
+}
+
+.FormulaModal-formula {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 3px;
+  background: #fff;
+  border: 2px dashed #e7eaf1;
+  border-radius: 3px;
+  min-height: 106px;
+  overflow-x: auto;
+}
+
+.FormulaModal-formula img {
+ max-width: 100%;
+}
+
+.FormulaModal-buttonGroup {
+  margin-top: 32px;
+}
+
+.FormulaModal-previewText {
+  color: #9fadc7;
+  font-size: 14px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.FocusPlugin--unfocused:hover {
+  cursor: default;
+  -webkit-box-shadow: 0 0 0 2px rgba(15, 136, 235, .3);
+          box-shadow: 0 0 0 2px rgba(15, 136, 235, .3);
+}
+
+.FocusPlugin--focused {
+  cursor: default;
+  -webkit-box-shadow: 0 0 0 2px #0f88eb;
+          box-shadow: 0 0 0 2px #0f88eb;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Image {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.Image[data-size='small'] {
+ max-width: 40%;
+}
+
+.Image--isBlock {
+  display: block;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-imageUploader {
+  text-align: center;
+}
+
+.Editable-imageUploader-layout {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.Editable-imageUploader-layout.is-fullWidth {
+ width: 100%;
+}
+
+.Editable-imageUploader-image {
+  display: block;
+  max-width: 100%;
+  opacity: 0.3;
+}
+
+.Editable-imageUploader-placeholder {
+  height: 192px;
+  background-color: #e7eaf1;
+}
+
+.Editable-imageUploader-status {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Editable-imageUploader-statusText {
+  font-size: 28px;
+  line-height: 40px;
+  color: #8597a6;
+}
+
+.Editable-imageUploader-status.is-error .Editable-imageUploader-statusText {
+  color: #e26d6d;
+}
+
+.Editable-imageUploader-retry {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.Editable-imageUploader-retry .Button {
+ font-size: inherit;
+}
+
+.Editable-imageUploader-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #0f88eb;
+}
+
+.Editable-imageUploader-progress.is-error {
+ background-color: #e26d6d;
+}
+
+.Editable-imageUploader-progress .LoadingBar {
+ position: relative;
+ height: 100%;
+ background-color: rgba(255, 255, 255, .3);
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Image-caption.is-placeholder {
+ color: #bfbfbf;
+}
+
+.Image-caption.is-editing {
+ opacity: 0;
+}
+
+.Image-captionInput {
+  position: absolute;
+  z-index: 203;
+}
+
+.Image-captionInput textarea {
+ display: block;
+ overflow: hidden;
+ width: 100%;
+ height: 100%;
+ padding: 0;
+ border: none;
+ font: inherit;
+ font-size: 14px;
+ line-height: 1.5;
+ text-align: center;
+ color: #8590a6;
+ background: none;
+ resize: none;
+}
+
+.Image-captionInput textarea::-webkit-input-placeholder {
+ color: #bfbfbf;
+}
+
+.Image-captionInput textarea:-ms-input-placeholder {
+ color: #bfbfbf;
+}
+
+.Image-captionInput textarea::placeholder {
+ color: #bfbfbf;
+}
+
+.Image-captionInput textarea:focus {
+ outline: none;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Image-resizer {
+  padding: 8px;
+}
+
+.Image-resizerButton {
+  padding: 0 8px;
+  vertical-align: middle;
+}
+
+.Image-resizerButton .Zi {
+ display: block;
+}
+
+.Image-resizerButton.is-active {
+ color: #0f88eb;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+.Editable-video {
+  margin: 16px 0;
+  border-radius: 4px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-videoUploader {
+  margin: 16px 0;
+  border-radius: 4px;
+}
+
+.Editable-videoUploader-thumbnail {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Editable-videoUploader-text {
+  text-align: center;
+  color: #8597a6;
+}
+
+.Editable-videoUploader-status {
+  font-size: 28px;
+  line-height: 40px;
+}
+
+.Editable-videoUploader-size {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.Editable-videoUploader-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  height: 4px;
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.Editable-videoUploader-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #0f88eb;
+}
+
+.Editable-videoUploader-progress-bar.is-error {
+ background-color: #e26d6d;
+}
+
+.Editable-videoUploader-progress .LoadingBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .3);
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+.Editable-videoError {
+  margin: 16px 0;
+  border-radius: 4px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+.Editable-embeddedVideo {
+  border-radius: 4px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-embeddedVideoUploader-status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 92px;
+  background-color: #e7eaf1;
+}
+
+.Editable-embeddedVideoUploader-statusText {
+  font-size: 28px;
+  line-height: 40px;
+  color: #8597a6;
+}
+
+.Editable-embeddedVideoUploader-status.is-error
+  .Editable-embeddedVideoUploader-statusText {
+  color: #e26d6d;
+}
+
+.Editable-embeddedVideoUploader-retry {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.Editable-embeddedVideoUploader-retry .Button {
+ font-size: inherit;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+.Editable-divider {
+  overflow: hidden;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Link + .Link {
+  margin-left: 2px;
+}
+
+.Link[data-editable] {
+  cursor: text !important;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.LinkModal-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.LinkModal-input + .LinkModal-input {
+  margin-top: 10px;
+}
+
+.LinkModal-input .Input {
+  margin-left: 8px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+/* Popover 缺陷，不支持定制到目标元素距离 */
+.LinkBubble.Popover-content--top.Popover-content--arrowed {
+  margin-top: -10px;
+}
+
+.LinkBubble.Popover-content--bottom.Popover-content--arrowed {
+  margin-top: 10px;
+}
+
+.LinkBubble-content {
+  display: block;
+  padding: 7px 10px 7px 16px;
+}
+
+.LinkBubble-previewLink,
+.LinkBubble-button {
+  vertical-align: middle;
+}
+
+.LinkBubble-previewLink {
+  display: inline-block;
+  margin-right: 8px;
+  max-width: 233px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.3;
+  border-bottom: 1px solid transparent;
+}
+
+.LinkBubble-previewLink:hover {
+ color: #175199;
+ border-bottom-color: rgba(62, 122, 194, .72);
+}
+
+.LinkBubble-button {
+  padding: 0 6px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.MentionSuggestions {
+  position: absolute;
+  z-index: 203;
+  line-height: 1;
+}
+
+.MentionSuggestions-input {
+  /* override Input */
+  width: 200px;
+  padding: 4px 6px;
+  font-size: inherit;
+}
+
+.MentionSuggestions-input .Input {
+ height: auto;
+ background: transparent;
+}
+
+.MentionSuggestions-menu {
+  width: 200px;
+}
+
+.MentionSuggestions-menu .Menu-item {
+ padding: 0 10px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Dropzone {
+  position: relative;
+}
+
+.Dropzone-cursor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: -1px 0;
+  border-bottom: 2px solid #0f88eb;
+  pointer-events: none;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background: #fff;
+  border-bottom: 1px solid #e7eaf1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.Sticky.is-fixed .Editable-toolbar,
+  .isToolbarSticky .Editable-toolbar {
+ border-top: none !important;
+ border-bottom: none !important;
+}
+
+.Sticky.is-fixed .Editable-toolbar::after, .isToolbarSticky .Editable-toolbar::after {
+ content: ' ';
+ position: absolute;
+ left: 0;
+ top: 100%;
+ width: 100%;
+ pointer-events: none;
+ height: 3px;
+ background: radial-gradient(
+        ellipse at 50% 1%,
+        rgba(0, 0, 0, .1),
+        rgba(255, 255, 255, 0) 80%
+      );
+}
+
+.Editable-control,
+.Editable-toolbar-separator {
+  margin-right: 10px;
+}
+
+.Editable-control:last-child, .Editable-toolbar-separator:last-child {
+ margin-right: 0;
+}
+
+.Editable-toolbar-separator {
+  display: inline-block;
+  width: 1px;
+  height: 28px;
+  vertical-align: middle;
+  background-color: #e7eaf1;
+}
+
+.Editable-control {
+  padding: 0 1px; /* 24 + 1px(padding) * 2 + 1px(border) * 2 = 28px */
+  height: 28px;
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.Editable-control .Zi {
+ fill: #8590a6;
+}
+
+.Editable-control:not(:disabled):hover {
+ background: #fcfcfc;
+ border-color: #ebeef5;
+}
+
+.Editable-control.is-active .Zi {
+ fill: #0f88eb;
+}
+
+.Editable-control .Zi,
+  .Editable-control span {
+ vertical-align: middle;
+}
+
+.Editable-control .Zi + span {
+ margin-left: 6px;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-videoModal {
+  display: block;
+}
+
+.Editable-videoModal-typeButton {
+  font-size: 20px;
+  font-weight: 400;
+  color: inherit;
+}
+
+.Editable-videoModal-typeButton.is-active {
+ font-weight: 500;
+ color: #0f88eb;
+}
+
+.Editable-videoModal-typeDivider {
+  display: inline-block;
+  height: 20px;
+  margin: 0 40px;
+  border-right: 1px solid #e7eaf1;
+  vertical-align: middle;
+}
+
+.Editable-videoModal-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 220px;
+}
+
+.Editable-videoModal-uploader {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 220px;
+  border: 2px dashed #e7eaf1;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.Editable-videoModal-uploader:hover {
+ border-color: #9fadc7;
+}
+
+.Editable-videoModal-uploader:hover .Zi {
+ fill: #9fadc7;
+}
+
+.Editable-videoModal-uploader input {
+ display: none;
+}
+
+.Editable-videoModal-uploader-icon {
+  text-align: center;
+  display: block;
+}
+
+.Editable-videoModal-uploader-icon .Zi {
+ vertical-align: middle;
+ fill: #e7eaf1;
+}
+
+.Editable-videoModal-uploader-text {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.Editable-videoModal-uploader-tip {
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  color: #8590a6;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-languageSuggestions {
+  position: fixed;
+  z-index: 203;
+}
+
+.Editable-languageSuggestionsInput {
+  /* simulate a search select */
+  cursor: pointer;
+}
+
+.Editable-languageSuggestionsInput input {
+ cursor: inherit;
+}
+
+.Editable-languageSuggestionsInput input:focus {
+ cursor: text;
+}
+
+.Editable-languageSuggestionsMenu {
+  max-height: 300px;
+  margin-top: -8px; /* HACK: prevent mouseover to other block */
+  margin-bottom: -8px; /* HACK: prevent mouseover to other block */
+  overflow-y: auto;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+
+.Editable-notification-layout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Editable-notification-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0 -12px;
+}
+
+.Editable-notification-action {
+  margin: 0 12px;
+}
+
+.Editable .RichText {
+  cursor: text;
+}
+
+.public-DraftEditorPlaceholder-root {
+  position: absolute;
+  pointer-events: none;
+}
+
+.Editable--hidePlaceholder .public-DraftEditorPlaceholder-root {
+ display: none;
+}
+
+/* 使连续的 block 不会贴在一起，并且间距与 RichText 一致 */
+.Editable-styled,
+.Editable-unstyled {
+  margin: 0 0 0.72em;
+}
+.Editable-styled:last-child, .Editable-unstyled:last-child { /* 方便 block 样式容易被覆盖重新定义（如 .RichText blockquote） */
+ margin-bottom: 0;
+}
+
+.DraftEditor-root blockquote + blockquote {
+ margin-top: -1em;
+}
+
+.DraftEditor-root pre.public-DraftStyleDefault-pre {
+ border-radius: 4px;
+}
+
+.DraftEditor-root pre.public-DraftStyleDefault-pre pre {
+ padding: 0;
+ margin: 0;
+ border-radius: 0;
+ overflow: visible;
+ overflow: initial;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth1, .DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth1 {
+ margin-left: 2em;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth2, .DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth2 {
+ margin-left: 4em;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth3, .DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth3 {
+ margin-left: 6em;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth4, .DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth4 {
+ margin-left: 8em;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem {
+ position: relative;
+ list-style-type: none;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem::before {
+ position: absolute;
+ left: -36px;
+ width: 30px;
+ text-align: right;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth0.public-DraftStyleDefault-reset {
+ counter-reset: ol0;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth0::before {
+ content: counter(ol0) '. ';
+ counter-increment: ol0;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth1.public-DraftStyleDefault-reset {
+ counter-reset: ol1;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth1::before {
+ content: counter(ol1) '. ';
+ counter-increment: ol1;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth2.public-DraftStyleDefault-reset {
+ counter-reset: ol2;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth2::before {
+ content: counter(ol2) '. ';
+ counter-increment: ol2;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth3.public-DraftStyleDefault-reset {
+ counter-reset: ol3;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth3::before {
+ content: counter(ol3) '. ';
+ counter-increment: ol3;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth4.public-DraftStyleDefault-reset {
+ counter-reset: ol4;
+}
+
+.DraftEditor-root .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth4::before {
+ content: counter(ol4) '. ';
+ counter-increment: ol4;
+}
+
+/**
+  * IE/Edge 中禁用代码块的水平滚动条
+  * 如果 IE/Edge 在 contenteditable 内部元素使用 overflow 样式，将出现一种 controlselect 行为：
+  * 聚焦到此元素内后，无法移出光标；IE 同时会生成一个 resize 选择框，任何操作都无法移出焦点
+  * IE/Edge only selector hack http://browserhacks.com/
+  */
+/* stylelint-disable-next-line */
+_:-ms-lang(x),
+pre.public-DraftStyleDefault-pre,
+pre.public-DraftStyleDefault-pre pre {
+  overflow: visible;
+  overflow: initial;
+  word-wrap: break-word;
+}
+</style><style type="text/css">:root { /* rgba(0 0 0 .5) */ /* rgba(0, 0, 0, .3) */
+
+  /* appview 色表 */
+}
+/* stylelint-disable */
+/**
+   * prism.js default theme for JavaScript, CSS and HTML
+   * Based on dabblet (http://dabblet.com)
+   * @author Lea Verou
+   */
+.DraftEditor-root code[class*='language-'],
+  .DraftEditor-root pre[class*='language-'] {
+ color: black;
+ background: none;
+ text-shadow: 0 1px white;
+ font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+ text-align: left;
+ white-space: pre;
+ word-spacing: normal;
+ word-break: normal;
+ word-wrap: normal;
+ line-height: 1.5;
+ -moz-tab-size: 4;
+ -o-tab-size: 4;
+ tab-size: 4;
+ -webkit-hyphens: none;
+ -ms-hyphens: none;
+ hyphens: none;
+}
+.DraftEditor-root pre[class*='language-']::-moz-selection,
+  .DraftEditor-root pre[class*='language-'] ::-moz-selection,
+  .DraftEditor-root code[class*='language-']::-moz-selection,
+  .DraftEditor-root code[class*='language-'] ::-moz-selection {
+ text-shadow: none;
+ background: #b3d4fc;
+}
+.DraftEditor-root pre[class*='language-']::selection,
+  .DraftEditor-root pre[class*='language-'] ::selection,
+  .DraftEditor-root code[class*='language-']::selection,
+  .DraftEditor-root code[class*='language-'] ::selection {
+ text-shadow: none;
+ background: #b3d4fc;
+}
+@media print {
+ .DraftEditor-root code[class*='language-'],
+    .DraftEditor-root pre[class*='language-'] {
+  text-shadow: none;
+ }
+}
+/* Code blocks */
+.DraftEditor-root pre[class*='language-'] {
+ padding: 1em;
+ margin: 0.5em 0;
+ overflow: auto;
+}
+.DraftEditor-root :not(pre) > code[class*='language-'],
+  .DraftEditor-root pre[class*='language-'] {
+ background: #f5f2f0;
+}
+/* Inline code */
+.DraftEditor-root :not(pre) > code[class*='language-'] {
+ padding: 0.1em;
+ border-radius: 0.3em;
+ white-space: normal;
+}
+.DraftEditor-root .token.comment,
+  .DraftEditor-root .token.prolog,
+  .DraftEditor-root .token.doctype,
+  .DraftEditor-root .token.cdata {
+ color: slategray;
+}
+.DraftEditor-root .token.punctuation {
+ color: #999;
+}
+.DraftEditor-root .namespace {
+ opacity: 0.7;
+}
+.DraftEditor-root .token.property,
+  .DraftEditor-root .token.tag,
+  .DraftEditor-root .token.boolean,
+  .DraftEditor-root .token.number,
+  .DraftEditor-root .token.constant,
+  .DraftEditor-root .token.symbol,
+  .DraftEditor-root .token.deleted {
+ color: #905;
+}
+.DraftEditor-root .token.selector,
+  .DraftEditor-root .token.attr-name,
+  .DraftEditor-root .token.string,
+  .DraftEditor-root .token.char,
+  .DraftEditor-root .token.builtin,
+  .DraftEditor-root .token.inserted {
+ color: #690;
+}
+.DraftEditor-root .token.operator,
+  .DraftEditor-root .token.entity,
+  .DraftEditor-root .token.url,
+  .DraftEditor-root .language-css .token.string,
+  .DraftEditor-root .style .token.string {
+ color: #a67f59;
+ background: hsla(0, 0%, 100%, .5);
+}
+.DraftEditor-root .token.atrule,
+  .DraftEditor-root .token.attr-value,
+  .DraftEditor-root .token.keyword {
+ color: #07a;
+}
+.DraftEditor-root .token.function {
+ color: #dd4a68;
+}
+.DraftEditor-root .token.regex,
+  .DraftEditor-root .token.important,
+  .DraftEditor-root .token.variable {
+ color: #e90;
+}
+.DraftEditor-root .token.important,
+  .DraftEditor-root .token.bold { /* 与设计一致，不支持设备将回退为 700 */
+ font-weight: 600; /* 禁止粗体合成(待 webkit bug 修复后可以删除，https://trac.webkit.org/changeset/223589/webkit) */
+ font-synthesis: style;
+}
+html[data-ios] .DraftEditor-root .token.important, html[data-ios] .DraftEditor-root .token.bold { /* 与 iOS app 一致，使用 medium 字重 */
+ font-weight: 500;
+}
+html[data-android] .DraftEditor-root .token.important, html[data-android] .DraftEditor-root .token.bold { /* Android 中文字重 bug，需要 700 达到粗体效果 */
+ font-weight: 700;
+}
+.DraftEditor-root .token.italic {
+ font-style: italic;
+}
+.DraftEditor-root .token.entity {
+ cursor: help;
+}
+</style></head><body><div id="react-root"><div data-reactroot=""><!-- react-empty: 2 --><div class="Layout av-cardBackground" data-zop-usertoken="{&quot;userToken&quot;:&quot;&quot;}"><!-- react-empty: 4 --><div class="Layout-navbarHolder"><header class="Navbar ScrollBackFixed ScrollBackFixed-animation"><div class="Navbar-logo-wrapper"><a class="Navbar-logo icon-ic_zhihu_logo" href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer" aria-label="知乎首页"></a></div><div class="Navbar-postTitle Navbar-title"><a href="https://zhuanlan.zhihu.com/c_126470847"><img class="Navbar-columnIcon" alt="GAN + 文本生成 + 读博干货" src="./CapsulesNet 的解析及整理_files/v2-6b91688d6710dd86bec105de9cfd9657_m.png"></a><div class="Navbar-postTitleName"><span class="Navbar-postTitleMeta">首发于</span><a class="Navbar-postTitleMain" href="https://zhuanlan.zhihu.com/c_126470847">GAN + 文本生成 + 读博干货</a></div><!-- react-empty: 15 --></div><div class="Navbar-functionality"><a class="Navbar-write"><i class="icon icon-ic_nav_new"></i><!-- react-text: 19 -->写文章<!-- /react-text --></a><button class="Button Navbar-loginButon Button--blue" type="button"><!-- react-text: 21 -->登录<!-- /react-text --></button></div></header></div><!-- react-empty: 22 --><div></div><div class="Layout-main av-card av-paddingBottom av-bodyFont Layout-titleImage--normal"><div class="PostIndex-header av-paddingTop av-card" data-zop="{&quot;authorName&quot;:&quot;Nango 明楠&quot;,&quot;itemId&quot;:&quot;30970675&quot;,&quot;title&quot;:&quot;CapsulesNet 的解析及整理&quot;,&quot;type&quot;:&quot;article&quot;}"><div class="TitleImage"><img alt="CapsulesNet 的解析及整理" src="./CapsulesNet 的解析及整理_files/v2-ccfe4570427954165570cdd0e67308c9_r.png" class="TitleImage-imagePure TitleImage-imagePure--fixed" height="176px"></div><h1 class="PostIndex-title av-paddingSide av-titleFont">CapsulesNet 的解析及整理</h1><div class="PostIndex-author"><a href="https://www.zhihu.com/people/luonango" target="_blank" rel="noopener noreferrer"><img class="Avatar-hemingway PostIndex-authorAvatar Avatar--xs" alt="Nango 明楠" src="./CapsulesNet 的解析及整理_files/v2-5c19261e91d065ceafae180e3bc5bfc3_xs.jpg" srcset="https://pic4.zhimg.com/50/v2-5c19261e91d065ceafae180e3bc5bfc3_l.jpg 2x"></a><a href="https://www.zhihu.com/people/luonango" target="_blank" class="PostIndex-authorName">Nango 明楠</a><!-- react-empty: 33 --><span class="Bull"></span><div class="HoverTitle" data-hover-title="2017 年 11月 12 日星期日晚上 9 点 27 分"><time datetime="Sun Nov 12 2017 21:27:33 GMT+0800 (中国标准时间)">8 天前</time></div></div></div><div class="RichText PostIndex-content av-paddingSide av-card"><p></p><p></p><p>参考：</p><ul><li><u><a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1710.09829" class=" wrap external" target="_blank" rel="nofollow noreferrer">Dynamic Routing Between Capsules<i class="icon-external"></i></a></u></li><li><a href="http://link.zhihu.com/?target=https%3A//openreview.net/pdf%3Fid%3DHJWLfGWRb" class=" wrap external" target="_blank" rel="nofollow noreferrer">Matrix Capsules with EM routing<i class="icon-external"></i></a></li><li><a href="https://zhuanlan.zhihu.com/p/29435406" class="internal">浅析 Hinton 最近提出的 Capsule 计划</a></li><li><a href="http://link.zhihu.com/?target=https%3A//kndrck.co/posts/capsule_networks_explained/" class=" wrap external" target="_blank" rel="nofollow noreferrer">Capsule Networks Explained<i class="icon-external"></i></a></li><li><a href="http://link.zhihu.com/?target=https%3A//www.jiqizhixin.com/articles/2017-11-05" class=" wrap external" target="_blank" rel="nofollow noreferrer">先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule<i class="icon-external"></i></a></li></ul><hr><h2><b>Hinton 对CNN的思考：</b></h2><ul><li><b>生物神经系统的思考。</b></li><ul><li>反向传播难以成立。神经系统需要能够精准地求导数，对矩阵转置，利用链式法则，这种解剖学上从来也没有发现这样的系统存在的证据。</li><li>神经系统含有分层，但是层数不高。且生物系统传导在ms量级（GPU在us量级），并且同步也出现问题</li></ul></ul><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-1076f633c4e1a5b1825e8982bc18af98_b.jpg" data-rawwidth="720" data-rawheight="480" class="origin_image zh-lightbox-thumb" width="720" data-original="https://pic1.zhimg.com/v2-1076f633c4e1a5b1825e8982bc18af98_r.jpg"&gt;</noscript><span><div data-reactroot="" class="VagueImage origin_image zh-lightbox-thumb" data-src="https://pic1.zhimg.com/50/v2-1076f633c4e1a5b1825e8982bc18af98_hd.jpg" style="width: 660px; height: 440px;"><div class="VagueImage-mask is-active"></div></div></span><figcaption>https://zhuanlan.zhihu.com/p/29435406</figcaption></figure><ul><ul><li>大部分哺乳类，特别是灵长类大脑皮层中大量存在称为 Cortical minicolumn 的柱状结构（皮层微柱），其内部含有上百个神经元，并存在内部分层。这意味着人脑中的一层并不是类似现在NN的一层，而是有复杂的内部结构。</li></ul><li><b>认知神经科学的思考</b></li><ul><li>人会不自觉地会根据物体形状建立一种“坐标框架”(coordinate frame)。</li><li>比如判断下面图字母是否一样。</li></ul></ul><figure><noscript>&lt;img src="https://pic4.zhimg.com/v2-c3f7f5b12cf9f15f78b709f55b219c13_b.jpg" data-rawwidth="1380" data-rawheight="675" class="origin_image zh-lightbox-thumb" width="1380" data-original="https://pic4.zhimg.com/v2-c3f7f5b12cf9f15f78b709f55b219c13_r.jpg"&gt;</noscript><span><div data-reactroot="" class="VagueImage origin_image zh-lightbox-thumb" data-src="https://pic4.zhimg.com/50/v2-c3f7f5b12cf9f15f78b709f55b219c13_hd.jpg" style="width: 660px; height: 322.826px;"><div class="VagueImage-mask is-active"></div></div></span><figcaption>https://zhuanlan.zhihu.com/p/29435406</figcaption></figure><ul><ul><li>我们需要通过旋转把坐标框架变得一致，才能从直觉上知道它们是否一致。</li></ul></ul><figure><noscript>&lt;img src="https://pic2.zhimg.com/v2-e779a1e4f508b74866b985940c48ddd5_b.gif" data-rawwidth="500" data-rawheight="500" data-thumbnail="https://pic2.zhimg.com/v2-e779a1e4f508b74866b985940c48ddd5_b.jpg" class="origin_image zh-lightbox-thumb" width="500" data-original="https://pic2.zhimg.com/v2-e779a1e4f508b74866b985940c48ddd5_r.gif"&gt;</noscript><br><div class="RichText-gifPlaceholder"><div data-reactroot="" class="GifPlayer" data-za-module="GifItem"><img class="column-gif" role="presentation" src="./CapsulesNet 的解析及整理_files/v2-e779a1e4f508b74866b985940c48ddd5_b.jpg" data-thumbnail="https://pic2.zhimg.com/v2-e779a1e4f508b74866b985940c48ddd5_b.jpg"></div></div><figcaption>https://kndrck.co/posts/capsule_networks_explained/</figcaption></figure><ul><ul><li>Hinton认为：</li><ul><li><b>人的视觉系统会建立“坐标框架”，并且坐标框架的不同会极大地改变人的认知</b></li><li>人识别物体的时候，<b>坐标框架是参与到识别过程中</b>，识别过程受到了空间概念的支配。</li><li>但是 <b>CNN没有“坐标框架”</b></li></ul><li>但是在CNN上却很难看到类似“坐标框架”的东西。</li><li>Hinton 提出猜想：</li><ul><li>物体和观察者之间的关系（比如物体的姿态），应该由 <b>一整套激活的神经元表示</b> ，而不是由单个神经元，或者一组粗编码（coarse-coded，指类似一层中，并没有经过精细的组织）的神经元表示。</li><li>这样的表示，才能有效表达关于“坐标框架”的先验知识。</li></ul></ul><li><b>CNN的目标不正确</b></li><ul><li>先解释同变性（Equivariance）和不变性（Invariance）。</li><ul><li>Invariance 不变性，物体表示不随变换变化。</li><ul><li>如空间的 Invariance，是对物体平移之类不敏感（物体不同的位置不影响它的识别)</li></ul><li>Equivariance 同变性，用变换矩阵进行转换后，物体表示依旧不变.</li><ul><li>它是对物体内容的一种变换</li></ul></ul></ul></ul><figure><noscript>&lt;img src="https://pic2.zhimg.com/v2-3fb591daffb596017e94031e38ce4475_b.jpg" data-rawwidth="610" data-rawheight="374" class="origin_image zh-lightbox-thumb" width="610" data-original="https://pic2.zhimg.com/v2-3fb591daffb596017e94031e38ce4475_r.jpg"&gt;</noscript><span><div data-reactroot="" class="VagueImage origin_image zh-lightbox-thumb" data-src="https://pic2.zhimg.com/50/v2-3fb591daffb596017e94031e38ce4475_hd.jpg" style="width: 610px; height: 374px;"><div class="VagueImage-mask is-active"></div></div></span><figcaption>https://kndrck.co/posts/capsule_networks_explained/</figcaption></figure><ul><ul><li>CNN对旋转没有不变性。可采用 <b>数据增强方式</b>让其达到旋转不变性。</li><li>CNN中的Invariance 主要是通过 Pooling 等下采样过程得到。而卷积层是同变性（Equivariance）。（相应已有措施？）</li><li>平移和旋转的Invariance，是舍弃了“坐标框架”。</li><li><b>虽然以往CNN的识别准确率高且稳定，但我们最终目标不是为了准确率，而是为了得到对内容的良好表示，从而达到“理解”内容。</b></li></ul></ul><hr><h2><b>Hinton 提出的Capsules</b></h2><p>从上面介绍中得知Capsules需具备的性质有：</p><ul><li>一层中有复杂的内部结构</li><li>能表达“坐标框架”</li><li>实现同变性（Equivariance）</li></ul><p>Capsule用一组神经元而不是一个来代表一个实体，且仅代表一个实体。它是一个高维向量：</p><ul><li><b>模长代表某个实体（某个物体，或者其一部分）出现的概率。</b></li><li><b>方向/位置代表实体的一般姿态 (generalized pose)，包括位置，方向，尺寸，速度，颜色等等。</b></li></ul><p>CapsulesNet用 <b>视角变换矩阵</b>，处理场景中两物体间的关联,不改变它们的相对关系 </p><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-ffae31f762b2a365ecf959fcc4af4b04_b.jpg" data-rawwidth="1303" data-rawheight="327" class="origin_image zh-lightbox-thumb" width="1303" data-original="https://pic1.zhimg.com/v2-ffae31f762b2a365ecf959fcc4af4b04_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-ffae31f762b2a365ecf959fcc4af4b04_hd.jpg" data-rawwidth="1303" data-rawheight="327" class="origin_image zh-lightbox-thumb lazy" width="1303" data-original="https://pic1.zhimg.com/v2-ffae31f762b2a365ecf959fcc4af4b04_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-ffae31f762b2a365ecf959fcc4af4b04_b.jpg"><figcaption>https://kndrck.co/posts/capsule_networks_explained/</figcaption></figure><p>Hinton认为存在两种同变性Equivariance：</p><ul><li><b>位置编码</b>（place-coded）：视觉中的内容的位置发生了较大变化，则会由不同的 Capsule 表示其内容。</li><li><b>速率编码</b>（rate-coded）：视觉中的内容为位置发生了较小的变化，则会由相同的 Capsule 表示其内容，但是内容有所改变。</li><li>两者的联系是，高层的 capsule 有更广的域 (domain)，所以 <b>低层的 place-coded 信息到高层会变成 rate-coded。</b></li></ul><hr><h2><b>第一篇《Dynamic Routing Between Capsules》解析</b></h2><ul><li><a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1710.09829" class=" wrap external" target="_blank" rel="nofollow noreferrer">Dynamic Routing Between Capsules<i class="icon-external"></i></a></li><li><a href="http://link.zhihu.com/?target=https%3A//www.jiqizhixin.com/articles/2017-11-05" class=" wrap external" target="_blank" rel="nofollow noreferrer">先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule<i class="icon-external"></i></a></li></ul><p>Capsule 是一组神经元，其输入输出向量表示特定实体类型的实例化参数（即特定物体、概念实体等出现的概率与某些属性）。我们使用输入输出向量的长度表征实体存在的概率，向量的方向表示实例化参数（即实体的某些图形属性）。同一层级的 capsule 通过变换矩阵对更高级别的 capsule 的实例化参数进行预测。当多个预测一致时（本论文使用动态路由使预测一致），更高级别的 capsule 将变得活跃。</p><hr><p>Capsule 是一个高维向量，模长表示概率，方向表示属性。故Hinton采用Squashing的非线性函数作为capsule的激活函数。</p><figure><noscript>&lt;img src="https://pic4.zhimg.com/v2-c9a73641f28b6587686c705f3311e5eb_b.jpg" data-caption="" data-rawwidth="297" data-rawheight="103" class="content_image" width="297"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-c9a73641f28b6587686c705f3311e5eb_hd.jpg" data-caption="" data-rawwidth="297" data-rawheight="103" class="content_image lazy" width="297" data-actualsrc="https://pic4.zhimg.com/v2-c9a73641f28b6587686c705f3311e5eb_b.jpg"></figure><ul><li>其中 v_j 为 Capsule j 的输出向量，s_j 为上一层所有 Capsule 输出到当前层 Capsule j 的向量加权和。 即 s_j 为 Capsule j 的输入向量。</li><li>该非线性函数前一部分是输入向量 s_j 的缩放尺度，后一部分是输入向量的单位向量s_j.</li></ul><hr><p>Capsule_j的输入向量 s_j的获取计算，是两层间的传播与联系方式。S_j计算过程分为两步，<b>线性组合 和 Routing</b>：</p><ul><li>下图左式是Routing，右式是线性组合。</li></ul><figure><noscript>&lt;img src="https://pic3.zhimg.com/v2-2e208ae6d2aa4d505aa20026ed48dc4e_b.jpg" data-caption="" data-rawwidth="445" data-rawheight="77" class="origin_image zh-lightbox-thumb" width="445" data-original="https://pic3.zhimg.com/v2-2e208ae6d2aa4d505aa20026ed48dc4e_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-2e208ae6d2aa4d505aa20026ed48dc4e_hd.jpg" data-caption="" data-rawwidth="445" data-rawheight="77" class="origin_image zh-lightbox-thumb lazy" width="445" data-original="https://pic3.zhimg.com/v2-2e208ae6d2aa4d505aa20026ed48dc4e_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-2e208ae6d2aa4d505aa20026ed48dc4e_b.jpg"></figure><ul><li><b>Routing流程:</b></li></ul><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-50017bd5f0cc3700450f314412f37810_b.jpg" data-rawwidth="1700" data-rawheight="1000" class="origin_image zh-lightbox-thumb" width="1700" data-original="https://pic1.zhimg.com/v2-50017bd5f0cc3700450f314412f37810_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-50017bd5f0cc3700450f314412f37810_hd.jpg" data-rawwidth="1700" data-rawheight="1000" class="origin_image zh-lightbox-thumb lazy" width="1700" data-original="https://pic1.zhimg.com/v2-50017bd5f0cc3700450f314412f37810_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-50017bd5f0cc3700450f314412f37810_b.jpg"><figcaption>https://www.jiqizhixin.com/articles/2017-11-05</figcaption></figure><ul><ul><li>u_1\1_hat和u_1\2_hat都是|v|维向量。它们分别是前一层的u_1和u_2乘上 <b>转换矩阵W</b>得出的预测向量。</li><li>s_1为u_1\1_hat和u_1\2_hat的线性组合而得出。而它们线性组合的系数大小则由c来决定。c_ij是常量。</li><li>c的数值由b决定，而这个迭代运算中，b_ij 依赖于两个 Capsule 的位置与类型，但不依赖于当前的输入图像。比如u_1|2_hat 更接近v_1，那对应的b_12在下次迭代会增大，从而c_12大于c_11，从而让它更接近v_1。b_ij是常量。</li></ul></ul><p><br></p><p><b>算法总流程：</b> </p><figure><noscript>&lt;img src="https://pic3.zhimg.com/v2-231b568a8c47c3cf8fa551cab3dab98a_b.jpg" data-caption="" data-rawwidth="1109" data-rawheight="336" class="origin_image zh-lightbox-thumb" width="1109" data-original="https://pic3.zhimg.com/v2-231b568a8c47c3cf8fa551cab3dab98a_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-231b568a8c47c3cf8fa551cab3dab98a_hd.jpg" data-caption="" data-rawwidth="1109" data-rawheight="336" class="origin_image zh-lightbox-thumb lazy" width="1109" data-original="https://pic3.zhimg.com/v2-231b568a8c47c3cf8fa551cab3dab98a_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-231b568a8c47c3cf8fa551cab3dab98a_b.jpg"></figure><hr><h2><b>CapsulesNet架构图：</b></h2><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-5505c5b0238a895c693abcbb05d59c0c_b.jpg" data-caption="" data-rawwidth="1344" data-rawheight="396" class="origin_image zh-lightbox-thumb" width="1344" data-original="https://pic1.zhimg.com/v2-5505c5b0238a895c693abcbb05d59c0c_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-5505c5b0238a895c693abcbb05d59c0c_hd.jpg" data-caption="" data-rawwidth="1344" data-rawheight="396" class="origin_image zh-lightbox-thumb lazy" width="1344" data-original="https://pic1.zhimg.com/v2-5505c5b0238a895c693abcbb05d59c0c_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-5505c5b0238a895c693abcbb05d59c0c_b.jpg"></figure><ul><li>第一个卷积层使用 256 个 9×9 卷积核，深度为1，步幅为1，且使用了 ReLU 激活函数。输出的张量20×20×256。此外，CapsNet 的卷积核感受野使用的是 9×9。这两层间的权值数量应该为 9×9×1×256+256=20992，后面加256是偏置值。</li><li>第二个卷积层开始作为 Capsule 层的输入而构建相应的张量结构。使用32×8个9×9卷积核（深度为256），步幅为2。输出张量为6×6×8×32，即<b>输出了6×6×32个维度为8的capsule向量</b>。两层间的权值数量为9×9×256×8×32+8×32=5308672。</li><li>PrimaryCaps层有6×6×32个capsules。其中每个map含有6×6个capsule。不同的map代表不同的类型，而同一个map的不同capsule代表不同的位置。</li><li>第三层DigitCaps在第二层输出的向量基础上进行传播与Routing更新。第二层共输出 6×6×32=1152 个capsule，即i层共有1152个Capsule，第三层j层有10个Capsules（每个是16维的向量）。</li><ul><li>W_ij有1152×10个，每个是8×16的向量</li><li>u_i（8×1的向量）与W_ij相乘得到预测向量([8,16].T*[8,1]=[16,1])后，接着就有1152×10个耦合系数c_ij。</li><li>将s_j传入squashing后就得到激活后的最终输出v_j。</li><li>DigitCaps 层与 PrimaryCaps 层之间的参数中，所有 W_ij 的参数数量是 1152×10×8×16=1474560，c_ij 的参数数量为 1152×10，b_ij参数数量是1152×10。</li></ul></ul><hr><h2><b>损失函数和最优化：</b></h2><p>耦合系数 c_ij 是通过一致性 Routing 进行更新的，但是<b>整个网络其它的卷积参数和 Capsule 内的 W_ij 都需要根据损失函数进行反向更新</b>。</p><p>作者采用了 SVM 中常用的 Margin loss，该损失函数的表达式为：</p><figure><noscript>&lt;img src="https://pic4.zhimg.com/v2-0c61aed6c1855321674ed7e633e6acaf_b.jpg" data-caption="" data-rawwidth="771" data-rawheight="56" class="origin_image zh-lightbox-thumb" width="771" data-original="https://pic4.zhimg.com/v2-0c61aed6c1855321674ed7e633e6acaf_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-0c61aed6c1855321674ed7e633e6acaf_hd.jpg" data-caption="" data-rawwidth="771" data-rawheight="56" class="origin_image zh-lightbox-thumb lazy" width="771" data-original="https://pic4.zhimg.com/v2-0c61aed6c1855321674ed7e633e6acaf_r.jpg" data-actualsrc="https://pic4.zhimg.com/v2-0c61aed6c1855321674ed7e633e6acaf_b.jpg"></figure><ul><li>其中 c 是分类类别，T_c 为分类的指示函数（c 存在为 1，c 不存在为 0），m+ 为上边界，m- 为下边界。此外，v_c 的模即向量的 L2 距离。</li><li>对每一个表征数字 k 的 Capsule 分别给出单独的 Margin loss。</li><li>实例化向量的长度来表示 Capsule 要表征的实体是否存在。</li></ul><hr><h2><b>重构与表征</b></h2><p><b>利用预测出来的Capsules，重新构建出该类别的图像</b></p><p>文章中使用额外的重构损失（reconstruction loss）来促进 DigitCaps 层对输入数字图片进行编码： </p><figure><noscript>&lt;img src="https://pic3.zhimg.com/v2-a2f3f45b814a61a99930db005264c072_b.jpg" data-caption="" data-rawwidth="795" data-rawheight="335" class="origin_image zh-lightbox-thumb" width="795" data-original="https://pic3.zhimg.com/v2-a2f3f45b814a61a99930db005264c072_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-a2f3f45b814a61a99930db005264c072_hd.jpg" data-caption="" data-rawwidth="795" data-rawheight="335" class="origin_image zh-lightbox-thumb lazy" width="795" data-original="https://pic3.zhimg.com/v2-a2f3f45b814a61a99930db005264c072_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-a2f3f45b814a61a99930db005264c072_b.jpg"></figure><p>原图片可能数字重叠覆盖，导致预测出来的10个Capsules中部分Capsules的模都很大，所以重构单个数字图片时候，需要将其他Capsule进行Mask遮住，让有代表的Capsules去重构图片。损失函数通过计算在最后的 FC Sigmoid 层采用的输出像素点与原始图像像素点间的欧几里德距离作为损失函数。</p><p><b>为防止重构损失主导了整体损失（从而体现不出Margin loss作用），作者还按 0.0005 的比例缩小重构损失。</b></p><hr><h2><b>相比Softmax，Capsules不受多类别重叠的干扰，非常适合做单样本预测多类别的工作。</b></h2><hr><figure><noscript>&lt;img src="https://pic3.zhimg.com/v2-3f24a6d5aafde20f648fca6508792e9a_b.jpg" data-caption="" data-rawwidth="875" data-rawheight="1180" class="origin_image zh-lightbox-thumb" width="875" data-original="https://pic3.zhimg.com/v2-3f24a6d5aafde20f648fca6508792e9a_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-3f24a6d5aafde20f648fca6508792e9a_hd.jpg" data-caption="" data-rawwidth="875" data-rawheight="1180" class="origin_image zh-lightbox-thumb lazy" width="875" data-original="https://pic3.zhimg.com/v2-3f24a6d5aafde20f648fca6508792e9a_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-3f24a6d5aafde20f648fca6508792e9a_b.jpg"></figure><hr><h2><b>第二篇《Matrix Capsules with EM routing》解析</b></h2><p><a href="http://link.zhihu.com/?target=https%3A//openreview.net/pdf%3Fid%3DHJWLfGWRb" class=" wrap external" target="_blank" rel="nofollow noreferrer">Matrix Capsules with EM routing<i class="icon-external"></i></a></p><h2><b>Capsule结构:</b></h2><figure><noscript>&lt;img src="https://pic3.zhimg.com/v2-a1271d08f904c4ea25e5942df2ca1066_b.jpg" data-caption="" data-rawwidth="711" data-rawheight="232" class="origin_image zh-lightbox-thumb" width="711" data-original="https://pic3.zhimg.com/v2-a1271d08f904c4ea25e5942df2ca1066_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-a1271d08f904c4ea25e5942df2ca1066_hd.jpg" data-caption="" data-rawwidth="711" data-rawheight="232" class="origin_image zh-lightbox-thumb lazy" width="711" data-original="https://pic3.zhimg.com/v2-a1271d08f904c4ea25e5942df2ca1066_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-a1271d08f904c4ea25e5942df2ca1066_b.jpg"></figure><ul><li>4×4的姿势矩阵和1的激活值</li><li>L层的某Capsule_i通过将自身的<b>Pose矩阵与视角不变矩阵的变换矩阵（viewpoint-invariant transformation matrix)相乘</b>，从而<b>为L+1层的许多不同Capsule的Pose矩阵进行投票</b>。 这些投票都会根据分配的<b>系数加权</b>。而这些系数进行<b>EM算法迭代更新</b>。</li></ul><hr><h2><b>Matrix CapsuleNet的模型结构：</b></h2><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_b.jpg" data-caption="" data-rawwidth="1632" data-rawheight="551" class="origin_image zh-lightbox-thumb" width="1632" data-original="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-db480ee72a360075eed92100c7ffb16c_hd.jpg" data-caption="" data-rawwidth="1632" data-rawheight="551" class="origin_image zh-lightbox-thumb lazy" width="1632" data-original="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_r.jpg" data-actualsrc="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_b.jpg"></figure><hr><h2><b>EM Routing 算法：</b></h2><figure><noscript>&lt;img src="https://pic2.zhimg.com/v2-6b6330906473bc033a6b135ca0a72fd9_b.jpg" data-caption="" data-rawwidth="1088" data-rawheight="783" class="origin_image zh-lightbox-thumb" width="1088" data-original="https://pic2.zhimg.com/v2-6b6330906473bc033a6b135ca0a72fd9_r.jpg"&gt;</noscript><img src="./CapsulesNet 的解析及整理_files/v2-6b6330906473bc033a6b135ca0a72fd9_hd.jpg" data-caption="" data-rawwidth="1088" data-rawheight="783" class="origin_image zh-lightbox-thumb lazy" width="1088" data-original="https://pic2.zhimg.com/v2-6b6330906473bc033a6b135ca0a72fd9_r.jpg" data-actualsrc="https://pic2.zhimg.com/v2-6b6330906473bc033a6b135ca0a72fd9_b.jpg"></figure><hr><h2><b>参数介绍：</b></h2><h2><b>下标 i,c,h ：</b></h2><ul><li>i: 指L层中的某个capsule。</li><li>c: 指L+1层中的某个capsule。</li><li>h: 指Pose矩阵中的某维，共16维。</li></ul><h2><b>Pose矩阵：</b></h2><ul><li>capsule的姿态矩阵，向量，此处是4×4的矩阵（或16×1的向量），方向表示属性。</li><li>L层的某Capsule_i通过将自身的<b>Pose矩阵与视角不变矩阵的变换矩阵（viewpoint-invariant transformation matrix)相乘</b>，从而为L+1层的许多不同Capsule的Pose矩阵进行投票。</li><li>这些投票都会根据分配的系数进行加权。而这些系数使用EM算法迭代式进行更新。</li><li>之后文中出现的pose矩阵，都代表指16×1的向量。</li></ul><h2><b>视角不变的变换矩阵W：</b></h2><ul><li>在图形学中，某图片乘上W后，能够得到一定姿态旋转的图片。</li><li>W和第一篇中的W是一样的，都是通过反向传播更新。</li></ul><h2><b>投票矩阵V</b></h2><ul><li>V_ic= i_pose*W，当i的pose乘上W，得到i旋转变换后的姿态，该新姿态作为给c的投票（因为c的姿态是很多个i的姿态投票加权和，加权由概率p和激活值a等）。</li><li>很多个i意思是：如第一次capsule卷积层中，L有14×14×32个capsule_i，L+1有6×6×32个capsule_c.那卷积核大小为3×3×32（深度32），那此时很多i是指有3×3×32个i。在最后卷积层平拉转换成E个capsules时候，这很多个i指的是1×1×32 个capsule_i。</li></ul><h2><b>激活值 a、a_hat：</b></h2><ul><li>capsule的激活值a，标量。表示当前capsule被激活的数值(0,1).</li><li>通过sigmoid函数激活.</li><li>a表示L层的capsule_i的激活值.</li><li>a_hat表示L+1层的capsule_c的激活值.</li></ul><h2><b>投票的加权系数R：</b></h2><ul><li>初始化为R_ic = 1/size(L+1), 其中size(L+1)为L+1层的capsule个数或者为3×3×32（即卷积核的大小和深度）。</li><li>R_ic表示capsule_i投票给capsule_c的概率。</li><li>r'_i表示前面所有层汇总后通过i投票给c的概率</li></ul><h2><b>算法中的M，S：</b></h2><ul><li>M_ch: 指L+1层中capsule_c的Pose矩阵中h维的数值。M_c即为L+1层的Pose矩阵。</li><li>S_ch^2: 指L层中capsules投给L+1层中capsule_c的Pose矩阵中h维数值的方差。</li></ul><h2><b>高斯概率P</b></h2><ul><li>先了解单高斯模型和高斯混合模型</li><li>在不考虑转换矩阵的情况下，有如下：</li><ul><li>page3_(1)中提到的P_ich是单高斯模型。</li><ul><li>i是样本，h和c是定值。</li><li>样本i_h有size(i)个（数值取决与卷积核大小，如primaryCaps到ConvCaps1中就有3×3×32个样本）</li><li>对于某变量i，传入P_ich中，能得到 <b>i中的h维的数值，属于c中h维的数值的相似度或说概率</b></li></ul><li>在E步中的p_c，即P_ic是混合高斯模型。</li><ul><li>将i的pose传入，得到i与c的相似度或说i属于c类的概率值.</li><li>即i和c在每个h维的高斯混合计算得出，(每维的相似概率值)^h=i输入c的概率。</li><li><b>p_c表示i给c的投票概率，而r_c就表示前面所有层汇合到L层并通过i投票给c的概率。</b></li></ul></ul><li>考虑到转换矩阵，V=pose×W，让 <b>V_ic表示i的pose矩阵</b>，代入上面说法即可。</li></ul><hr><h2><b>卷积层的理解：</b></h2><h2><b>primaryCaps到ConvCaps1的卷积层：</b></h2><p>即L层有14<i>14</i>32个capsules，L+1层有6<i>6</i>32个capsules。 文章中的混合高斯模型，是指:</p><ul><li>L+1层的每个c都有一个高斯混合模型，其中k=h=16,即c有一个k=16高斯混合模型。</li><li>每个i样本（共3x3x32=288个样本），通过高斯混合模型，逐次对h维进行预测，最终相乘得到样本i属于c的概率（相似度）。</li><li>其中这高斯混合模型中，单个高斯是指i中的h（若不乘上转换矩阵）属于c中的h类的概率（此概率即为公式中的p_h)，将p_ich在i（288个）上叠加起来（再乘上a_hat)，就可以得到i属于c类的概率。</li></ul><h2><b>ConvCaps1到Class Capsules的卷积层：</b></h2><p>最后一层是E个capsules，这是一个拉伸后的扁长Capsule层。</p><ul><li>拉伸后的扁长层无法表达每个capsule的位置信息（前面的层的每个capsule相对map都有对应的位置信息）。所以为了保持capsule的位置信息，作者就将最后层中的capsule的pose矩阵中前两个元素代表位置信息。通过让前一层的部分i将其i自身所处的位置（行列两个值，再缩放到一定比例，如缩放到(0,1)间)加到它的投票矩阵V_ic的前两个元素中，从而让c中pose的前两个元素能代表位置信息。</li><li>又是部分i。这部分i可以从图中得知，是1×1×32个capsule_i。由于是1×1深度为32的卷积核，所以位置信息就很容易确定（如果是3×3×32的话就要取3×3的矩阵中心点进行缩放）。</li><li>同一个类别姿态的但不同位置的capsule共享转换矩阵W，也就是同一个map中的6×6=32个capsule共享转换矩阵。其实做法比前面简单点，起码W缩小到32个转换矩阵了。</li></ul><hr><h2><b>损失函数：传播损失(Spread Loss):</b></h2><p>为了使训练过程对模型的初始化以及超参的设定 没那么敏感，作者采用传播损失函数来最大化 被激活的目标类与被激活的非目标类 之间的间距。a_t表示target的激活值，a_i表示Class_Capsules中除t外第i个的激活值。</p><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-ae8ed9a51d567792c201b0c11bd7be90_b.jpg" data-caption="" data-rawwidth="465" data-rawheight="76" class="origin_image zh-lightbox-thumb" width="465" data-original="https://pic1.zhimg.com/v2-ae8ed9a51d567792c201b0c11bd7be90_r.jpg"&gt;</noscript><span><div data-reactroot="" class="VagueImage origin_image zh-lightbox-thumb" data-src="https://pic1.zhimg.com/50/v2-ae8ed9a51d567792c201b0c11bd7be90_hd.jpg" style="width: 465px; height: 76px;"><div class="VagueImage-mask is-active"></div></div></span></figure><p>将m从0.2的小幅度开始，在训练期间将其线性增加到0.9，从而避免无用胶囊的存在。</p><p>那m是在训练过程中让m逐渐增大吗？为什么要这样做呢？</p><p>我的理解是：</p><ul><li>当模型训练得挺好时候（中后期），每个激活值a_i的比较小而a_t比较大。此时m需要设置为接近1的数值。这很好理解。</li><li>当模型初步训练时候，很多capsules起的作用不大。激活值a_i和a_t相差不大，若此时m采用较大值如0.9,就会掩盖了(a_t-a_i)的作用，让0.9起主导作用。比如更新前的参数W1和更新后的参数W2,若m采用0.9,，则无论W1还是W2,获得的L都差不多，这会让W和capsules很为难。而设置m为较小值就能让（a_t-a_i）起到较好的作用。</li></ul><hr><hr><h2><b>模型结构分析（我的代码思路）：</b></h2><figure><noscript>&lt;img src="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_b.jpg" data-caption="" data-rawwidth="1632" data-rawheight="551" class="origin_image zh-lightbox-thumb" width="1632" data-original="https://pic1.zhimg.com/v2-db480ee72a360075eed92100c7ffb16c_r.jpg"&gt;</noscript><span><div data-reactroot="" class="VagueImage origin_image zh-lightbox-thumb" data-src="https://pic1.zhimg.com/50/v2-db480ee72a360075eed92100c7ffb16c_hd.jpg" style="width: 660px; height: 222.831px;"><div class="VagueImage-mask is-active"></div></div></span></figure><hr><h2><b>image--&gt;Relu_conv1</b></h2><p>传入图片。对原图片进行普通卷积操作。</p><ul><li>原图片input=[32,32,1]</li><li>卷积核大小5×5</li><li>卷积核个数32</li><li>stride=2</li><li>output=[14,14,32]</li></ul><hr><h2><b>Relu_conv1-&gt;PrimaryCaps</b></h2><p>一个Caps有17维，其中16维是4×4的pose，1维是activation。</p><ul><li>input=[14,14,32]</li><li>双分支卷积Pose分支：</li><ul><li>input=[14,14,32]</li><li>卷积核大小1×1</li><li>卷积核个数32</li><li>（其实已经没有卷积操作了，卷积核大小和个数这个信息只是来辅助理解EMRouting的。这往下忽略所有的<b>卷积核个数 和 卷积核大小 </b>这个概念吧，我不太好描述了）</li><li>stride=1</li><li>output=[14,14,32,16]</li><ul><li>output_reshape=[196,32,16]</li><li>output_reshape[i]表示同种位置i但有很多不同姿势pose</li><li>output_reshape[i][j]表示i位置的j姿势的pose</li></ul></ul><li>双分支卷积Activate分支：</li><ul><li>input=[14,14,32]</li><li>卷积核大小1×1</li><li>卷积核个数  # 32</li><li>stride=1</li><li>output=[14,14,32,1]</li><ul><li>output_reshape=[196,32,1]</li><li>output_reshape[i]表示同种位置i但很多姿势的activate</li><li>output_reshape[i][j]表示i位置的j姿势的activate</li></ul></ul><li>分支合并</li><ul><li>input=[196,32,16],[196,32,1]</li><li>output=[196,32,17]</li><ul><li>output[i,j,:16]指位置i在j姿势的pose</li><li>output[i,j,16]指位置i在j姿势的activate</li></ul></ul></ul><hr><h2><b>PrimaryCaps-&gt;ConvCaps1</b></h2><p>用3x3的Caps卷积对PrimaryCaps的map进行操作 PrimaryCaps的一个map有196个Caps，一个位置有32个Caps</p><ul><li>input=[196,32,17]</li><li>split:</li><ul><li>input_pose=[196,32,16]</li><li>input_activation=[196,32,1]</li></ul><li>通过V=Pose*W 得到V值</li><ul><li>Pose=[196,32,16]</li><li>W=[6272,1152,16]</li><li>通过<b>部分的Pose</b>和W相乘得到V_c。遍历c时将V_c循环相加，之后得到V</li><li>V=[6272,1152,16]</li></ul><li>Capsules卷积：</li><ul><li>卷积核大小3×3</li><li>卷积核个数   # 32</li><li>stride=2</li><li>EM算法：</li><ul><li>按着公式进行运算即可得到M和a_hat</li><li>即L+1层的pose矩阵和激活值。M=[36,32,16],a_hat=[36,32,1]</li></ul></ul><li>output_merge：</li><ul><li>outputs=[36,32,17]</li></ul></ul><hr><h2><b>ConvCaps1-&gt;ConvCaps2</b></h2><ul><li>input=[36,32,17]</li><li>split:</li><ul><li>input_pose=[36,32,16]</li><li>input_activation=[36,32,1]</li></ul><li>通过V_c=部分i_Pose*W，遍历c后得到V。</li><ul><li>Pose=[36,32,16]</li><li>W=[1152,512,16]</li><li>V=[1152,512,16]</li></ul><li>Capsules卷积：</li><ul><li>卷积核大小3×3</li><li>卷积核个数  # 32</li><li>stride=1</li><li>EM算法：</li><ul><li>按着公式进行运算即可得到M和a_hat</li><li>即L+1层的pose矩阵和激活值。M=[16,32,16],a_hat=[16,32,1]</li></ul></ul><li>output_merge：</li><ul><li>outputs=[16,32,17]</li></ul></ul><hr><h2><b>ConvCaps2-&gt; Class_Capsules</b></h2><ul><li>input=[16,32,17]</li><li>split:</li><ul><li>input_pose=[16,32,16]</li><li>input_activation=[16,32,1]</li></ul><li>全连接层：</li><ul><li>在同一种类型的不同位置上共享转换矩阵参数（即同一张map上的capsule共享视角不变转换矩阵）:</li><ul><li>Pose=[16,32,16]</li><li>W=[32,10,16]</li><li>需要得到V=[512,10,16]</li></ul><li>获取V的做法：</li><ul><li>将W扩充为冗余矩阵[16,32,10,16]=&gt;[512,10,16]</li><li>此时卷积核为1×1深度为32，故将1×1×32个Pose_i乘上W得到V_ic。</li><li>然后将Pose_i所处map的位置的行列缩放到(0,1),分别加入到V_ic的前两维h=0和1，进行<b>更新V_ic</b>.此时的V_ic表示一个位置上给c投票的向量值(这个位置i有32个capsules)。</li><li>对ConvCaps2层（L层）每个位置循环下，就可以得到L层对c的投票值</li><li>再对c循环下，就可以得到完整的V了。（或者这两个循环换下位置）</li></ul><li>EM算法：</li><ul><li>有了a和V，就可以Routing了。</li><li>输出M=[10,16],a_hat=[10,1]</li></ul></ul><li>output= [10,17] 输出10个Capsules</li></ul><hr><p></p><p></p><p></p></div><div class="PostIndex-footer"><div class="PostIndex-topics TopicItem-wrapper"><a class="TopicItem u-ellipsis PostIndex-topicItem" href="https://www.zhihu.com/topic/19813032"><!-- react-text: 41 -->深度学习（Deep Learning）<!-- /react-text --></a><a class="TopicItem u-ellipsis PostIndex-topicItem" href="https://www.zhihu.com/topic/20043586"><!-- react-text: 43 -->卷积神经网络（CNN）<!-- /react-text --></a></div><div class="PostIndex-reviewers"></div><div class="PostIndex-vote"><button class="Button PostIndex-voteButton Button--green" aria-label="赞" type="button"><i class="icon icon-ic_column_like"></i><!-- react-text: 48 -->103<!-- /react-text --></button><div class="PostIndex-voters"><div class="HoverTitle HoverTitle--slim" data-hover-title="改进型折木奉太郎"><a href="https://www.zhihu.com/people/chen-bei-er-15" class="PostIndex-voter" target="_blank"><img class="Avatar-hemingway Avatar--is" alt="改进型折木奉太郎" src="./CapsulesNet 的解析及整理_files/v2-ea67ec77701798e2cb36f0353f17d20f_is.jpg" srcset="https://pic4.zhimg.com/50/v2-ea67ec77701798e2cb36f0353f17d20f_im.jpg 2x"></a></div><div class="HoverTitle HoverTitle--slim" data-hover-title="juststart"><a href="https://www.zhihu.com/people/juststart-8" class="PostIndex-voter" target="_blank"><img class="Avatar-hemingway Avatar--is" alt="juststart" src="./CapsulesNet 的解析及整理_files/da8e974dc_is.jpg" srcset="https://pic1.zhimg.com/da8e974dc_im.jpg 2x"></a></div><div class="HoverTitle HoverTitle--slim" data-hover-title="chang ney"><a href="https://www.zhihu.com/people/chang-ney" class="PostIndex-voter" target="_blank"><img class="Avatar-hemingway Avatar--is" alt="chang ney" src="./CapsulesNet 的解析及整理_files/32adc2dbf770b688cfa3806669ff3264_is.jpg" srcset="https://pic1.zhimg.com/50/32adc2dbf770b688cfa3806669ff3264_im.jpg 2x"></a></div><div class="HoverTitle HoverTitle--slim" data-hover-title="xxxx"><a href="https://www.zhihu.com/people/jia-sen-88" class="PostIndex-voter" target="_blank"><img class="Avatar-hemingway Avatar--is" alt="xxxx" src="./CapsulesNet 的解析及整理_files/8595b3a1ac473af6bfded9bcb60ff2be_is.jpg" srcset="https://pic3.zhimg.com/50/8595b3a1ac473af6bfded9bcb60ff2be_im.jpg 2x"></a></div><div class="HoverTitle HoverTitle--slim" data-hover-title="Jason.LIU"><a href="https://www.zhihu.com/people/liu-jing-xin-26" class="PostIndex-voter" target="_blank"><img class="Avatar-hemingway Avatar--is" alt="Jason.LIU" src="./CapsulesNet 的解析及整理_files/da8e974dc_is.jpg" srcset="https://pic1.zhimg.com/da8e974dc_im.jpg 2x"></a></div><a href="https://zhuanlan.zhihu.com/p/30970675/voters" target="_blank" rel="noopener noreferrer" title="查看全部" class="PostIndex-allVoters"><i class="icon-ic_like_more"></i></a></div></div><div class="PostIndex-control"><div class="Fav"><button class="Button Button Button--plain FavButton" type="button"><i class="icon icon-ic_collect"></i><!-- react-text: 71 -->收藏<!-- /react-text --></button><!-- react-empty: 72 --></div><div class="PostShare"><div class="Menu"><button class="Button Button Button--plain MenuButton MenuButton-listen-hover Button Button--plain" type="button"><i class="icon icon-ic_column_share"></i><!-- react-text: 77 -->分享<!-- /react-text --></button><div class="Menu-dropdown" style="visibility: hidden;"></div></div></div><div class="Report"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 82 -->举报<!-- /react-text --></button><!-- react-empty: 83 --></div></div></div><div class="Contributes PostIndex-contributes av-card"><div class="BlockTitle av-marginLeft av-borderColor"><span class="BlockTitle-title">文章被以下专栏收录</span><span class="BlockTitle-line"></span></div><ul class="Contributes-list"><li class="Contributes-listItem av-borderColor av-marginLeft" style="opacity: 1; max-height: 300px;"><div class="ContributesItem av-paddingRight" role="link"><a class="ContributesItem-avatar" href="https://zhuanlan.zhihu.com/c_126470847"><img class="Avatar-hemingway" src="./CapsulesNet 的解析及整理_files/v2-6b91688d6710dd86bec105de9cfd9657_m.png" srcset="https://pic4.zhimg.com/v2-6b91688d6710dd86bec105de9cfd9657_xl.png 2x"></a><div class="ContributesItem-info"><div class="ContributesItem-nameLine"><a class="ContributesItem-name" href="https://zhuanlan.zhihu.com/c_126470847">GAN + 文本生成 + 读博干货</a></div><p class="ContributesItem-intro u-ellipsis"></p></div><a class="ContributesItem-entrance" href="https://zhuanlan.zhihu.com/c_126470847">进入专栏</a></div></li></ul></div><div class="PostComment"><div class="BlockTitle av-marginLeft av-borderColor PostComment-blockTitle"><span class="BlockTitle-title"><!-- react-text: 101 -->8 条评论<!-- /react-text --></span><span class="BlockTitle-line"></span></div><div class="CommentEditor PostComment-mainEditor"><!-- react-empty: 104 --><div class="CommentEditor-input"><div class="Input-wrapper Input-wrapper--spread Input-wrapper--large Input-wrapper--noPadding"><div class="Input Editable"><div class="Dropzone RichText" style="min-height: 38px;"><div class="DraftEditor-root"><div class="public-DraftEditorPlaceholder-root"><div class="public-DraftEditorPlaceholder-inner" id="placeholder-fuqn">写下你的评论...</div></div><div class="DraftEditor-editorContainer"><div aria-describedby="placeholder-fuqn" class="notranslate public-DraftEditor-content" contenteditable="true" role="textbox" spellcheck="true" tabindex="0" style="outline: none; white-space: pre-wrap; word-wrap: break-word;"><div data-contents="true"><div class="Editable-unstyled" data-block="true" data-editor="fuqn" data-offset-key="1rjat-0-0"><div data-offset-key="1rjat-0-0" class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr"><span data-offset-key="1rjat-0-0"><br data-text="true"></span></div></div></div></div></div></div></div><input type="file" multiple="" accept="image/jpg,image/jpeg,image/png,image/gif" style="display: none;"><!-- react-empty: 346 --><!-- react-empty: 347 --><div></div><!-- react-empty: 349 --><!-- react-empty: 350 --><!-- react-empty: 351 --></div></div><div class="CommentEditor-actions"><button class="Button Button--plain" type="button"><!-- react-text: 109 -->取消<!-- /react-text --></button><button class="Button Button--blue" disabled="" type="button"><!-- react-text: 111 -->评论<!-- /react-text --></button></div></div></div><div class="PostCommentList"><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/tu-si-ji-74-32" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="吐司司司机" src="./CapsulesNet 的解析及整理_files/v2-926943b628fb88813f17f5d844678958_xs.jpg" srcset="https://pic1.zhimg.com/50/v2-926943b628fb88813f17f5d844678958_l.jpg 2x"></a><div class="CommentItem-headWrapper"><div class="CommentItem-head"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/tu-si-ji-74-32" class="" target="_blank">吐司司司机</a></span></div></div><div class="CommentItem-content"><p>请问一下，PrimaryCaps-&gt;ConvCaps1里面196是怎么到36的啊？</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 136 -->0<!-- /react-text --><!-- react-text: 137 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 14 日星期二下午 5 点 22 分"><time datetime="Tue Nov 14 2017 17:22:00 GMT+0800 (中国标准时间)">6 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 142 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 146 -->举报<!-- /react-text --></button><!-- react-empty: 147 --></div></div><!-- react-empty: 148 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/luonango" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="Nango 明楠" src="./CapsulesNet 的解析及整理_files/v2-5c19261e91d065ceafae180e3bc5bfc3_xs.jpg" srcset="https://pic4.zhimg.com/50/v2-5c19261e91d065ceafae180e3bc5bfc3_l.jpg 2x"></a><div class="CommentItem-headWrapper"><button class="Button CommentItem-conversationButton Button--plain" type="button"><i class="icon icon-ic_conversations"></i><!-- react-text: 155 --> 查看对话<!-- /react-text --></button><div class="CommentItem-head CommentItem-head--rightPad"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/luonango" class="" target="_blank">Nango 明楠</a><span class="CommentItem-authorTitle">（作者）</span><span class="CommentItem-replyTo"><span class="CommentItem-replySplit">回复</span><a href="https://www.zhihu.com/people/tu-si-ji-74-32" class="" target="_blank">吐司司司机</a></span></span></div></div><div class="CommentItem-content"><p>L层中每3×3×32个i，投票浓缩到L+1层中的1×32个c。也就是L层中一个14×14map，变成1个6×6的map。注意，stride=2。</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 166 -->0<!-- /react-text --><!-- react-text: 167 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 14 日星期二晚上 6 点 50 分"><time datetime="Tue Nov 14 2017 18:50:54 GMT+0800 (中国标准时间)">6 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 172 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 176 -->举报<!-- /react-text --></button><!-- react-empty: 177 --></div></div><!-- react-empty: 178 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/luonango" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="Nango 明楠" src="./CapsulesNet 的解析及整理_files/v2-5c19261e91d065ceafae180e3bc5bfc3_xs.jpg" srcset="https://pic4.zhimg.com/50/v2-5c19261e91d065ceafae180e3bc5bfc3_l.jpg 2x"></a><div class="CommentItem-headWrapper"><div class="CommentItem-head"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/luonango" class="" target="_blank">Nango 明楠</a><span class="CommentItem-authorTitle">（作者）</span></span></div></div><div class="CommentItem-content"><p>更新了第二篇的完整思路。</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 190 -->0<!-- /react-text --><!-- react-text: 191 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 14 日星期二晚上 7 点 39 分"><time datetime="Tue Nov 14 2017 19:39:21 GMT+0800 (中国标准时间)">6 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 196 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 200 -->举报<!-- /react-text --></button><!-- react-empty: 201 --></div></div><!-- react-empty: 202 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/scut-huyang" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="胡杨" src="./CapsulesNet 的解析及整理_files/v2-5687dac6cdbc3787222ce2f2987a8e6e_xs.jpg" srcset="https://pic3.zhimg.com/50/v2-5687dac6cdbc3787222ce2f2987a8e6e_l.jpg 2x"></a><div class="CommentItem-headWrapper"><div class="CommentItem-head"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/scut-huyang" class="" target="_blank">胡杨</a></span></div></div><div class="CommentItem-content"><p> 师弟的总结，比较全，参考的其他文章已经引用，还有一些师弟自己的想法</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 213 -->0<!-- /react-text --><!-- react-text: 214 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 15 日星期三中午 11 点 53 分"><time datetime="Wed Nov 15 2017 11:53:22 GMT+0800 (中国标准时间)">5 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 219 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 223 -->举报<!-- /react-text --></button><!-- react-empty: 224 --></div></div><!-- react-empty: 225 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/cheng-xu-yuan-79-18" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="程序媛" src="./CapsulesNet 的解析及整理_files/bd11e4d3c_xs.jpg" srcset="https://pic1.zhimg.com/50/bd11e4d3c_l.jpg 2x"></a><div class="CommentItem-headWrapper"><div class="CommentItem-head"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/cheng-xu-yuan-79-18" class="" target="_blank">程序媛</a></span></div></div><div class="CommentItem-content"><p>PromaryCaps层capsule个数为14x14x32;<br>ConvCaps层capsule个数为6x6x32;作者应该是笔误少写了乘号</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 236 -->0<!-- /react-text --><!-- react-text: 237 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 16 日星期四中午 11 点 35 分"><time datetime="Thu Nov 16 2017 11:35:18 GMT+0800 (中国标准时间)">4 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 242 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 246 -->举报<!-- /react-text --></button><!-- react-empty: 247 --></div></div><!-- react-empty: 248 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/wangxuec" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="wangxuec" src="./CapsulesNet 的解析及整理_files/da8e974dc_xs.jpg" srcset="https://pic1.zhimg.com/da8e974dc_l.jpg 2x"></a><div class="CommentItem-headWrapper"><div class="CommentItem-head"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/wangxuec" class="" target="_blank">wangxuec</a></span></div></div><div class="CommentItem-content"><p>高斯概率P 这节很难理解,对混合高斯模型不熟悉:(  有个形象点的图来说明就好了：</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 259 -->0<!-- /react-text --><!-- react-text: 260 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 16 日星期四下午 3 点 17 分"><time datetime="Thu Nov 16 2017 15:17:25 GMT+0800 (中国标准时间)">4 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 265 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 269 -->举报<!-- /react-text --></button><!-- react-empty: 270 --></div></div><!-- react-empty: 271 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/luonango" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="Nango 明楠" src="./CapsulesNet 的解析及整理_files/v2-5c19261e91d065ceafae180e3bc5bfc3_xs.jpg" srcset="https://pic4.zhimg.com/50/v2-5c19261e91d065ceafae180e3bc5bfc3_l.jpg 2x"></a><div class="CommentItem-headWrapper"><button class="Button CommentItem-conversationButton Button--plain" type="button"><i class="icon icon-ic_conversations"></i><!-- react-text: 278 --> 查看对话<!-- /react-text --></button><div class="CommentItem-head CommentItem-head--rightPad"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/luonango" class="" target="_blank">Nango 明楠</a><span class="CommentItem-authorTitle">（作者）</span><span class="CommentItem-replyTo"><span class="CommentItem-replySplit">回复</span><a href="https://www.zhihu.com/people/wangxuec" class="" target="_blank">wangxuec</a></span></span></div></div><div class="CommentItem-content"><p>我其实尝试画了下图，觉得太丑了，怕玷污了这篇论文 233333</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 289 -->0<!-- /react-text --><!-- react-text: 290 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 16 日星期四晚上 9 点 38 分"><time datetime="Thu Nov 16 2017 21:38:08 GMT+0800 (中国标准时间)">3 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 295 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 299 -->举报<!-- /react-text --></button><!-- react-empty: 300 --></div></div><!-- react-empty: 301 --></div><div class="CommentItem"><a class="UserAvatar CommentItem-author" href="https://www.zhihu.com/people/luonango" target="_blank"><img class="Avatar-hemingway Avatar--xs" alt="Nango 明楠" src="./CapsulesNet 的解析及整理_files/v2-5c19261e91d065ceafae180e3bc5bfc3_xs.jpg" srcset="https://pic4.zhimg.com/50/v2-5c19261e91d065ceafae180e3bc5bfc3_l.jpg 2x"></a><div class="CommentItem-headWrapper"><button class="Button CommentItem-conversationButton Button--plain" type="button"><i class="icon icon-ic_conversations"></i><!-- react-text: 308 --> 查看对话<!-- /react-text --></button><div class="CommentItem-head CommentItem-head--rightPad"><span class="CommentItem-context"><a href="https://www.zhihu.com/people/luonango" class="" target="_blank">Nango 明楠</a><span class="CommentItem-authorTitle">（作者）</span><span class="CommentItem-replyTo"><span class="CommentItem-replySplit">回复</span><a href="https://www.zhihu.com/people/cheng-xu-yuan-79-18" class="" target="_blank">程序媛</a></span></span></div></div><div class="CommentItem-content"><p>对对，谢谢阿</p></div><div class="CommentItem-foot"><span class="CommentItem-like CommentItem-like--empty" title="0 人觉得这个很赞"><!-- react-text: 319 -->0<!-- /react-text --><!-- react-text: 320 --> 赞<!-- /react-text --></span><div class="HoverTitle CommentItem-createdTime" data-hover-title="2017 年 11月 16 日星期四晚上 9 点 38 分"><time datetime="Thu Nov 16 2017 21:38:21 GMT+0800 (中国标准时间)">3 天前</time></div><button class="Button CommentItem-action CommentItem-actionLike Button--plain" type="button"><i class="icon icon-ic_comment_like"></i><!-- react-text: 325 -->赞<!-- /react-text --></button><div class="Report CommentItem-action CommentItem-actionReport"><button class="Button Button Button--plain ReportButton" type="button"><i class="icon icon-ic_column_report"></i><!-- react-text: 329 -->举报<!-- /react-text --></button><!-- react-empty: 330 --></div></div><!-- react-empty: 331 --></div></div><!-- react-empty: 113 --><!-- react-empty: 114 --></div><div class="PostIndex-recommendZone av-card"><div class="BlockTitle av-marginLeft av-borderColor"><span class="BlockTitle-title">推荐阅读</span><span class="BlockTitle-line"></span></div><ul class="PostIndex-recommends"><li class="PostIndex-recommendItem av-marginLeft av-borderColor"><div class="PostListItem PostListItem--narrow PostListItem--recommended av-paddingRight"><a class="PostListItem-titleImageWrapper" href="https://zhuanlan.zhihu.com/p/30978196"><img src="./CapsulesNet 的解析及整理_files/v2-4ce4f096bb7240040aee0051e9fe6e55_b.jpg" class="PostListItem-titleImage" alt="题图"></a><div class="PostListItem-info"><a href="https://zhuanlan.zhihu.com/p/30978196"><span class="PostListItem-title">初建实验室，资深科学家给新PI的5个建议</span><p class="PostListItem-summary"><!-- react-text: 361 -->►资深专家见面会的嘉宾: 韩家淮、董晨、杨晓虹、景乃禾、于翔、周大旺（从左到右）撰文 | …<!-- /react-text --><span class="PostListItem-readall"><!-- react-text: 363 -->查看全文<!-- /react-text --><i class="icon icon-ic_unfold"></i></span></p></a><div class="PostListItem-footer"><span><a class="PostListItem-name" target="_blank" href="https://www.zhihu.com/org/zhi-shi-fen-zi-68-1">知识分子</a><span class="Bull"></span><div class="HoverTitle PostListItem-date" data-hover-title="2017 年 11月 13 日星期一上午 9 点 25 分"><time datetime="2017-11-13T09:25:55+08:00">7 天前</time></div><span class="PostListItem-recommend"><span class="Bull"></span><span>编辑精选</span></span><span class="PostListItem-source"><span class="Bull"></span><span class="PostListItem-sourcePrefix">发表于 </span><a title="知识分子" href="https://zhuanlan.zhihu.com/zhishifenzi">知识分子</a></span></span></div></div></div></li><li class="PostIndex-recommendItem av-marginLeft av-borderColor"><div class="PostListItem PostListItem--narrow PostListItem--recommended av-paddingRight"><!-- react-text: 380 --><!-- /react-text --><div class="PostListItem-info"><a href="https://zhuanlan.zhihu.com/p/30971805"><span class="PostListItem-title">姊妹篇，需要调理的肠——浅谈肠易激综合征</span><p class="PostListItem-summary"><!-- react-text: 385 -->有人民群众提出要我说说IBS，我作为一名光荣的共产党员，核心精神是服务人民群众，群众的事无小事，于是写下这篇姊妹篇，聊聊一种常见的功能性肠病——肠易激综合征（Irritable Bowel Syndr…<!-- /react-text --><span class="PostListItem-readall"><!-- react-text: 387 -->查看全文<!-- /react-text --><i class="icon icon-ic_unfold"></i></span></p></a><div class="PostListItem-footer"><span><a class="PostListItem-name" target="_blank" href="https://www.zhihu.com/people/linyizy">linyizy</a><span class="Bull"></span><div class="HoverTitle PostListItem-date" data-hover-title="2017 年 11月 12 日星期日晚上 11 点 09 分"><time datetime="2017-11-12T23:09:06+08:00">7 天前</time></div><span class="PostListItem-recommend"><span class="Bull"></span><span>编辑精选</span></span></span></div></div></div></li><li class="PostIndex-recommendItem av-marginLeft av-borderColor"><div class="PostListItem PostListItem--narrow PostListItem--recommended av-paddingRight"><a class="PostListItem-titleImageWrapper" href="https://zhuanlan.zhihu.com/p/30522323"><img src="./CapsulesNet 的解析及整理_files/v2-f391832b5e32244b19d0105612f25dfd_b.jpg" class="PostListItem-titleImage" alt="题图"></a><div class="PostListItem-info"><a href="https://zhuanlan.zhihu.com/p/30522323"><span class="PostListItem-title">准备仪表飞行的最后考试</span><p class="PostListItem-summary"><!-- react-text: 406 -->今天完成了最后一次Cross Country（转场）飞行之后，我的下一次课是复习，也叫做Progress Ch…<!-- /react-text --><span class="PostListItem-readall"><!-- react-text: 408 -->查看全文<!-- /react-text --><i class="icon icon-ic_unfold"></i></span></p></a><div class="PostListItem-footer"><span><a class="PostListItem-name" target="_blank" href="https://www.zhihu.com/people/wang-vinzent">Vinzent</a><span class="Bull"></span><div class="HoverTitle PostListItem-date" data-hover-title="2017 年 10月 28 日星期六早上 7 点 39 分"><time datetime="2017-10-28T07:39:39+08:00">23 天前</time></div><span class="PostListItem-recommend"><span class="Bull"></span><span>编辑精选</span></span></span></div></div></div></li><li class="PostIndex-recommendItem av-marginLeft av-borderColor"><div class="PostListItem PostListItem--narrow PostListItem--recommended av-paddingRight"><a class="PostListItem-titleImageWrapper" href="https://zhuanlan.zhihu.com/p/31107120"><img src="./CapsulesNet 的解析及整理_files/v2-c491c959bfc328fc582ce528b0e52413_b.jpg" class="PostListItem-titleImage" alt="题图"></a><div class="PostListItem-info"><a href="https://zhuanlan.zhihu.com/p/31107120"><span class="PostListItem-title">功守道真身首亮相，“马云＋李连杰”能把它“造成”入奥项目吗？</span><p class="PostListItem-summary"><!-- react-text: 427 -->马云用“资本＋电商”造出了双11。这次，“资本＋IP”推动下的功守道赛事会是一个让中国的传…<!-- /react-text --><span class="PostListItem-readall"><!-- react-text: 429 -->查看全文<!-- /react-text --><i class="icon icon-ic_unfold"></i></span></p></a><div class="PostListItem-footer"><span><a class="PostListItem-name" target="_blank" href="https://www.zhihu.com/org/lan-xiong-ti-yu-38">懒熊体育</a><span class="Bull"></span><div class="HoverTitle PostListItem-date" data-hover-title="2017 年 11月 16 日星期四下午 2 点 55 分"><time datetime="2017-11-16T14:55:08+08:00">4 天前</time></div><span class="PostListItem-recommend"><span class="Bull"></span><span>编辑精选</span></span></span></div></div></div></li></ul></div><!-- react-empty: 120 --><!-- react-empty: 121 --></div></div><!-- react-empty: 122 --><!-- react-empty: 123 --><!-- react-empty: 124 --></div></div><textarea id="clientConfig" hidden="">{"debug":false,"apiRoot":"","paySDK":"https:\u002F\u002Fpay.zhihu.com\u002Fapi\u002Fjs","wechatConfigAPI":"\u002Fapi\u002Fwechat\u002Fjssdkconfig","name":"production","instance":"column","tokens":{"X-XSRF-TOKEN":null,"X-UDID":"\"ADBC4urQtQyPTjsWuVpjE_l7FjbuubRcZqA=|1511139901\"","Authorization":"oauth c3cef7c66a1843f8b3a9e6a1e3160e20"}}</textarea><textarea id="preloadedState" hidden="">{"database":{"Post":{"30970675":{"isPending":false,"contributes":[{"sourceColumn":{"lastUpdated":1506652412,"description":"","permission":"COLUMN_PUBLIC","memberId":60277694,"contributePermission":"COLUMN_PUBLIC","translatedCommentPermission":"all","canManage":true,"intro":"","urlToken":"c_126470847","id":60892,"imagePath":"v2-6b91688d6710dd86bec105de9cfd9657.png","slug":"c_126470847","applyReason":"0","name":"GAN + 文本生成 + 读博干货","title":"GAN + 文本生成 + 读博干货","url":"https:\u002F\u002Fzhuanlan.zhihu.com\u002Fc_126470847","commentPermission":"COLUMN_ALL_CAN_COMMENT","canPost":true,"created":1505296238,"state":"COLUMN_NORMAL","followers":1211,"avatar":{"id":"v2-6b91688d6710dd86bec105de9cfd9657","template":"https:\u002F\u002Fpic4.zhimg.com\u002F{id}_{size}.png"},"activateAuthorRequested":false,"following":false,"imageUrl":"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-6b91688d6710dd86bec105de9cfd9657_l.png","articlesCount":3},"state":"accepted","targetPost":{"titleImage":"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-ccfe4570427954165570cdd0e67308c9_r.png","lastUpdated":1510662806,"imagePath":"v2-ccfe4570427954165570cdd0e67308c9.png","permission":"ARTICLE_PUBLIC","topics":[89794,166861],"summary":"参考：\u003Cu\u003E\u003Ca href=\"https:\u002F\u002Farxiv.org\u002Fabs\u002F1710.09829\"\u003EDynamic Routing Between Capsules\u003C\u002Fa\u003E\u003C\u002Fu\u003E\u003Ca href=\"https:\u002F\u002Fopenreview.net\u002Fpdf?id=HJWLfGWRb\"\u003EMatrix Capsules with EM routing\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\"\u003E浅析 Hinton 最近提出的 Capsule 计划\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\"\u003ECapsule Networks Explained\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fwww.jiqizhixin.com\u002Farticles\u002F2017-11-05\"\u003E先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule\u003C\u002Fa\u003E\u003Cb\u003EHinton 对CNN的思考：\u003C\u002Fb\u003E\u003Cb\u003E生物神经系统的思考。\u003C\u002Fb\u003E…","copyPermission":"ARTICLE_COPYABLE","translatedCommentPermission":"all","likes":0,"origAuthorId":0,"publishedTime":"2017-11-12T21:27:33+08:00","sourceUrl":"","urlToken":30970675,"id":4576925,"withContent":false,"slug":30970675,"bigTitleImage":false,"title":"CapsulesNet 的解析及整理","url":"\u002Fp\u002F30970675","commentPermission":"ARTICLE_ALL_CAN_COMMENT","snapshotUrl":"","created":1510493253,"comments":0,"columnId":0,"content":"","parentId":0,"state":"ARTICLE_PUBLISHED","imageUrl":"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-ccfe4570427954165570cdd0e67308c9_r.png","author":{"bio":"做一个开心的程序员。\n就算是卖卖萌也很好。","isFollowing":false,"hash":"75c6ef7336968057c9a016fb2723f961","uid":37656981405696,"isOrg":false,"slug":"luonango","isFollowed":false,"description":"= =","name":"Nango 明楠","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fluonango","avatar":{"id":"v2-5c19261e91d065ceafae180e3bc5bfc3","template":"https:\u002F\u002Fpic4.zhimg.com\u002F50\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false},"memberId":2618124,"excerptTitle":"","voteType":"ARTICLE_VOTE_CLEAR"},"id":923999}],"title":"CapsulesNet 的解析及整理","author":"luonango","content":"\u003Cp\u003E\u003C\u002Fp\u003E\u003Cp\u003E\u003C\u002Fp\u003E\u003Cp\u003E参考：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E\u003Cu\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Farxiv.org\u002Fabs\u002F1710.09829\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003EDynamic Routing Between Capsules\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fu\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Fopenreview.net\u002Fpdf%3Fid%3DHJWLfGWRb\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003EMatrix Capsules with EM routing\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ca href=\"https:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\" class=\"internal\"\u003E浅析 Hinton 最近提出的 Capsule 计划\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003ECapsule Networks Explained\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Fwww.jiqizhixin.com\u002Farticles\u002F2017-11-05\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003E先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EHinton 对CNN的思考：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003E\u003Cb\u003E生物神经系统的思考。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E反向传播难以成立。神经系统需要能够精准地求导数，对矩阵转置，利用链式法则，这种解剖学上从来也没有发现这样的系统存在的证据。\u003C\u002Fli\u003E\u003Cli\u003E神经系统含有分层，但是层数不高。且生物系统传导在ms量级（GPU在us量级），并且同步也出现问题\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_b.jpg\" data-rawwidth=\"720\" data-rawheight=\"480\" class=\"origin_image zh-lightbox-thumb\" width=\"720\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='720'%20height='480'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"720\" data-rawheight=\"480\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"720\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_b.jpg\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cul\u003E\u003Cli\u003E大部分哺乳类，特别是灵长类大脑皮层中大量存在称为 Cortical minicolumn 的柱状结构（皮层微柱），其内部含有上百个神经元，并存在内部分层。这意味着人脑中的一层并不是类似现在NN的一层，而是有复杂的内部结构。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E\u003Cb\u003E认知神经科学的思考\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E人会不自觉地会根据物体形状建立一种“坐标框架”(coordinate frame)。\u003C\u002Fli\u003E\u003Cli\u003E比如判断下面图字母是否一样。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c3f7f5b12cf9f15f78b709f55b219c13_b.jpg\" data-rawwidth=\"1380\" data-rawheight=\"675\" class=\"origin_image zh-lightbox-thumb\" width=\"1380\" data-original=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c3f7f5b12cf9f15f78b709f55b219c13_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1380'%20height='675'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"1380\" data-rawheight=\"675\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1380\" data-original=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c3f7f5b12cf9f15f78b709f55b219c13_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c3f7f5b12cf9f15f78b709f55b219c13_b.jpg\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cul\u003E\u003Cli\u003E我们需要通过旋转把坐标框架变得一致，才能从直觉上知道它们是否一致。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_b.gif\" data-rawwidth=\"500\" data-rawheight=\"500\" data-thumbnail=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_b.jpg\" class=\"origin_image zh-lightbox-thumb\" width=\"500\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_r.gif\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='500'%20height='500'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"500\" data-rawheight=\"500\" data-thumbnail=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_b.jpg\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"500\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_r.gif\" data-actualsrc=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-e779a1e4f508b74866b985940c48ddd5_b.gif\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cul\u003E\u003Cli\u003EHinton认为：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E\u003Cb\u003E人的视觉系统会建立“坐标框架”，并且坐标框架的不同会极大地改变人的认知\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003Cli\u003E人识别物体的时候，\u003Cb\u003E坐标框架是参与到识别过程中\u003C\u002Fb\u003E，识别过程受到了空间概念的支配。\u003C\u002Fli\u003E\u003Cli\u003E但是 \u003Cb\u003ECNN没有“坐标框架”\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E但是在CNN上却很难看到类似“坐标框架”的东西。\u003C\u002Fli\u003E\u003Cli\u003EHinton 提出猜想：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E物体和观察者之间的关系（比如物体的姿态），应该由 \u003Cb\u003E一整套激活的神经元表示\u003C\u002Fb\u003E ，而不是由单个神经元，或者一组粗编码（coarse-coded，指类似一层中，并没有经过精细的组织）的神经元表示。\u003C\u002Fli\u003E\u003Cli\u003E这样的表示，才能有效表达关于“坐标框架”的先验知识。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003E\u003Cb\u003ECNN的目标不正确\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E先解释同变性（Equivariance）和不变性（Invariance）。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003EInvariance 不变性，物体表示不随变换变化。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E如空间的 Invariance，是对物体平移之类不敏感（物体不同的位置不影响它的识别)\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003EEquivariance 同变性，用变换矩阵进行转换后，物体表示依旧不变.\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E它是对物体内容的一种变换\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-3fb591daffb596017e94031e38ce4475_b.jpg\" data-rawwidth=\"610\" data-rawheight=\"374\" class=\"origin_image zh-lightbox-thumb\" width=\"610\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-3fb591daffb596017e94031e38ce4475_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='610'%20height='374'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"610\" data-rawheight=\"374\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"610\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-3fb591daffb596017e94031e38ce4475_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-3fb591daffb596017e94031e38ce4475_b.jpg\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cul\u003E\u003Cli\u003ECNN对旋转没有不变性。可采用 \u003Cb\u003E数据增强方式\u003C\u002Fb\u003E让其达到旋转不变性。\u003C\u002Fli\u003E\u003Cli\u003ECNN中的Invariance 主要是通过 Pooling 等下采样过程得到。而卷积层是同变性（Equivariance）。（相应已有措施？）\u003C\u002Fli\u003E\u003Cli\u003E平移和旋转的Invariance，是舍弃了“坐标框架”。\u003C\u002Fli\u003E\u003Cli\u003E\u003Cb\u003E虽然以往CNN的识别准确率高且稳定，但我们最终目标不是为了准确率，而是为了得到对内容的良好表示，从而达到“理解”内容。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EHinton 提出的Capsules\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E从上面介绍中得知Capsules需具备的性质有：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E一层中有复杂的内部结构\u003C\u002Fli\u003E\u003Cli\u003E能表达“坐标框架”\u003C\u002Fli\u003E\u003Cli\u003E实现同变性（Equivariance）\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cp\u003ECapsule用一组神经元而不是一个来代表一个实体，且仅代表一个实体。它是一个高维向量：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E\u003Cb\u003E模长代表某个实体（某个物体，或者其一部分）出现的概率。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Cb\u003E方向\u002F位置代表实体的一般姿态 (generalized pose)，包括位置，方向，尺寸，速度，颜色等等。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cp\u003ECapsulesNet用 \u003Cb\u003E视角变换矩阵\u003C\u002Fb\u003E，处理场景中两物体间的关联,不改变它们的相对关系 \u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ffae31f762b2a365ecf959fcc4af4b04_b.jpg\" data-rawwidth=\"1303\" data-rawheight=\"327\" class=\"origin_image zh-lightbox-thumb\" width=\"1303\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ffae31f762b2a365ecf959fcc4af4b04_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1303'%20height='327'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"1303\" data-rawheight=\"327\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1303\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ffae31f762b2a365ecf959fcc4af4b04_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ffae31f762b2a365ecf959fcc4af4b04_b.jpg\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cp\u003EHinton认为存在两种同变性Equivariance：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E\u003Cb\u003E位置编码\u003C\u002Fb\u003E（place-coded）：视觉中的内容的位置发生了较大变化，则会由不同的 Capsule 表示其内容。\u003C\u002Fli\u003E\u003Cli\u003E\u003Cb\u003E速率编码\u003C\u002Fb\u003E（rate-coded）：视觉中的内容为位置发生了较小的变化，则会由相同的 Capsule 表示其内容，但是内容有所改变。\u003C\u002Fli\u003E\u003Cli\u003E两者的联系是，高层的 capsule 有更广的域 (domain)，所以 \u003Cb\u003E低层的 place-coded 信息到高层会变成 rate-coded。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E第一篇《Dynamic Routing Between Capsules》解析\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Farxiv.org\u002Fabs\u002F1710.09829\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003EDynamic Routing Between Capsules\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Fwww.jiqizhixin.com\u002Farticles\u002F2017-11-05\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003E先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cp\u003ECapsule 是一组神经元，其输入输出向量表示特定实体类型的实例化参数（即特定物体、概念实体等出现的概率与某些属性）。我们使用输入输出向量的长度表征实体存在的概率，向量的方向表示实例化参数（即实体的某些图形属性）。同一层级的 capsule 通过变换矩阵对更高级别的 capsule 的实例化参数进行预测。当多个预测一致时（本论文使用动态路由使预测一致），更高级别的 capsule 将变得活跃。\u003C\u002Fp\u003E\u003Chr\u003E\u003Cp\u003ECapsule 是一个高维向量，模长表示概率，方向表示属性。故Hinton采用Squashing的非线性函数作为capsule的激活函数。\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c9a73641f28b6587686c705f3311e5eb_b.jpg\" data-caption=\"\" data-rawwidth=\"297\" data-rawheight=\"103\" class=\"content_image\" width=\"297\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='297'%20height='103'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"297\" data-rawheight=\"103\" class=\"content_image lazy\" width=\"297\" data-actualsrc=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-c9a73641f28b6587686c705f3311e5eb_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cli\u003E其中 v_j 为 Capsule j 的输出向量，s_j 为上一层所有 Capsule 输出到当前层 Capsule j 的向量加权和。 即 s_j 为 Capsule j 的输入向量。\u003C\u002Fli\u003E\u003Cli\u003E该非线性函数前一部分是输入向量 s_j 的缩放尺度，后一部分是输入向量的单位向量s_j.\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Cp\u003ECapsule_j的输入向量 s_j的获取计算，是两层间的传播与联系方式。S_j计算过程分为两步，\u003Cb\u003E线性组合 和 Routing\u003C\u002Fb\u003E：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E下图左式是Routing，右式是线性组合。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-2e208ae6d2aa4d505aa20026ed48dc4e_b.jpg\" data-caption=\"\" data-rawwidth=\"445\" data-rawheight=\"77\" class=\"origin_image zh-lightbox-thumb\" width=\"445\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-2e208ae6d2aa4d505aa20026ed48dc4e_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='445'%20height='77'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"445\" data-rawheight=\"77\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"445\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-2e208ae6d2aa4d505aa20026ed48dc4e_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-2e208ae6d2aa4d505aa20026ed48dc4e_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cli\u003E\u003Cb\u003ERouting流程:\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-50017bd5f0cc3700450f314412f37810_b.jpg\" data-rawwidth=\"1700\" data-rawheight=\"1000\" class=\"origin_image zh-lightbox-thumb\" width=\"1700\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-50017bd5f0cc3700450f314412f37810_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1700'%20height='1000'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-rawwidth=\"1700\" data-rawheight=\"1000\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1700\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-50017bd5f0cc3700450f314412f37810_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-50017bd5f0cc3700450f314412f37810_b.jpg\"\u003E\u003Cfigcaption\u003Ehttps:\u002F\u002Fwww.jiqizhixin.com\u002Farticles\u002F2017-11-05\u003C\u002Ffigcaption\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cul\u003E\u003Cli\u003Eu_1\\1_hat和u_1\\2_hat都是|v|维向量。它们分别是前一层的u_1和u_2乘上 \u003Cb\u003E转换矩阵W\u003C\u002Fb\u003E得出的预测向量。\u003C\u002Fli\u003E\u003Cli\u003Es_1为u_1\\1_hat和u_1\\2_hat的线性组合而得出。而它们线性组合的系数大小则由c来决定。c_ij是常量。\u003C\u002Fli\u003E\u003Cli\u003Ec的数值由b决定，而这个迭代运算中，b_ij 依赖于两个 Capsule 的位置与类型，但不依赖于当前的输入图像。比如u_1|2_hat 更接近v_1，那对应的b_12在下次迭代会增大，从而c_12大于c_11，从而让它更接近v_1。b_ij是常量。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cp\u003E\u003Cbr\u003E\u003C\u002Fp\u003E\u003Cp\u003E\u003Cb\u003E算法总流程：\u003C\u002Fb\u003E \u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-231b568a8c47c3cf8fa551cab3dab98a_b.jpg\" data-caption=\"\" data-rawwidth=\"1109\" data-rawheight=\"336\" class=\"origin_image zh-lightbox-thumb\" width=\"1109\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-231b568a8c47c3cf8fa551cab3dab98a_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1109'%20height='336'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"1109\" data-rawheight=\"336\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1109\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-231b568a8c47c3cf8fa551cab3dab98a_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-231b568a8c47c3cf8fa551cab3dab98a_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003ECapsulesNet架构图：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-5505c5b0238a895c693abcbb05d59c0c_b.jpg\" data-caption=\"\" data-rawwidth=\"1344\" data-rawheight=\"396\" class=\"origin_image zh-lightbox-thumb\" width=\"1344\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-5505c5b0238a895c693abcbb05d59c0c_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1344'%20height='396'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"1344\" data-rawheight=\"396\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1344\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-5505c5b0238a895c693abcbb05d59c0c_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-5505c5b0238a895c693abcbb05d59c0c_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cli\u003E第一个卷积层使用 256 个 9×9 卷积核，深度为1，步幅为1，且使用了 ReLU 激活函数。输出的张量20×20×256。此外，CapsNet 的卷积核感受野使用的是 9×9。这两层间的权值数量应该为 9×9×1×256+256=20992，后面加256是偏置值。\u003C\u002Fli\u003E\u003Cli\u003E第二个卷积层开始作为 Capsule 层的输入而构建相应的张量结构。使用32×8个9×9卷积核（深度为256），步幅为2。输出张量为6×6×8×32，即\u003Cb\u003E输出了6×6×32个维度为8的capsule向量\u003C\u002Fb\u003E。两层间的权值数量为9×9×256×8×32+8×32=5308672。\u003C\u002Fli\u003E\u003Cli\u003EPrimaryCaps层有6×6×32个capsules。其中每个map含有6×6个capsule。不同的map代表不同的类型，而同一个map的不同capsule代表不同的位置。\u003C\u002Fli\u003E\u003Cli\u003E第三层DigitCaps在第二层输出的向量基础上进行传播与Routing更新。第二层共输出 6×6×32=1152 个capsule，即i层共有1152个Capsule，第三层j层有10个Capsules（每个是16维的向量）。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003EW_ij有1152×10个，每个是8×16的向量\u003C\u002Fli\u003E\u003Cli\u003Eu_i（8×1的向量）与W_ij相乘得到预测向量([8,16].T*[8,1]=[16,1])后，接着就有1152×10个耦合系数c_ij。\u003C\u002Fli\u003E\u003Cli\u003E将s_j传入squashing后就得到激活后的最终输出v_j。\u003C\u002Fli\u003E\u003Cli\u003EDigitCaps 层与 PrimaryCaps 层之间的参数中，所有 W_ij 的参数数量是 1152×10×8×16=1474560，c_ij 的参数数量为 1152×10，b_ij参数数量是1152×10。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E损失函数和最优化：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E耦合系数 c_ij 是通过一致性 Routing 进行更新的，但是\u003Cb\u003E整个网络其它的卷积参数和 Capsule 内的 W_ij 都需要根据损失函数进行反向更新\u003C\u002Fb\u003E。\u003C\u002Fp\u003E\u003Cp\u003E作者采用了 SVM 中常用的 Margin loss，该损失函数的表达式为：\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-0c61aed6c1855321674ed7e633e6acaf_b.jpg\" data-caption=\"\" data-rawwidth=\"771\" data-rawheight=\"56\" class=\"origin_image zh-lightbox-thumb\" width=\"771\" data-original=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-0c61aed6c1855321674ed7e633e6acaf_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='771'%20height='56'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"771\" data-rawheight=\"56\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"771\" data-original=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-0c61aed6c1855321674ed7e633e6acaf_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic4.zhimg.com\u002Fv2-0c61aed6c1855321674ed7e633e6acaf_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cli\u003E其中 c 是分类类别，T_c 为分类的指示函数（c 存在为 1，c 不存在为 0），m+ 为上边界，m- 为下边界。此外，v_c 的模即向量的 L2 距离。\u003C\u002Fli\u003E\u003Cli\u003E对每一个表征数字 k 的 Capsule 分别给出单独的 Margin loss。\u003C\u002Fli\u003E\u003Cli\u003E实例化向量的长度来表示 Capsule 要表征的实体是否存在。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E重构与表征\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E\u003Cb\u003E利用预测出来的Capsules，重新构建出该类别的图像\u003C\u002Fb\u003E\u003C\u002Fp\u003E\u003Cp\u003E文章中使用额外的重构损失（reconstruction loss）来促进 DigitCaps 层对输入数字图片进行编码： \u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a2f3f45b814a61a99930db005264c072_b.jpg\" data-caption=\"\" data-rawwidth=\"795\" data-rawheight=\"335\" class=\"origin_image zh-lightbox-thumb\" width=\"795\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a2f3f45b814a61a99930db005264c072_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='795'%20height='335'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"795\" data-rawheight=\"335\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"795\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a2f3f45b814a61a99930db005264c072_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a2f3f45b814a61a99930db005264c072_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cp\u003E原图片可能数字重叠覆盖，导致预测出来的10个Capsules中部分Capsules的模都很大，所以重构单个数字图片时候，需要将其他Capsule进行Mask遮住，让有代表的Capsules去重构图片。损失函数通过计算在最后的 FC Sigmoid 层采用的输出像素点与原始图像像素点间的欧几里德距离作为损失函数。\u003C\u002Fp\u003E\u003Cp\u003E\u003Cb\u003E为防止重构损失主导了整体损失（从而体现不出Margin loss作用），作者还按 0.0005 的比例缩小重构损失。\u003C\u002Fb\u003E\u003C\u002Fp\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E相比Softmax，Capsules不受多类别重叠的干扰，非常适合做单样本预测多类别的工作。\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Chr\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-3f24a6d5aafde20f648fca6508792e9a_b.jpg\" data-caption=\"\" data-rawwidth=\"875\" data-rawheight=\"1180\" class=\"origin_image zh-lightbox-thumb\" width=\"875\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-3f24a6d5aafde20f648fca6508792e9a_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='875'%20height='1180'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"875\" data-rawheight=\"1180\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"875\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-3f24a6d5aafde20f648fca6508792e9a_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-3f24a6d5aafde20f648fca6508792e9a_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E第二篇《Matrix Capsules with EM routing》解析\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E\u003Ca href=\"http:\u002F\u002Flink.zhihu.com\u002F?target=https%3A\u002F\u002Fopenreview.net\u002Fpdf%3Fid%3DHJWLfGWRb\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\"\u003EMatrix Capsules with EM routing\u003Ci class=\"icon-external\"\u003E\u003C\u002Fi\u003E\u003C\u002Fa\u003E\u003C\u002Fp\u003E\u003Ch2\u003E\u003Cb\u003ECapsule结构:\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a1271d08f904c4ea25e5942df2ca1066_b.jpg\" data-caption=\"\" data-rawwidth=\"711\" data-rawheight=\"232\" class=\"origin_image zh-lightbox-thumb\" width=\"711\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a1271d08f904c4ea25e5942df2ca1066_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='711'%20height='232'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"711\" data-rawheight=\"232\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"711\" data-original=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a1271d08f904c4ea25e5942df2ca1066_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic3.zhimg.com\u002Fv2-a1271d08f904c4ea25e5942df2ca1066_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cul\u003E\u003Cli\u003E4×4的姿势矩阵和1的激活值\u003C\u002Fli\u003E\u003Cli\u003EL层的某Capsule_i通过将自身的\u003Cb\u003EPose矩阵与视角不变矩阵的变换矩阵（viewpoint-invariant transformation matrix)相乘\u003C\u002Fb\u003E，从而\u003Cb\u003E为L+1层的许多不同Capsule的Pose矩阵进行投票\u003C\u002Fb\u003E。 这些投票都会根据分配的\u003Cb\u003E系数加权\u003C\u002Fb\u003E。而这些系数进行\u003Cb\u003EEM算法迭代更新\u003C\u002Fb\u003E。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EMatrix CapsuleNet的模型结构：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_b.jpg\" data-caption=\"\" data-rawwidth=\"1632\" data-rawheight=\"551\" class=\"origin_image zh-lightbox-thumb\" width=\"1632\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1632'%20height='551'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"1632\" data-rawheight=\"551\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1632\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EEM Routing 算法：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-6b6330906473bc033a6b135ca0a72fd9_b.jpg\" data-caption=\"\" data-rawwidth=\"1088\" data-rawheight=\"783\" class=\"origin_image zh-lightbox-thumb\" width=\"1088\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-6b6330906473bc033a6b135ca0a72fd9_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1088'%20height='783'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"1088\" data-rawheight=\"783\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1088\" data-original=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-6b6330906473bc033a6b135ca0a72fd9_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-6b6330906473bc033a6b135ca0a72fd9_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E参数介绍：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Ch2\u003E\u003Cb\u003E下标 i,c,h ：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003Ei: 指L层中的某个capsule。\u003C\u002Fli\u003E\u003Cli\u003Ec: 指L+1层中的某个capsule。\u003C\u002Fli\u003E\u003Cli\u003Eh: 指Pose矩阵中的某维，共16维。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003EPose矩阵：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003Ecapsule的姿态矩阵，向量，此处是4×4的矩阵（或16×1的向量），方向表示属性。\u003C\u002Fli\u003E\u003Cli\u003EL层的某Capsule_i通过将自身的\u003Cb\u003EPose矩阵与视角不变矩阵的变换矩阵（viewpoint-invariant transformation matrix)相乘\u003C\u002Fb\u003E，从而为L+1层的许多不同Capsule的Pose矩阵进行投票。\u003C\u002Fli\u003E\u003Cli\u003E这些投票都会根据分配的系数进行加权。而这些系数使用EM算法迭代式进行更新。\u003C\u002Fli\u003E\u003Cli\u003E之后文中出现的pose矩阵，都代表指16×1的向量。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E视角不变的变换矩阵W：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003E在图形学中，某图片乘上W后，能够得到一定姿态旋转的图片。\u003C\u002Fli\u003E\u003Cli\u003EW和第一篇中的W是一样的，都是通过反向传播更新。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E投票矩阵V\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003EV_ic= i_pose*W，当i的pose乘上W，得到i旋转变换后的姿态，该新姿态作为给c的投票（因为c的姿态是很多个i的姿态投票加权和，加权由概率p和激活值a等）。\u003C\u002Fli\u003E\u003Cli\u003E很多个i意思是：如第一次capsule卷积层中，L有14×14×32个capsule_i，L+1有6×6×32个capsule_c.那卷积核大小为3×3×32（深度32），那此时很多i是指有3×3×32个i。在最后卷积层平拉转换成E个capsules时候，这很多个i指的是1×1×32 个capsule_i。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E激活值 a、a_hat：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003Ecapsule的激活值a，标量。表示当前capsule被激活的数值(0,1).\u003C\u002Fli\u003E\u003Cli\u003E通过sigmoid函数激活.\u003C\u002Fli\u003E\u003Cli\u003Ea表示L层的capsule_i的激活值.\u003C\u002Fli\u003E\u003Cli\u003Ea_hat表示L+1层的capsule_c的激活值.\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E投票的加权系数R：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003E初始化为R_ic = 1\u002Fsize(L+1), 其中size(L+1)为L+1层的capsule个数或者为3×3×32（即卷积核的大小和深度）。\u003C\u002Fli\u003E\u003Cli\u003ER_ic表示capsule_i投票给capsule_c的概率。\u003C\u002Fli\u003E\u003Cli\u003Er'_i表示前面所有层汇总后通过i投票给c的概率\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E算法中的M，S：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003EM_ch: 指L+1层中capsule_c的Pose矩阵中h维的数值。M_c即为L+1层的Pose矩阵。\u003C\u002Fli\u003E\u003Cli\u003ES_ch^2: 指L层中capsules投给L+1层中capsule_c的Pose矩阵中h维数值的方差。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003E高斯概率P\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003E先了解单高斯模型和高斯混合模型\u003C\u002Fli\u003E\u003Cli\u003E在不考虑转换矩阵的情况下，有如下：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Epage3_(1)中提到的P_ich是单高斯模型。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Ei是样本，h和c是定值。\u003C\u002Fli\u003E\u003Cli\u003E样本i_h有size(i)个（数值取决与卷积核大小，如primaryCaps到ConvCaps1中就有3×3×32个样本）\u003C\u002Fli\u003E\u003Cli\u003E对于某变量i，传入P_ich中，能得到 \u003Cb\u003Ei中的h维的数值，属于c中h维的数值的相似度或说概率\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E在E步中的p_c，即P_ic是混合高斯模型。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E将i的pose传入，得到i与c的相似度或说i属于c类的概率值.\u003C\u002Fli\u003E\u003Cli\u003E即i和c在每个h维的高斯混合计算得出，(每维的相似概率值)^h=i输入c的概率。\u003C\u002Fli\u003E\u003Cli\u003E\u003Cb\u003Ep_c表示i给c的投票概率，而r_c就表示前面所有层汇合到L层并通过i投票给c的概率。\u003C\u002Fb\u003E\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003E考虑到转换矩阵，V=pose×W，让 \u003Cb\u003EV_ic表示i的pose矩阵\u003C\u002Fb\u003E，代入上面说法即可。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E卷积层的理解：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Ch2\u003E\u003Cb\u003EprimaryCaps到ConvCaps1的卷积层：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E即L层有14\u003Ci\u003E14\u003C\u002Fi\u003E32个capsules，L+1层有6\u003Ci\u003E6\u003C\u002Fi\u003E32个capsules。 文章中的混合高斯模型，是指:\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003EL+1层的每个c都有一个高斯混合模型，其中k=h=16,即c有一个k=16高斯混合模型。\u003C\u002Fli\u003E\u003Cli\u003E每个i样本（共3x3x32=288个样本），通过高斯混合模型，逐次对h维进行预测，最终相乘得到样本i属于c的概率（相似度）。\u003C\u002Fli\u003E\u003Cli\u003E其中这高斯混合模型中，单个高斯是指i中的h（若不乘上转换矩阵）属于c中的h类的概率（此概率即为公式中的p_h)，将p_ich在i（288个）上叠加起来（再乘上a_hat)，就可以得到i属于c类的概率。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Ch2\u003E\u003Cb\u003EConvCaps1到Class Capsules的卷积层：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E最后一层是E个capsules，这是一个拉伸后的扁长Capsule层。\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E拉伸后的扁长层无法表达每个capsule的位置信息（前面的层的每个capsule相对map都有对应的位置信息）。所以为了保持capsule的位置信息，作者就将最后层中的capsule的pose矩阵中前两个元素代表位置信息。通过让前一层的部分i将其i自身所处的位置（行列两个值，再缩放到一定比例，如缩放到(0,1)间)加到它的投票矩阵V_ic的前两个元素中，从而让c中pose的前两个元素能代表位置信息。\u003C\u002Fli\u003E\u003Cli\u003E又是部分i。这部分i可以从图中得知，是1×1×32个capsule_i。由于是1×1深度为32的卷积核，所以位置信息就很容易确定（如果是3×3×32的话就要取3×3的矩阵中心点进行缩放）。\u003C\u002Fli\u003E\u003Cli\u003E同一个类别姿态的但不同位置的capsule共享转换矩阵W，也就是同一个map中的6×6=32个capsule共享转换矩阵。其实做法比前面简单点，起码W缩小到32个转换矩阵了。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E损失函数：传播损失(Spread Loss):\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E为了使训练过程对模型的初始化以及超参的设定 没那么敏感，作者采用传播损失函数来最大化 被激活的目标类与被激活的非目标类 之间的间距。a_t表示target的激活值，a_i表示Class_Capsules中除t外第i个的激活值。\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ae8ed9a51d567792c201b0c11bd7be90_b.jpg\" data-caption=\"\" data-rawwidth=\"465\" data-rawheight=\"76\" class=\"origin_image zh-lightbox-thumb\" width=\"465\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ae8ed9a51d567792c201b0c11bd7be90_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='465'%20height='76'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"465\" data-rawheight=\"76\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"465\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ae8ed9a51d567792c201b0c11bd7be90_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-ae8ed9a51d567792c201b0c11bd7be90_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Cp\u003E将m从0.2的小幅度开始，在训练期间将其线性增加到0.9，从而避免无用胶囊的存在。\u003C\u002Fp\u003E\u003Cp\u003E那m是在训练过程中让m逐渐增大吗？为什么要这样做呢？\u003C\u002Fp\u003E\u003Cp\u003E我的理解是：\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E当模型训练得挺好时候（中后期），每个激活值a_i的比较小而a_t比较大。此时m需要设置为接近1的数值。这很好理解。\u003C\u002Fli\u003E\u003Cli\u003E当模型初步训练时候，很多capsules起的作用不大。激活值a_i和a_t相差不大，若此时m采用较大值如0.9,就会掩盖了(a_t-a_i)的作用，让0.9起主导作用。比如更新前的参数W1和更新后的参数W2,若m采用0.9,，则无论W1还是W2,获得的L都差不多，这会让W和capsules很为难。而设置m为较小值就能让（a_t-a_i）起到较好的作用。\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003E模型结构分析（我的代码思路）：\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cnoscript\u003E\u003Cimg src=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_b.jpg\" data-caption=\"\" data-rawwidth=\"1632\" data-rawheight=\"551\" class=\"origin_image zh-lightbox-thumb\" width=\"1632\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_r.jpg\"\u003E\u003C\u002Fnoscript\u003E\u003Cimg src=\"data:image\u002Fsvg+xml;utf8,&amp;lt;svg%20xmlns='http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg'%20width='1632'%20height='551'&amp;gt;&amp;lt;\u002Fsvg&amp;gt;\" data-caption=\"\" data-rawwidth=\"1632\" data-rawheight=\"551\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1632\" data-original=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_r.jpg\" data-actualsrc=\"https:\u002F\u002Fpic1.zhimg.com\u002Fv2-db480ee72a360075eed92100c7ffb16c_b.jpg\"\u003E\u003C\u002Ffigure\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003Eimage--&amp;gt;Relu_conv1\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E传入图片。对原图片进行普通卷积操作。\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003E原图片input=[32,32,1]\u003C\u002Fli\u003E\u003Cli\u003E卷积核大小5×5\u003C\u002Fli\u003E\u003Cli\u003E卷积核个数32\u003C\u002Fli\u003E\u003Cli\u003Estride=2\u003C\u002Fli\u003E\u003Cli\u003Eoutput=[14,14,32]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003ERelu_conv1-&amp;gt;PrimaryCaps\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E一个Caps有17维，其中16维是4×4的pose，1维是activation。\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003Einput=[14,14,32]\u003C\u002Fli\u003E\u003Cli\u003E双分支卷积Pose分支：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput=[14,14,32]\u003C\u002Fli\u003E\u003Cli\u003E卷积核大小1×1\u003C\u002Fli\u003E\u003Cli\u003E卷积核个数32\u003C\u002Fli\u003E\u003Cli\u003E（其实已经没有卷积操作了，卷积核大小和个数这个信息只是来辅助理解EMRouting的。这往下忽略所有的\u003Cb\u003E卷积核个数 和 卷积核大小 \u003C\u002Fb\u003E这个概念吧，我不太好描述了）\u003C\u002Fli\u003E\u003Cli\u003Estride=1\u003C\u002Fli\u003E\u003Cli\u003Eoutput=[14,14,32,16]\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Eoutput_reshape=[196,32,16]\u003C\u002Fli\u003E\u003Cli\u003Eoutput_reshape[i]表示同种位置i但有很多不同姿势pose\u003C\u002Fli\u003E\u003Cli\u003Eoutput_reshape[i][j]表示i位置的j姿势的pose\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003E双分支卷积Activate分支：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput=[14,14,32]\u003C\u002Fli\u003E\u003Cli\u003E卷积核大小1×1\u003C\u002Fli\u003E\u003Cli\u003E卷积核个数  # 32\u003C\u002Fli\u003E\u003Cli\u003Estride=1\u003C\u002Fli\u003E\u003Cli\u003Eoutput=[14,14,32,1]\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Eoutput_reshape=[196,32,1]\u003C\u002Fli\u003E\u003Cli\u003Eoutput_reshape[i]表示同种位置i但很多姿势的activate\u003C\u002Fli\u003E\u003Cli\u003Eoutput_reshape[i][j]表示i位置的j姿势的activate\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003E分支合并\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput=[196,32,16],[196,32,1]\u003C\u002Fli\u003E\u003Cli\u003Eoutput=[196,32,17]\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Eoutput[i,j,:16]指位置i在j姿势的pose\u003C\u002Fli\u003E\u003Cli\u003Eoutput[i,j,16]指位置i在j姿势的activate\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EPrimaryCaps-&amp;gt;ConvCaps1\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cp\u003E用3x3的Caps卷积对PrimaryCaps的map进行操作 PrimaryCaps的一个map有196个Caps，一个位置有32个Caps\u003C\u002Fp\u003E\u003Cul\u003E\u003Cli\u003Einput=[196,32,17]\u003C\u002Fli\u003E\u003Cli\u003Esplit:\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput_pose=[196,32,16]\u003C\u002Fli\u003E\u003Cli\u003Einput_activation=[196,32,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E通过V=Pose*W 得到V值\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003EPose=[196,32,16]\u003C\u002Fli\u003E\u003Cli\u003EW=[6272,1152,16]\u003C\u002Fli\u003E\u003Cli\u003E通过\u003Cb\u003E部分的Pose\u003C\u002Fb\u003E和W相乘得到V_c。遍历c时将V_c循环相加，之后得到V\u003C\u002Fli\u003E\u003Cli\u003EV=[6272,1152,16]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003ECapsules卷积：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E卷积核大小3×3\u003C\u002Fli\u003E\u003Cli\u003E卷积核个数   # 32\u003C\u002Fli\u003E\u003Cli\u003Estride=2\u003C\u002Fli\u003E\u003Cli\u003EEM算法：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E按着公式进行运算即可得到M和a_hat\u003C\u002Fli\u003E\u003Cli\u003E即L+1层的pose矩阵和激活值。M=[36,32,16],a_hat=[36,32,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003Eoutput_merge：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Eoutputs=[36,32,17]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EConvCaps1-&amp;gt;ConvCaps2\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003Einput=[36,32,17]\u003C\u002Fli\u003E\u003Cli\u003Esplit:\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput_pose=[36,32,16]\u003C\u002Fli\u003E\u003Cli\u003Einput_activation=[36,32,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E通过V_c=部分i_Pose*W，遍历c后得到V。\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003EPose=[36,32,16]\u003C\u002Fli\u003E\u003Cli\u003EW=[1152,512,16]\u003C\u002Fli\u003E\u003Cli\u003EV=[1152,512,16]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003ECapsules卷积：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E卷积核大小3×3\u003C\u002Fli\u003E\u003Cli\u003E卷积核个数  # 32\u003C\u002Fli\u003E\u003Cli\u003Estride=1\u003C\u002Fli\u003E\u003Cli\u003EEM算法：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E按着公式进行运算即可得到M和a_hat\u003C\u002Fli\u003E\u003Cli\u003E即L+1层的pose矩阵和激活值。M=[16,32,16],a_hat=[16,32,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003Eoutput_merge：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Eoutputs=[16,32,17]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Ch2\u003E\u003Cb\u003EConvCaps2-&amp;gt; Class_Capsules\u003C\u002Fb\u003E\u003C\u002Fh2\u003E\u003Cul\u003E\u003Cli\u003Einput=[16,32,17]\u003C\u002Fli\u003E\u003Cli\u003Esplit:\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003Einput_pose=[16,32,16]\u003C\u002Fli\u003E\u003Cli\u003Einput_activation=[16,32,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E全连接层：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E在同一种类型的不同位置上共享转换矩阵参数（即同一张map上的capsule共享视角不变转换矩阵）:\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003EPose=[16,32,16]\u003C\u002Fli\u003E\u003Cli\u003EW=[32,10,16]\u003C\u002Fli\u003E\u003Cli\u003E需要得到V=[512,10,16]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003E获取V的做法：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E将W扩充为冗余矩阵[16,32,10,16]=&amp;gt;[512,10,16]\u003C\u002Fli\u003E\u003Cli\u003E此时卷积核为1×1深度为32，故将1×1×32个Pose_i乘上W得到V_ic。\u003C\u002Fli\u003E\u003Cli\u003E然后将Pose_i所处map的位置的行列缩放到(0,1),分别加入到V_ic的前两维h=0和1，进行\u003Cb\u003E更新V_ic\u003C\u002Fb\u003E.此时的V_ic表示一个位置上给c投票的向量值(这个位置i有32个capsules)。\u003C\u002Fli\u003E\u003Cli\u003E对ConvCaps2层（L层）每个位置循环下，就可以得到L层对c的投票值\u003C\u002Fli\u003E\u003Cli\u003E再对c循环下，就可以得到完整的V了。（或者这两个循环换下位置）\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Cli\u003EEM算法：\u003C\u002Fli\u003E\u003Cul\u003E\u003Cli\u003E有了a和V，就可以Routing了。\u003C\u002Fli\u003E\u003Cli\u003E输出M=[10,16],a_hat=[10,1]\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003C\u002Ful\u003E\u003Cli\u003Eoutput= [10,17] 输出10个Capsules\u003C\u002Fli\u003E\u003C\u002Ful\u003E\u003Chr\u003E\u003Cp\u003E\u003C\u002Fp\u003E\u003Cp\u003E\u003C\u002Fp\u003E\u003Cp\u003E\u003C\u002Fp\u003E","updated":new Date("2017-11-12T13:27:33.000Z"),"canComment":false,"commentPermission":"anyone","commentCount":8,"collapsedCount":0,"likeCount":103,"state":"published","isLiked":false,"slug":"30970675","isTitleImageFullScreen":false,"rating":"none","titleImage":"https:\u002F\u002Fpic2.zhimg.com\u002Fv2-ccfe4570427954165570cdd0e67308c9_r.png","links":{"comments":"\u002Fapi\u002Fposts\u002F30970675\u002Fcomments"},"reviewers":[],"topics":[{"url":"https:\u002F\u002Fwww.zhihu.com\u002Ftopic\u002F19813032","id":"19813032","name":"深度学习（Deep Learning）"},{"url":"https:\u002F\u002Fwww.zhihu.com\u002Ftopic\u002F20043586","id":"20043586","name":"卷积神经网络（CNN）"}],"adminClosedComment":false,"titleImageSize":{"width":1337,"height":357},"href":"\u002Fapi\u002Fposts\u002F30970675","excerptTitle":"","tipjarState":"inactivated","annotationAction":[],"sourceUrl":"","pageCommentsCount":8,"hasPublishingDraft":false,"snapshotUrl":"","publishedTime":"2017-11-12T21:27:33+08:00","url":"\u002Fp\u002F30970675","lastestLikers":[{"bio":"学生 \u002F 机器学习小白","isFollowing":false,"hash":"0ac29240cd02c1bf476dfd011fcdfafe","uid":717105018079039500,"isOrg":false,"slug":"chen-bei-er-15","isFollowed":false,"description":"基于自编码网络混合模型的理性节能主义运行体","name":"改进型折木奉太郎","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fchen-bei-er-15","avatar":{"id":"v2-ea67ec77701798e2cb36f0353f17d20f","template":"https:\u002F\u002Fpic4.zhimg.com\u002F50\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false},{"bio":null,"isFollowing":false,"hash":"ed4e379a1a8c2e8c82127e03a396215c","uid":895804452240502800,"isOrg":false,"slug":"juststart-8","isFollowed":false,"description":"","name":"juststart","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fjuststart-8","avatar":{"id":"da8e974dc","template":"https:\u002F\u002Fpic1.zhimg.com\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false},{"bio":null,"isFollowing":false,"hash":"270117349b7be291579c2926faefb9b5","uid":555021471680901100,"isOrg":false,"slug":"chang-ney","isFollowed":false,"description":"","name":"chang ney","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fchang-ney","avatar":{"id":"32adc2dbf770b688cfa3806669ff3264","template":"https:\u002F\u002Fpic1.zhimg.com\u002F50\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false},{"bio":"","isFollowing":false,"hash":"ad26ec73a5aab2d3d05b44464c22fd38","uid":27763624902656,"isOrg":false,"slug":"jia-sen-88","isFollowed":false,"description":"","name":"xxxx","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fjia-sen-88","avatar":{"id":"8595b3a1ac473af6bfded9bcb60ff2be","template":"https:\u002F\u002Fpic3.zhimg.com\u002F50\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false},{"bio":"","isFollowing":false,"hash":"33f7a334616b6eefc93b6279589d0e3e","uid":41140673839104,"isOrg":false,"slug":"liu-jing-xin-26","isFollowed":false,"description":"","name":"Jason.LIU","profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fliu-jing-xin-26","avatar":{"id":"da8e974dc","template":"https:\u002F\u002Fpic1.zhimg.com\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false}],"summary":"\u003Cimg src=\"http:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_200x112.jpg\" data-caption=\"https:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\" data-rawwidth=\"720\" data-rawheight=\"480\" class=\"origin_image inline-img zh-lightbox-thumb\" data-original=\"http:\u002F\u002Fpic1.zhimg.com\u002Fv2-1076f633c4e1a5b1825e8982bc18af98_r.jpg\"\u003E参考：\u003Cu\u003E\u003Ca href=\"https:\u002F\u002Farxiv.org\u002Fabs\u002F1710.09829\"\u003EDynamic Routing Between Capsules\u003C\u002Fa\u003E\u003C\u002Fu\u003E\u003Ca href=\"https:\u002F\u002Fopenreview.net\u002Fpdf?id=HJWLfGWRb\"\u003EMatrix Capsules with EM routing\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fzhuanlan.zhihu.com\u002Fp\u002F29435406\"\u003E浅析 Hinton 最近提出的 Capsule 计划\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fkndrck.co\u002Fposts\u002Fcapsule_networks_explained\u002F\"\u003ECapsule Networks Explained\u003C\u002Fa\u003E\u003Ca href=\"https:\u002F\u002Fwww.jiqizhixin.com\u002Farticles\u002F2017-11-05\"\u003E先读懂CapsNet架构然后用TensorFlow实现：全面解析Hinton的提出的Capsule\u003C\u002Fa\u003E\u003Cb\u003EHinton 对CNN的思考：\u003C\u002Fb\u003E\u003Cb\u003E生物神经系统的思考。\u003C\u002Fb\u003E…","reviewingCommentsCount":0,"meta":{"previous":null,"next":null},"annotationDetail":null,"commentsCount":8,"likesCount":103,"FULLINFO":true}},"User":{"luonango":{"isFollowed":false,"name":"Nango 明楠","headline":"= =","avatarUrl":"https:\u002F\u002Fpic4.zhimg.com\u002F50\u002Fv2-5c19261e91d065ceafae180e3bc5bfc3_s.jpg","isFollowing":false,"type":"people","slug":"luonango","bio":"做一个开心的程序员。\n就算是卖卖萌也很好。","hash":"75c6ef7336968057c9a016fb2723f961","uid":37656981405696,"isOrg":false,"description":"= =","badge":{"identity":null,"bestAnswerer":null},"profileUrl":"https:\u002F\u002Fwww.zhihu.com\u002Fpeople\u002Fluonango","avatar":{"id":"v2-5c19261e91d065ceafae180e3bc5bfc3","template":"https:\u002F\u002Fpic4.zhimg.com\u002F50\u002F{id}_{size}.jpg"},"isOrgWhiteList":false,"isBanned":false}},"Comment":{},"favlists":{}},"me":{},"global":{"experimentFeatures":{"ge3":"ge3_9","ge2":"ge2_1","nwebStickySidebar":"sticky","androidPassThroughPush":"all","newMore":"new","liveReviewBuyBar":"live_review_buy_bar_2","liveStore":"ls_a1_b1_c1_f1","qawebThumbnailAbtest":"new","searchHybridTabs":"without-tabs","isOffice":"false","newLiveFeedMediacard":"old","homeUi2":"default","recommendationAbtest":"old","marketTab":"market_tab_old","qrcodeLogin":"qrcode","isShowUnicomFreeEntry":"unicom_free_entry_off","newMobileColumnAppheader":"new_header","androidDbRecommendAction":"open","zcmLighting":"zcm","favAct":"default","appStoreRateDialog":"close","mobileQaPageProxyHeifetz":"m_qa_page_nweb","default":"None","wechatShareModal":"wechat_share_modal_show","qaStickySidebar":"sticky_sidebar","androidProfilePanel":"panel_a","nwebWriteAnswer":"experiment"}},"columns":{"next":{}},"columnPosts":{},"columnSettings":{"colomnAuthor":[],"uploadAvatarDetails":"","contributeRequests":[],"contributeRequestsTotalCount":0,"inviteAuthor":""},"postComments":{},"postReviewComments":{"comments":[],"newComments":[],"hasMore":true},"favlistsByUser":{},"favlistRelations":{},"promotions":{},"draft":{"titleImage":"","titleImageSize":{},"isTitleImageFullScreen":false,"canTitleImageFullScreen":false,"title":"","titleImageUploading":false,"error":"","content":"","draftLoading":false,"globalLoading":false,"pendingVideo":{"resource":null,"error":null}},"drafts":{"draftsList":[],"next":{}},"config":{"userNotBindPhoneTipString":{}},"recommendPosts":{"articleRecommendations":[],"columnRecommendations":[]},"env":{"edition":{"baidu":false,"yidianzixun":false,"qqnews":false},"isAppView":false,"appViewConfig":{"content_padding_top":128,"content_padding_bottom":56,"content_padding_left":16,"content_padding_right":16,"title_font_size":22,"body_font_size":16,"is_dark_theme":false,"can_auto_load_image":true,"app_info":"OS=iOS"},"isApp":false,"userAgent":{"ua":"Mozilla\u002F5.0 (Windows NT 10.0; WOW64) AppleWebKit\u002F537.36 (KHTML, like Gecko) Chrome\u002F62.0.3202.94 Safari\u002F537.36","browser":{"name":"Chrome","version":"62.0.3202.94","major":"62"},"engine":{"version":"537.36","name":"WebKit"},"os":{"name":"Windows","version":"10"},"device":{},"cpu":{"architecture":"amd64"}}},"message":{"newCount":0},"pushNotification":{"newCount":0}}</textarea><script src="./CapsulesNet 的解析及整理_files/common.84c6749d135bc53bb8fa.js.下载"></script><script src="./CapsulesNet 的解析及整理_files/app.45bdcbd7a5b9b9e1ffc5.js.下载"></script><script src="./CapsulesNet 的解析及整理_files/raven.9317200f9d3fe74cff16.js.下载" async="" defer=""></script><div><div data-reactroot=""><div class="Editable-languageSuggestions" style="left: -1179px; top: -999px;"><div><div class="Popover"><div class="Editable-languageSuggestionsInput Input-wrapper"><input value="" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-activedescendant="AutoComplet-23924-65048-0" id="Popover-23924-31119-toggle" aria-haspopup="true" aria-owns="Popover-23924-31119-content" class="Input" placeholder="选择语言"><div class="Input-after"><svg class="Zi Zi--Select" fill="#afbdcf" viewBox="0 0 24 24" width="24" height="24"><path d="M12 16.183l2.716-2.966a.757.757 0 0 1 1.064.001.738.738 0 0 1 0 1.052l-3.247 3.512a.758.758 0 0 1-1.064 0L8.22 14.27a.738.738 0 0 1 0-1.052.758.758 0 0 1 1.063 0L12 16.183zm0-9.365L9.284 9.782a.758.758 0 0 1-1.064 0 .738.738 0 0 1 0-1.052l3.248-3.512a.758.758 0 0 1 1.065 0L15.78 8.73a.738.738 0 0 1 0 1.052.757.757 0 0 1-1.063.001L12 6.818z" fill-rule="evenodd"></path></svg></div></div><!-- react-empty: 10 --></div></div></div></div></div></body></html>
