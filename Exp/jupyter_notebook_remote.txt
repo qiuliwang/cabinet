@@ -1,0 +1,23 @@
+1. Install jupyter and some other package
+
+2. confi file
+$jupyter notebook --generate-config
+
+3. set passwd
+$python
+In [1]: from IPython.lib import passwd
+In [2]: passwd()
+Enter password: 
+Verify password: 
+Out[2]: 'sha1:0e422dfccef2:84cfbcbb3ef95872fb8e23be3999c123f862d856' 
+
+4. modify config file
+$vim ~/.jupyter_notebook_config.py
+
+c.NotebookApp.ip='*'
+c.NotebookApp.password = 'sha1:0e422dfccef2:84cfbcbb3ef95872fb8e23be3999c123f862d856' 
+c.NotebookApp.open_browser = False
+c.NotebookApp.port =8888 #any port you want
+
+5. start the service
+$jupyter notebook
