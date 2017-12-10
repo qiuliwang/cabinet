@@ -1,25 +1,25 @@
-#tensorflow 
+# tensorflow 
 
-###error:
+### error:
 No module named protobuf
-###how:
+### how:
 first, uninstall protobuf: pip uninstall protobuf
 then, install tensorflow again
 
-###error:
+### error:
 libcudart.so.7.5: cannot open shared object file: No such file or directory
-###how:
+### how:
 vim bashrc, add: export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 
-###change:
+### change:
 tf.initialize_all_variables() 
 
 tf.global_variables_initializer()
 
-###error:
+### error:
 raise RuntimeError('Invalid DISPLAY variable')
 RuntimeError: Invalid DISPLAY variable
-###how:
+### how:
 You must declare matplotlib.use('Agg') before import pylab as plt.
 import matplotlib
 matplotlib.use(‘Agg’)

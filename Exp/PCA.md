@@ -1,5 +1,5 @@
-#Principal Component analysis
-##主成分分析
+# Principal Component analysis
+## 主成分分析
 1.对其每一组样品进行中心化，即使每一组样品均值为0
 2.得到样品矩阵
 3.计算协方差矩阵的特征值和特征向量

@@ -1,10 +1,10 @@
-#setup
+# setup
 sudo pptpsetup --create VPN_NAME --server VPN_ADDRESS --username VPN_USERNAME --password VPN_PASSCODE --start
 
-#login
+# login
 sudo pon VPN_NAME
 
-#logout
+# logout
 sudo poff VPN_NAME
 
 
