@@ -1,0 +1,3 @@
+# getfacl /shares/project1/reports                # Check the default ACL settings for the directory 
+# setfacl -m user:tecmint:rw /shares/project1/reports     # Give rw access to user tecmint 
+# getfacl /shares/project1/reports                # Check new ACL settings for the directory

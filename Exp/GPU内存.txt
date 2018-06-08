@@ -1,0 +1,5 @@
+watch -n 1 nvidia-smi 
+查看GPU状态
+
+sudo kill -9 PID
+杀死进程
