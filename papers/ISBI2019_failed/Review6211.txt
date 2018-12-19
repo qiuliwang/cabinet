@@ -1,0 +1,21 @@
+Reviewer 6 of ISBI 2019 submission 342
+
+Comments to the author
+======================
+
+Authors suggested combining of false positive reduction and
+malignancy suspicious estimation into one task to be
+addressed by deep learning.
+In 'Method', authors explained that MSE, which performs a
+further classification on the positive samples, is the
+successive part of FPR. In figure 1; however, FPR is the
+successive part of MSE.
+There is no explanation of deep learning architecture in
+figure 1 including learning and hyper parameters and the
+reason of using these kernel sizes.
+LIDC dataset contains labels with no agreement among
+annotators, authors should address how they used those
+labels for their learning.
+There are some typos in the paper, such as, "in the
+training 'phrase'" which should be corrected to 'phase' and
+so on.
