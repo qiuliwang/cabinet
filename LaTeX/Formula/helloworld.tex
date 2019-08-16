@@ -28,4 +28,37 @@ $$\min \limits_{j,s} [\min \limits_{c_1} \sum_{x_i\in R_1(j,s)} (y_i-c_1)^2+\min
 $$Gini(D,A)=\frac{|D_1|}{|D|} Gini(D_1)+\frac{|D_2|}{|D|}Gini(D_2)$$
 
 $$ S^{2} = \frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^{2}$$
+
+
+$${y^{(i)}}$$
+
+$$ (x, l_x)$$
+
+$$ \tau(\cdot) $$
+
+$$ \tau_{s}(\cdot) $$
+$$ \tau_{a}(\cdot) $$
+$$ \tau(\cdot) =  \tau_{s}(\tau_{a}(\cdot)) $$
+
+$$\phi = id + u $$
+$$x \circ \phi$$
+
+$$ \phi^{(i)} = g\theta_{s}(x, y^{(i)}) $$
+
+$$ \phi^{-1(i)} = g\theta_{s}(y^{(i)}, x) $$
+
+$$  \psi^{(i)} = h\theta_{a}(x, y^{(i)}\circ\phi^{-1(i)}) $$
+
+$$ \tau_{s}^{(i)}(x) = x\circ\phi^{(i)} $$
+$$ \phi= g\theta_{s}(x, y^{(i)}) $$
+
+$$ \tau_{a}^{(i)}(x) = x + \psi^{(i)} $$
+$$ \psi^{(i)} = h\theta_{a}(x, y^{(i)}\circ\phi^{-1(i)}) $$
+
+
+$$ L_a(x, y^{(i)}, \phi^{(i)}, \phi^{-1(i)}, \psi^{(i)}, c_x) $$
+$$ = L_{sim}((x + \psi^{(i)}) \circ \phi^{(i)}, y^{(i)}) + \lambda_{a}L_{smooth}(c_x, \psi^{(i)}) $$
+
+$$ L_{sim}(y_i, y) = ||y_i - y||^2 $$
+$$\lambda_{a}L_{smooth}(c_x, \psi) = (1-c_x)\nabla_\psi $$
 \end{document}
