@@ -1,0 +1,11 @@
+Qiuli Wang\inst{1}\and
+Zhihuan Li\inst{1} \and
+Sheng Huang\inst{1} \and
+Chen Liu\inst{2}\and
+Xiaohong Zhang\inst{1}\and
+Dan Yang \inst{1}
+
+
+School of Big Data \& Software Engineering, Chongqing University, 400000, Chongqing , China \\ \email{\{wangqiuli, lizhihuan, huangsheng, xhongzh, dyang\}@cqu.edu.cn}\\\and
+Radiology Department, The First Affiliated Hospital of Army Medical University,400000, Chongqing, China \\
+\email{cqliuchen@foxmail.com}

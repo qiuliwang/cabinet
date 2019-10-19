@@ -1,0 +1,131 @@
+\relax 
+\citation{Shin2016Learning,deepika2018classification,iakovidis2012image}
+\citation{Shin2016Learning}
+\citation{hochreiter1997long}
+\citation{timmurphy.org}
+\citation{Wang2017ChestX}
+\citation{yao2017learning}
+\citation{Rajpurkar2017CheXNet}
+\citation{Wang2018TieNet}
+\citation{Franquet2001Imaging,Thomas2005Standardized}
+\citation{korfiatis2009texture}
+\citation{Yorozu1987Electron}
+\citation{hu2019deep,xiao2018alternating}
+\citation{dou2016multilevel}
+\citation{wu2018master}
+\citation{xiaojian2011analysis,huang2014design}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}}
+\newlabel{intro}{{I}{1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) shows the clinical practice of detecting pneumonia. Age and gender provide priori information; chief complaints provide information like symptoms, location of pain; different CT windows provide visual features. (b) shows the architecture of MPDNet. The black box in the left indicates raw information from the hospital. In the black box, the information in the grey rectangle is about age and gender; the information in the blue rectangle is chief complaints; the information in yellow rectangle is CT image data. Chief complaints will be transformed into matrices by Word2vec and analyze by one LSTM network. Images will be fed into RCNN. LW (Lung Window), HA (High Attenuation), LA (Low Attenuation) in the green box represent three image window: lung window, high attenuation window, and low attenuation window. Age and gender will be treated as two additional features. These three kinds of information will be concatenated in the red rectangle and simulate the clinical process. }}{2}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Clinical Practice of Pneumonia Diagnosis}}}{2}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Architecture of MPDNet}}}{2}}
+\newlabel{MMDD}{{1}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Dataset Processing}{3}}
+\newlabel{datasetprocessing}{{II}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-A}}CT Image Data and Multimodal Data Generation}{3}}
+\newlabel{ctimagedata}{{\unhbox \voidb@x \hbox {II-A}}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Scans under Different `Convolutional Kernel'. Slice under `B70s' has clearer view of lungs, slice under `B41s' has a more unobstructed view of the heart. `Patient Protocol' and `Topogram' contain some basic parameters of CT equipment or information about radiologists, which are not suitable for CNN.}}{3}}
+\newlabel{Bs}{{2}{3}}
+\citation{Shin2017Three,gao2018holistic}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces (a) shows data pre-process for CT scans. `slice i' represents i-th scan in the CT sequence. Each scan will be transformed into three images with different windows. Then three images will be compressed into one three-channel false-color image. (b) exhibit examples of three-channel images. We can see that void space (in red rectangle) in original CT images is not very obvious since other normal tissues are in black too. But in the three-channel images, we notice the difference between normal tissues and low dense tissues. Moreover, the details of high dense tissues (in the white rectangle) are still kept. }}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Data Pre-precess for CT Scans}}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Three-Channel Images}}}{4}}
+\newlabel{3channel}{{3}{4}}
+\newlabel{ctimagedata}{{\unhbox \voidb@x \hbox {II-A}1}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {II-A}1}Pre-processing of CT Image Data}{4}}
+\citation{mikolov2013efficient,mikolov2013distributed}
+\citation{Donahue2015Long,Aafaq2019Spatio}
+\citation{Zreik2018A}
+\citation{chung2014empirical}
+\citation{tseng2017joint}
+\citation{Donahue2015Long}
+\citation{lin2014network}
+\citation{Zreik2018A}
+\citation{szegedy2016rethinking}
+\newlabel{textdata}{{\unhbox \voidb@x \hbox {II-A}2}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {II-A}2}Pre-processing of Patient Age, Gender and Chief Complaints}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Multimodal Pneumonia Detection Network }{5}}
+\newlabel{MPDNetwork}{{III}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Construction of RCNN}{5}}
+\newlabel{RCNN}{{\unhbox \voidb@x \hbox {III-A}}{5}}
+\newlabel{hvt}{{1}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}Multimodal Data Fusion}{5}}
+\newlabel{MMDDtxt}{{\unhbox \voidb@x \hbox {III-B}}{5}}
+\newlabel{hct}{{2}{5}}
+\citation{Donahue2015Long}
+\citation{ILSVRC15}
+\citation{simonyan2015very}
+\citation{he2016deep}
+\citation{szegedy2016rethinking}
+\citation{Wang2017ChestX}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Experiments}{6}}
+\newlabel{experiments}{{IV}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Experimental Setup}{6}}
+\newlabel{experimentalsetup}{{\unhbox \voidb@x \hbox {IV-A}}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Effect of Three-Channel Image and Auxiliary Loss}{6}}
+\newlabel{effectiveness}{{\unhbox \voidb@x \hbox {IV-B}}{6}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Comparison of All Kinds of RCNN and MPDNet}}{7}}
+\newlabel{rcnncompare}{{I}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Convolutional Feature Maps from CNN Models Trained by Different Images. In the first row, three-channel CNN can capture the low dense tissues of lungs, which are not very clear in LW (Lung Window) CNN and HA (High Attenuation) CNN. LA (Low Attenuation) CNN can notice the low dense tissues, but the details of heart and vessels are ignored in the low attenuation CNN. In the second row, three-channel CNN still can capture high dense tissues, which is the same as LW CNN and HA CNN, but LA CNN has difficulty in doing so. The last row shows a healthy case. The healthy case has a clear view in LW CNN, HA CNN, and three-channel CNN, but shows nothing in LA CNN.}}{7}}
+\newlabel{show}{{4}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-C}}Effect of Chief Complaints, Age and Gender}{7}}
+\newlabel{complaintsagegender}{{\unhbox \voidb@x \hbox {IV-C}}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces }}{8}}
+\newlabel{frequency1}{{II}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Chief complaints can provide information related to CT images. In this figure, we show two pneumonic cases, and each case has chief complaints provided by patients. Words marked red give the location, and words marked blue provide symptoms. English chief complaints are translated from Chinese above. We can see that location and symptoms information provided by chief complaints are related to abnormal tissues in CT images.}}{8}}
+\newlabel{txtpic}{{5}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-D}}Multimodal Pneumonia Detection Network}{8}}
+\newlabel{results}{{\unhbox \voidb@x \hbox {IV-D}}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Comparison of All Kinds of RCNN and MPDNet}}{9}}
+\newlabel{mpdnetres}{{III}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Discussion}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces (a) shows the validation loss during training; (b) shows the validation accuracy during training. We can see that MPDNet's performance outperforms others. }}{9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Validation Loss During Training}}}{9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Validation Accuracy During Training}}}{9}}
+\newlabel{loss}{{6}{9}}
+\bibstyle{IEEEtran}
+\bibdata{refs}
+\bibcite{Shin2016Learning}{1}
+\bibcite{deepika2018classification}{2}
+\bibcite{iakovidis2012image}{3}
+\bibcite{hochreiter1997long}{4}
+\bibcite{timmurphy.org}{5}
+\bibcite{Wang2017ChestX}{6}
+\bibcite{yao2017learning}{7}
+\bibcite{Rajpurkar2017CheXNet}{8}
+\bibcite{Wang2018TieNet}{9}
+\bibcite{Franquet2001Imaging}{10}
+\bibcite{Thomas2005Standardized}{11}
+\bibcite{korfiatis2009texture}{12}
+\bibcite{Yorozu1987Electron}{13}
+\bibcite{hu2019deep}{14}
+\bibcite{xiao2018alternating}{15}
+\bibcite{dou2016multilevel}{16}
+\bibcite{wu2018master}{17}
+\bibcite{xiaojian2011analysis}{18}
+\bibcite{huang2014design}{19}
+\bibcite{Shin2017Three}{20}
+\bibcite{gao2018holistic}{21}
+\bibcite{mikolov2013efficient}{22}
+\bibcite{mikolov2013distributed}{23}
+\bibcite{Donahue2015Long}{24}
+\bibcite{Aafaq2019Spatio}{25}
+\bibcite{Zreik2018A}{26}
+\bibcite{chung2014empirical}{27}
+\bibcite{tseng2017joint}{28}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces }}{10}}
+\newlabel{malefemale}{{IV}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusion}{10}}
+\newlabel{conclude}{{VI}{10}}
+\@writefile{toc}{\contentsline {section}{References}{10}}
+\bibcite{lin2014network}{29}
+\bibcite{szegedy2016rethinking}{30}
+\bibcite{ILSVRC15}{31}
+\bibcite{simonyan2015very}{32}
+\bibcite{he2016deep}{33}
+\@writefile{toc}{\contentsline {section}{Biographies}{11}}
+\@writefile{toc}{\contentsline {subsection}{Qiuli\nobreakspace  {}Wang}{11}}
+\@writefile{toc}{\contentsline {subsection}{Zhihuan\nobreakspace  {}Li}{11}}
+\@writefile{toc}{\contentsline {subsection}{Chen\nobreakspace  {}Liu}{11}}
+\@writefile{toc}{\contentsline {subsection}{Dan\nobreakspace  {}Yang}{11}}
+\@writefile{toc}{\contentsline {subsection}{Xiaohong\nobreakspace  {}Zhang}{11}}

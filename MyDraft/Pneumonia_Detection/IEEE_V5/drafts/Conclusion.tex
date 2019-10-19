@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{conclude}
+In this study, we propose a novel model, MDDNet(Multimodal Data Diagnosis Network), which combines CT visual features with patients' age, gender and complaints. In MDDNet, CT scans will be treated like video frames, and analyzed by RCNN(Recurrent Convolutional Neural Network), complaints will be transformed into word vectors by word2vec and analyzed by LSTM. Features from CT images and complaints will be fused together with patients' age and gender. All these features will be used to classify cases into healthy cases or pneumonic cases.
+
+We analyze 1002 cases(450 healthy cases and 552 pneumonic cases). In fact, 1002 cases is far small than `big data', so our model's performance is restricted by data distribution and quality. However, in clinical practice, it is very difficult to construct a big scale medical dataset for deep learning, cause raw data is affected by radiologists' personal habits, data acquisition equipments, and hospital work rules. Our future work will focus on methods of data pre-processing which can over come difficulties mentioned above.
+Moreover, our future work will also focus on fusing more source of information, like medical history, family history, blood test and other information which will be considered during clinical practice. All works above will be carried out under the premise of respecting the privacy of the patients.
+ 
+Code for data pre-processing and MDDNet will be released very soon. We will release model with trained parameters and some sample cases for demo. But we cannot release dataset because of the privacy of patients. 

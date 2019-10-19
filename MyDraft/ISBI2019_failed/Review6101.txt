@@ -1,0 +1,70 @@
+Reviewer 5 of ISBI 2019 submission 342
+
+Comments to the author
+======================
+
+Sammary:
+This paper proposes a framework to tackle two problems of
+False Positive Reduction (FPR) and Malignancy
+Suspiciousness Estimation (MSE) jointly. The proposed
+framework is a multi-branch (5 branches) 3D CNN which are
+trained separately for "binary" classification of 3
+selected attributes as well as MSE and FPR classification.
+The decision of these 5 branches are then merged using 2 FC
+layers to predict FPR and MSE. Performance of the proposed
+method is evaluated on LIDC dataset.
+
+Comments:
+1) The most important contribution of the paper is claimed
+to be joint evaluation of FPR and MSE. However, in the
+experiments section it can be seen that a joint model
+performance is worse for both tasks compared to task
+specific models+attributes. (see ASMB3DCNN(MSE+Attributes)
+vs  ASMB3DCNN(ALL) in table 3 and 
+ASMB3DCNN(FPR+Attributes) vs  ASMB3DCNN(ALL) in table 4
+where the AUC dropped for both cases). Although, in the
+text it is justified that this performance drop is because
+the FPR task is a superclass classification of MSE, i was
+not convinced since MSE is also modeled as binary
+classification. How does the authors justify this
+performance drop?
+
+2) It is very questionable that why instead of feeding
+features from each branch to the shared FC layers the
+decisions after passing through a softmax are fused? It is
+not clear to me if fusing decisions like this will make
+sense (given the fact that 2 of the 5 branches are already
+making decision about FPR and MSE). Isn't this way the
+other 2 FC layers doing a simple majority voting? It will
+be great if authors can justify the rational behind using
+decisions instead of features from each network.
+
+3) Since, as mentioned before, 2 of the 3 branches are
+already making decision about FPR and MSE I think it is not
+a fair comparison to compare combination of attribute
+networks with them to that of only FPR or MSE. It seems
+like giving the network a second chance to make a decision
+on what it already did in FPR and MSE branch. It will be
+great if authors can explain more on this.
+
+4) On the training side. After the fusion how did the last
+two FC layers are trained? I assume two different loss
+functions are used for the final decisions on FPR and MSE.
+How are those losses applied separately? jointly ? or a
+weighted combination of them is used for training? Also,
+did these losses effect the early networks or the weight of
+those were freezed?
+
+5) It has been mentioned that the proposed normalization on
+input images is more time efficient that some other
+conventional methods however I do not see any numbers to
+justify that. It will be great if authors can elaborate
+more on this section.
+
+6) There are multiple places in the text where the
+framework is called "attribute sensitive" however selection
+of attributes is not done by the network and is just an
+input to the network based on some variance computation
+(manually). I suggest that authors correct this phrase to
+prevent misunderstandings.
+

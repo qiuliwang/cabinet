@@ -1,0 +1,20 @@
+ining complete.
+Testing the model ...testdata
+100%|█████████████████████████████████████████| 200/200 [04:38<00:00,  1.30s/it]
+181
+200
+('Sensitivity', 0.8859649122807017)
+('Specificity', 0.9302325581395349)
+('AUC', 0.9080987352101183)
+('accuracy: ', 0.905)
+Test completed.
+Testing the model ...validdata
+100%|█████████████████████████████████████████| 200/200 [04:33<00:00,  1.41s/it]
+185
+200
+('Sensitivity', 0.9174311926605505)
+('Specificity', 0.9340659340659341)
+('AUC', 0.9257485633632423)
+('accuracy: ', 0.925)
+Test completed.
+

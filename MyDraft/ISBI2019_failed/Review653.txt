@@ -1,0 +1,19 @@
+Reviewer 1 of ISBI 2019 submission 342
+
+Comments to the author
+======================
+
+The paper proposes to combine false positive reduction
+(FPR), malignancy suspiciousness estimation (MSR), and
+attribute prediction into one multi-branch 3D CNN and
+achieved the state-of-the-art for FPR and MSR. My questions
+are as follows:
+
+1. The proposed multi-branch CNN needs to pre-train 3 CNNs
+separately and combine and finetune them in the end. It is
+seemingly memory- and time-consuming. Is it possible to use
+one CNN to learn the 3 tasks jointly?
+
+2. The authors selected 3 attributes out of 8 to learn. Why
+not predict all 8 attributes? How about using cross-entropy
+instead of Eq. 1 as the selection criterion?

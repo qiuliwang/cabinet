@@ -1,0 +1,104 @@
+\begin{thebibliography}{10}
+
+\bibitem{rudyanto2014comparing}
+Rina~D Rudyanto, Kerkstra, et~al.,
+\newblock ``Comparing algorithms for automated vessel segmentation in computed
+  tomography scans of the lung: the vessel12 study,''
+\newblock {\em Medical image analysis}, vol. 18, no. 7, pp. 1217--1232, 2014.
+
+\bibitem{yang2017data}
+JS~Yang et~al.,
+\newblock ``Data from lung ct segmentation challenge. the cancer imaging
+  archive,'' 2017.
+
+\bibitem{adams1994seeded}
+Rolf Adams and Leanne Bischof,
+\newblock ``Seeded region growing,''
+\newblock {\em IEEE Transactions on pattern analysis and machine intelligence},
+  vol. 16, no. 6, pp. 641--647, 1994.
+
+\bibitem{kass1988snakes}
+Michael Kass, Andrew Witkin, and Demetri Terzopoulos,
+\newblock ``Snakes: Active contour models,''
+\newblock {\em International journal of computer vision}, vol. 1, no. 4, pp.
+  321--331, 1988.
+
+\bibitem{canny1987computational}
+John Canny,
+\newblock ``A computational approach to edge detection,''
+\newblock in {\em Readings in computer vision}, pp. 184--203. Elsevier, 1987.
+
+\bibitem{soliman2016accurate}
+Ahmed Soliman, Fahmi Khalifa, Ahmed Elnakib, Mohamed~Abou El-Ghar, Neal Dunlap,
+  Brian Wang, Georgy Gimel’farb, Robert Keynton, and Ayman El-Baz,
+\newblock ``Accurate lungs segmentation on ct chest images by adaptive
+  appearance-guided shape modeling,''
+\newblock {\em IEEE transactions on medical imaging}, vol. 36, no. 1, pp.
+  263--276, 2016.
+
+\bibitem{ronneberger2015u}
+Olaf Ronneberger, Philipp Fischer, and Thomas Brox,
+\newblock ``U-net: Convolutional networks for biomedical image segmentation,''
+\newblock in {\em International Conference on Medical image computing and
+  computer-assisted intervention}. Springer, 2015, pp. 234--241.
+
+\bibitem{li2018h}
+Xiaomeng Li, Hao Chen, Xiaojuan Qi, Qi~Dou, Chi-Wing Fu, and Pheng-Ann Heng,
+\newblock ``H-denseunet: hybrid densely connected unet for liver and tumor
+  segmentation from ct volumes,''
+\newblock {\em IEEE transactions on medical imaging}, vol. 37, no. 12, pp.
+  2663--2674, 2018.
+
+\bibitem{cciccek20163d}
+{\"O}zg{\"u}n {\c{C}}i{\c{c}}ek, Ahmed Abdulkadir, Soeren~S Lienkamp, Thomas
+  Brox, and Olaf Ronneberger,
+\newblock ``3d u-net: learning dense volumetric segmentation from sparse
+  annotation,''
+\newblock in {\em International conference on medical image computing and
+  computer-assisted intervention}. Springer, 2016, pp. 424--432.
+
+\bibitem{alves2018extracting}
+Jeovane~H Alves, Pedro M~Moreira Neto, and Lucas~F Oliveira,
+\newblock ``Extracting lungs from ct images using fully convolutional
+  networks,''
+\newblock in {\em 2018 International Joint Conference on Neural Networks
+  (IJCNN)}. IEEE, 2018, pp. 1--8.
+
+\bibitem{jaderberg2015spatial}
+Max Jaderberg, Karen Simonyan, Andrew Zisserman, and Koray Kavukcuoglu,
+\newblock ``Spatial transformer networks,''
+\newblock {\em arXiv: Computer Vision and Pattern Recognition}, 2015.
+
+\bibitem{hauberg2016dreaming}
+S{\o}ren Hauberg, Oren Freifeld, Anders Boesen~Lindbo Larsen, John Fisher, and
+  Lars Hansen,
+\newblock ``Dreaming more data: Class-dependent distributions over
+  diffeomorphisms for learned data augmentation,''
+\newblock in {\em Artificial Intelligence and Statistics}, 2016, pp. 342--350.
+
+\bibitem{learned2005data}
+Erik~G Learned-Miller,
+\newblock ``Data driven image models through continuous joint alignment,''
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  vol. 28, no. 2, pp. 236--250, 2005.
+
+\bibitem{balakrishnan2019tmi}
+Guha Balakrishnan, Amy Zhao, Mert Sabuncu, John Guttag, and \textbf{Adrian V.
+  Dalca}*,
+\newblock ``Voxelmorph: A learning framework for deformable medical image
+  registration,''
+\newblock {\em IEEE TMI: Transactions on Medical Imaging}, 2019.
+
+\bibitem{zhao2019data}
+Amy Zhao, Guha Balakrishnan, Fredo Durand, John~V Guttag, and Adrian~V Dalca,
+\newblock ``Data augmentation using learned transformations for one-shot
+  medical image segmentation,''
+\newblock in {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, 2019, pp. 8543--8553.
+
+\bibitem{dice1945measures}
+Lee~R Dice,
+\newblock ``Measures of the amount of ecologic association between species,''
+\newblock {\em Ecology}, vol. 26, no. 3, pp. 297--302, 1945.
+
+\end{thebibliography}

@@ -1,0 +1,15 @@
+\begin{abstract}
+    \emph{Objective:} Pneumonia detection is one of the most crucial steps in pneumonia diagnosing system. Clinical information of patients plays an important role in detection of pneumonia. In this paper, a Multimodal Data Diagnosing Network(MDDNet) is described for clinical pneumonia detection.
+    \emph{Method:} MDDNet is based on deep learning neural network and analyzes multimodal data: three-channel CT images, patient chief complaints, patient age and gender. Original CT images are one-channel grey level images. In MDDNet, each slice of CT is transformed into one three-channel(Lung Window, High Attenuation, Low Attenuation) image, different channel can provide different information of lung density and become supplements to each other. Visual features from three-channel images are qualitative information for pneumonia detection. Patient chief complaints provide information about lesion location, symptoms or how long patients have been ill. Chief complaints are related to CT images and enhance information extracted from CT images. Information about age and gender can provide priori information for decision making process.
+    We use Recurrent CNN, which can keep 3-D spatial information and reduce the need of calculation resource, to capture visual features from CT image data. A Long Short Term Memory(LSTM) network is used to analyze semantic features of patient chief complaints. CT visual features, complaint semantic features, patient age and gender will be fused together and calculate joint distribution to predict whether these cases are pneumonic.
+    \emph{Results:} We analyze 1002 clinical cases from The First Affiliated Hospital of Army Medical University. Our model achieves 0.945 in accuracy, and has a very balanced performance in sensitivity and specificity. As far as we know, we are the first to detect pneumonic cases using large scale clinical multimodal data.
+    \emph{Conclusion:} Our method proves that multimodal data provides more abundant information than image data only and improves the accuracy of pneumonia detection. 
+    \emph{Significance:} Our model can be extended and include more multimodal clinical data to give out more reliable and explainable detection results.
+
+ 
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+    Multimodal Data, Pneumonia Detection, Recurrent Convolutional Neural Network, Computed tomography (CT), Computer-aided detection and diagnosis (CAD)
+\end{IEEEkeywords}

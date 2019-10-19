@@ -1,0 +1,43 @@
+lstm3_3channel_resnet
+lstm 64
+('Sensitivity', 0.944954128440367)
+('Specificity', 0.9230769230769231)
+('recall_score', 0.944954128440367)
+('AUC', 0.9340155257586451)
+('accuracy: ', 0.935)
+('shape of fc1: ', [32, 64])
+
+================================
+
+lstm1_3channel_resnet:
+lstm 128
+('Sensitivity', 0.963302752293578)
+('Specificity', 0.9230769230769231)
+('recall_score', 0.963302752293578)
+('AUC', 0.9431898376852506)
+('accuracy: ', 0.945)
+Test completed.
+('shape of fc1: ', [32, 128])
+
+================================
+
+lstm 256
+('Sensitivity', 0.926605504587156)
+('Specificity', 0.9230769230769231)
+('recall_score', 0.926605504587156)
+('AUC', 0.9248412138320395)
+('accuracy: ', 0.925)
+Test completed.
+
+('shape of fc1: ', [32, 256])
+
+================================
+
+lstm2_3channel_resnet:
+lstm 512
+('Sensitivity', 0.926605504587156)
+('Specificity', 0.8901098901098901)
+('recall_score', 0.926605504587156)
+('AUC', 0.908357697348523)
+('accuracy: ', 0.91)
+('shape of fc1: ', [32, 512])

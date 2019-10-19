@@ -1,0 +1,1124 @@
+\documentclass[journal]{IEEEtran}
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{CJK}
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{MDNet: Multimodal Data Network for Clinical Pneumonia Detection}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Michael~Shell,~\IEEEmembership{Member,~IEEE,}
+        John~Doe,~\IEEEmembership{Fellow,~OSA,}
+        and~Jane~Doe,~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+\thanks{M. Shell was with the Department
+of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
+\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+\emph{Objective:} Pneumonia detection is one of the most crucial steps in pneumonia diagnosing system. Clinical information of patients plays an important role in detection of pneumonia. In this paper, a Multimodal Data Network(MDNet) is described for clinical pneumonia detection.
+\emph{Method:} MDNet is based on deep learning neural network and analyzes multimodal data: three-channel CT images, patient chief complaints, patient age and gender. Original CT images are one-channel grey level images. In MDNet, each slice of CT is transformed into one three-channel(Lung Window, High Attenuation, Low Attenuation) image, different channel can provide different information of lung density and become supplements to each other. Visual features from three-channel images are qualitative information for pneumonia detection. Patient chief complaints provide information about lesion location, symptoms or how long patients have been ill. Chief complaints are related to CT images and enhance information extracted from CT images. Information about age and gender can provide priori information for decision making process. CT visual features, complaint semantic features, patient age and gender will be fused together and calculate joint distribution to predict whether these cases are pneumonic. We use Recurrent CNN, which can keep 3D spatial information and reduce the need of calculation resource, to capture visual features from CT image data. A Long Short Term Memory(LSTM) network is used to analyze semantic features of patient chief complaints. 
+\emph{Results:} We analyze 1002 clinical cases from The First Affiliated Hospital of Army Medical University. Our model achieves 0.945 in accuracy, and has a very balanced performance in sensitivity and specificity. As far as we know, we are the first to detect pneumonic cases using large scale clinical multimodal data.
+\emph{Conclusion:} Our method proves that multimodal data provides more abundant information than image data only and get very convincing results.
+\emph{Significance:} Making decision based on multimodal data conforms clinical practice. Our model can be extended and include more multimodal clinical data to give out more reliable and explainable detection results.
+
+ 
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+    Multimodal Data, Pneumonia Detection, Computed tomography (CT), Computer-aided detection and diagnosis (CAD)
+\end{IEEEkeywords}
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\section{Introduction}
+\label{intro}
+% The very first letter is a 2 line initial drop letter followed
+% by the rest of the first word in caps.
+% 
+% form to use if the first word consists of a single letter:
+% \IEEEPARstart{A}{demo} file is ....
+% 
+% form to use if you need the single drop letter followed by
+% normal text (unknown if ever used by the IEEE):
+% \IEEEPARstart{A}{}demo file is ....
+% 
+% Some journals put the first two words in caps:
+% \IEEEPARstart{T}{his demo} file is ....
+% 
+% Here we have the typical use of a "T" for an initial drop letter
+% and "HIS" in caps to complete the first word.
+\IEEEPARstart{P}{neumonia} is a very common thoracic disease in daily life. In clinical practice, a radiologist needs to consider different source of information to decide on the next treatment plan, as a result, multimodal data plays the key role in decision making process. According to the survey, a radiologist of a major hospital need to diagnosis hundreds of pneumonia cases every day. Thus, developing a fast, robust and accurate CAD system to perform automated detection of pneumonia is meaningful and important. 
+
+There have been several methods and epidemiological studies for pneumonia detection and diagnosing like \cite{Shin2016Learning} \cite{deepika2018classification}.
+Hoo-Chang Shin \cite{Shin2016Learning} combined CNN and LSTM \cite{hochreiter1997long}, proposed a method which could describe the contexts of a detected diseases based on the deep CNN features. This method used CNN to extract features from chest X-Ray and used LSTM to generated MeSH \cite{timmurphy.org} terms for chest X-Ray. In 2017, Xiaosong Wang et al. \cite{Wang2017ChestX} provided hospital-scale chest X-ray database ChestX-ray8 which contained eight common thoracic diseases. This database allowed researchers use deeper neural network to analyze thoracic diseases. They tested different pre-trained CNN models on this dataset. Experiments showed that ResNet50 achieved highest AUROC score 0.6333 in classifying pneumonia. They also provided ChestX-ray14 which contains more kinds of thoracic diseases.
+Based on this database, later in 2017, Yao et al. \cite{yao2017learning} achieved 0.713 in AUROC score using DenseNet Image Encoder. Pranav Rajpurkar, Andrew Y. Ng et al. \cite{Rajpurkar2017CheXNet} developed CheXnet with 121 convolutional layers and achieved AUROC 0.7680 in pneumonia classification.
+In 2018, Xiaosong Wang et al. \cite{Wang2018TieNet} proposed TieNet, which could classify the chest X-Rays into different diseases and generate the report at the same time. In TieNet, CNN was used capture features of chest X-Rays, RNN learned these features and generated report based on attention mechanism, which could help model to focus on different parts of chest X-Ray alone with the generation of reports. In pneumonia classification problem, they achieved 0.947 in AUROC based on report, but they only achieved 0.917 in AUROC on hand-labeled data. 
+
+Studies above have something in common. First of all, they are designed for chest X-Rays. Chest X-rays used to be the best available method for detect pneumonia, played a crucial role in clinical care and epidemiological studies \cite{Franquet2001Imaging} \cite{Thomas2005Standardized}. However, compared to chest X-rays, CT scans have a clearer view of patients' bodies, since bones, skin, vessels, mediastinal and lung tissues may cause overlapping shadows in chest X-ray and cause misdiagnosis. CT allows visualization of lung structures\cite{korfiatis2009texture}, which can help to diagnosis pneumonia in early stage and avoid delayed treatments.
+Each slice of CT scans is a 2D image of human body scan, besides 2D visual features from CT, you can also reconstruct 3D structure of human bodies using these slices. Extensive studies show that 3D CNN is the best choice for keeping 3D spatial information in CT\cite{Yorozu1987Electron}. However, 3D CNN cannot be applied to raw CT data directly since it will bring a heavy burden to computers. Radiologists need to accurately measure the lesions, so we cannot reduce the size of images by resizing at will.
+ 
+Second, these models are not designed following the radiologists' diagnosing process but are designed for the convenience of computer vision studies and deep learning model training. For models like CheXnet, image information is the key of models. Few of them combine image visual features with clinical information. Models like TieNet do combine image visual features with descriptions about images written by radiologists. We believe using descriptions about images written by radiologists to improve models is not quite convincing, since descriptions like `Findings' and `impressions' sometimes include diagnosis conclusions.
+Patients' chief complaints is a very useful information when doctors are making decisions \cite{wu2018master}, since chief complaints is patients' direct feeling about their physical condition, telling us the patients' pain location, symptoms and how long have they been ill. Moreover, information of age and gender can provide priori information\cite{xiaojian2011analysis} \cite{huang2014design}. However, as far as we know, few studies use this information to improve CAD systems for pneumonia. 
+
+In general, there are two major drawbacks of existing CAD systems for pneumonia: (1) They cannot handle raw CT scans, which allows visualization of lung structures; (2) Few studies consider multimodal clinical information like patients' chief complaints, which is conflict to clinical practice.
+
+To address such drawbacks, we propose a novel Multimodal Data Network(MDNet) for clinical pneumonia detection. We use raw data collected from The First Affiliated Hospital of Army Medical University, each case contains not only CT image information, but also clinical information about patient gender, age and chief complaint. 
+
+Herein, (i) each CT image will be transformed into a 3-channel image with three windows: Lung Window(LW), High Attenuation(HA) and Low Attenuation(LA). LW provides visual features of normal lung tissues, HA provides visual features of abnormal increase in lung density, LA provides visual features of abnormal decrease in lung density. Three channels complement each other, which not only maintains the ability to extract information from normal lung tissues, but also increases the ability to extract information from abnormal lung tissues.
+(ii) We also include clinical data in our MDNet. Chief complaints can provide location of pain, symptoms and how long have patients been ill. These information is related to CT image and enhance the visual features extracted from CT. (iii) Information about age and gender can provide priori information since patients of different age and gender have differences in the morphology of thoracic cavity and lungs. (iv) In order to reduce the burden of calculation, we treat CT slices as short video frames and a Recurrent Convolutional Neural Network(RCNN) is used to capture visual features from CT slices. RCNN uses a 2D CNN to capture visual features from each 2D slice, and LSTM captures relationships between slices. We use another LSTM to analyze semantics from chief complaints. Information of age and gender will be treated as two extra variables. Our model MDNet, as shown in Fig~\ref{MMDD}, will learn a joint distribution of all features above and gives out the final results.
+
+\begin{figure*}[t]
+    \centerline{\includegraphics[width=160mm]{MMDD.pdf}}
+    \vspace{-0cm}
+    \caption{Architecture of MDNet. 
+    In this figure, sub-figure above is clinical practice of detecting pneumonia. Age and gender provide priori information, complaints provide information like symptoms of location of pain, different CT windows provide visual features.
+    Sub-figure below is MDNet. The black rectangle contains raw information from hospital. Information in grey rectangle is about age and gender, information in blue rectangle is complaints, information in yellow is CT image data. Chief complaints will be transformed into matrices by Word2vec and analyze by one LSTM network. Image will be fed into RCNN. Age and gender will be treated as two additional features. These three kinds of information will be concatenated in red rectangle and fed into fully-connected layers to get prediction}
+    \vspace{-0cm}
+    \label{MMDD}
+    \end{figure*}
+
+
+The remainder of the manuscript is organized as follows. 
+Section~\ref{datasetprocessing} describes the prepare of dataset and pre-process steps.
+Section~\ref{MDNetwork} describes the architecture of MDNet and details of our model.
+Section~\ref{experiments} reports our experimental results.
+Section~\ref{discuss} further discusses some key points of proposed model and some phenomenons shown during experiments.
+Our conclusions are drawn in section~\ref{conclude}.
+
+
+\section{Dataset Processing}
+\label{datasetprocessing}
+\subsection{CT Image Data and Multimodal Data Generation}
+\label{ctimagedata}
+Because of the shortage of public available CT dataset for pneumonia, we use raw data from the Radiology Department of The First Affiliated Hospital of Army Medical University. We get 1036 cases of CT(842 pneumonic cases, 464 healthy cases) from hospital PACS(Picture Archiving and Communication Systems). Raw data from hospital may have more than one series of images and each series has specific data type, image windows, or different angles. 
+Generally speaking, radiologists and doctors will use series under lung window with smallest `Slice Thickness', but for deep learning models, each case can only have one series. We design a protocol to pick up specific series for us.
+
+First of all, we eliminate these cases which start scanning from the middle of the chest. Then we pick up the best series from the whole cases according to the following requirements:
+
+(a) We choose the series with the specific `Convolution Kernel'. Different `Convolution Kernel' may have different data types or different image windows, as shown in Fig~\ref{Bs}. We need to notice that these names of `Convolution Kernel' vary between hospitals and CT equipments, so if you want to adopt this protocol, you need to observe `Convolution Kernel' in your environment. In our study, we choose `B31f', `I31f 3', `B70f', `B80f', `B70s'. Number of different `Convolution Kernel' is shown in Fig~\ref{NumberofDifferentConvolutionKernel}. 
+
+\begin{figure}[t]
+    \centerline{\includegraphics[width=90mm]{Bs.pdf}}
+    \vspace{-0cm}
+    \caption{Scans under Different `Convolutional Kernel'. Slice under `B70s' has clearer view of lungs, slice under `B41s' has clearer view of heart. `Patient Protocol' and `Topogram' contain some basic parameters of CT equipments or information about radiologists, which are not suitable for CNN.}
+    \vspace{-0cm}
+    \label{Bs}
+    \end{figure}
+
+\begin{figure}[t]
+    \centerline{\includegraphics[width=100mm]{NumberofDifferentConvolutionKernel.pdf}}
+    \vspace{-0cm}
+    \caption{Number of Different `Convolution Kernel'. We notice that in the Radiology Department of The First Affiliated Hospital of Army Medical University, `B70s' is the most common parameter used in clinical. However, this parameter varys between hospitals and clinics.}
+    \vspace{-0cm}
+    \label{NumberofDifferentConvolutionKernel}
+    \end{figure}
+
+(b) We remove series like `Patient Protocol', `Topogram'. These series, as shown in Fig~\ref{Bs}, contain some basic parameters and information about CT equipments.
+
+(c) We calculate `Slice Thickness' of each series, and keep series with the smallest `Slice Thickness', since small thickness may keep more detailed information of body structure. 
+
+(d) If there were more than one series meet the last two requirements, we will keep the series with the largest number of slices, which can have a larger span of view.
+
+As a result, 552 pneumonic cases and 450 cases of healthy people (1002 cases total) are left.
+Dataset is divided into training/validation/testing as 60\% / 20\% / 20\% and make them identically distributed in three parts of datasets, so we have 602 cases in training set, 200 cases in validation set, 200 cases in test set.
+Number of healthy and pneumonic cases in different slice-thickness is shown in Table~\ref{distributionofhealthyandpneumonic}.
+Each CT scan has a case file. In case files, we can get patient basic information: patient ID, gender, age and complaint. 
+
+\begin{table}[htb]
+\vspace{-0cm}
+\caption{Number of Healthy and Pneumonic Cases in Different Slice-Thickness}
+\vspace{-0cm}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{\textit{Slice-Thickness}}& \textbf{\textit{Healthy}}& \textbf{\textit{Pneumonic}}  \\
+\hline
+1 mm & 0 & 24 \\
+1.5 mm  & 1 & 7\\
+2 mm & 444 & 386  \\
+3 mm & 0 & 127  \\
+5 mm & 5 & 8  \\
+\hline
+Total & 450 & 552 \\
+\hline
+\end{tabular}
+\vspace{-0cm}
+\label{distributionofhealthyandpneumonic}
+\end{center}
+\vspace{-0cm}
+\end{table}
+
+\subsubsection{Pre-processing of CT Image Data}
+\label{ctimagedata}
+There are different kinds of image windows for CT reader, such as windows for bone, brain, chest or lung. Images under different image windows will highlight different tissues of bodies.
+As mentioned in section\ref{ctimagedata}, we can see that each series of CT actually has one specific `Convolution Kernel'. But it may make data inconsistent between different cases. So we transform raw data into HU(Hounsfield Unit) values. The Hounsfield Unit is a quantitative scale for describing radio-density. After transformed into HU value matrices, all slices form CT scans will have the same unit of measure.
+
+Following the study in \cite{Shin2017Three} \cite{gao2018holistic}, HU value matrices will be transformed into images using three HU windows: Lung Window(LW) [-1000, 400HU], High Attenuation(HA) [-160, 240HU], Low Attenuation(LA) [-1400, -950HU]. 
+For each slice, it will generate three one-channel grey level images(LW, HA, LA). Then we compress three one-channel grey level images into one three-channel false color RGB image. The `Slice Thickness' between each slice is adjusted into 10mm, and each case will keep 32 slices.
+
+As shown in Fig~\ref{3channel}, we can clearly see that three-channel images can show more density information about lung tissues. Original CT images are actually grey level images, high dense tissues are white, normal lung tissues and low dense tissues are tend to be black. 
+Three-channel false color images have a larger scale of colors. First of all, high dense tissues will still tend to be white, like bones, high dense tissues in lungs. Second, normal lung tissues will tend to be red, low dense tissues tend to be black, which is very useful when patients have severe lung diseases.
+The influence of different HU value ranges will be discussed in section~\ref{effectiveness}.
+
+\begin{figure*}[!t]
+    \centerline{\includegraphics[width=150mm]{3channel.pdf}}
+    \vspace{-1cm}
+    \caption{Data Pre-precess for CT Scans. Void space(in red rectangle) in original CT images is not very obvious since other normal tissues is in black color too. But in three-channel image, we can clearly notice the difference between normal tissues and low dense tissues. Moreover, the details of high dense tissues(in white rectangle) are still kept. }
+    \vspace{-0cm}
+    \label{3channel}
+    \end{figure*}
+
+\subsubsection{Pre-processing of Patient Age, Gender and Chief Complaints}
+\label{textdata}
+The pre-process steps of age, gender and chief complaints is shown in Fig~\ref{textinfo}. 
+Information about age and gender will be transformed into a two-dimensional array. For example, patient in Fig~\ref{textinfo} is an adult male, who was born in 1999-10-29. His gender and age will be transformed to $[1, 20]$. A female patient born in 1993 will have $[0, 26]$ to represent her information. $1$ represents male patient, $0$ represents female patient. 
+
+For patients' chief complaints, since all chief complaints are written in Chinese, we have to do Chinese word segmentation. Chinese word segmentation is a very difficult problem so we will take a short cut and use a mature tools: Jieba text segmentation $\footnote[1]{https://github.com/fxsjy/jieba}$ to segment Chinese sentences into Chinese word sequences. An example of Chinese word segmentation is shown in green rectangle in Fig~\ref{textinfo}.
+After word segmentation, we use word2vec \cite{mikolov2013efficient} \cite{mikolov2013distributed} to embed word sequences into vectors and use CBOW(Continuous Bag-of-Words) to capture relationship between words. Since our corpus is very small, the embedding size is 50, and window size for CBOW is 3. We set length of Chinese word sequence to 16 since 16 is the maximum length among all chief complaint sequences. For those sequences whose length is less than 16, we add `None' to fill up the voids and increas length to 16. The details of word2vec will not be discussed here. After embedding, each word will be embedded into a vector of 50 dimensions.
+\begin{figure}[!t]
+\centerline{\includegraphics[width=90mm]{textinfo.pdf}}
+\vspace{-0cm}
+\caption{Data Pre-precess for Age, Gender and Chief Complaints}
+\vspace{-0cm}
+\label{textinfo}
+\end{figure}
+
+
+\section{Multimodal Data Network}
+\label{MDNetwork}
+\subsection{Construction of RCNN}
+\label{RCNN}
+RCNN(Recurrent Convolutional Neural Network) has been proved to be very useful in video caption, description and classification \cite{Donahue2015Long}\cite{Aafaq2019Spatio}, however, only a few work apply RCNN to medical image analyze. Zreik, Majd et al. \cite{Zreik2018A} recently used RCNN for automatic detection and classification of coronary artery plaque, they used CNN extracts features out of $ 25\times25\times25$ voxels cubes, and used an RNN to process the entire sequence using gated recurrent units (GRUs)\cite{chung2014empirical}. They proved that RCNN's potential for sequence information processing of medical images. 
+
+As mentioned in section~\ref{intro}, CT allows visualization of lung structures, which brings a large amount of redundant information, like muscle, vessels and bones. It will cost lots of calculation resource if we use 3D CNN directly. However, if we treat CT slices as short video frames, we can analyze them using RCNN. In RCNN, each slice will be fed into CNN in sequence and get a sequence of visual features. Then this sequence of features will be fed into RNN, so that we can reduce the need of calculation resource and keep 3D spatial information at the same time. 
+Follow the study \cite{Donahue2015Long}, we use LSTM with $256$ units as our RNN cells cause LSTM has been demonstrated to be capable of large-scale learning of sequence data. 
+
+We use CNN without fully-connected layers as feature extractor. The input size of CNN is $512 \times 512$, so the outputs of CNN will be very large. We use global average pooling \cite{lin2014network} to greatly reduce the number of neurons. It is a replacement of fully-connected layers to enable the summing of spatial information of feature maps. After global average pooling, we insert a fully-connected layer to reduce dimensions to $256$ to fit the number of LSTM units.
+In order to get the best RCNN for CT scans, after LSTM layer, we insert two fully-connected layers to give out classification results of RCNN, so that we can observe performances of different RCNNs and choose appropriate architecture. After building RCNN, we will keep architecture above LSTM(including LSTM) and insert into our MDNet as encoder of visual features. It encodes image feature sequences and gives out the last output of LSTM as middle state $hv_t$:
+\begin{equation}
+hv_t = LSTM(Fx_t, hv_{t-1}, z_{t-1})
+\label{hvt}
+\end{equation}
+$Fx_t$ is the $t$-th visual features in CT slices, $hv_{t-1}$ is LSTM hidden state of $t-1$ step, $z_{t-1}$ is LSTM output of $t-1$ step. $t$ is the length of slices, in this study, we set $t$ as 32.
+
+We test three kinds of classic CNN models: VGG \cite{simonyan2015very}, ResNet \cite{he2016deep} and GoogLeNet with Inception-V3 \cite{szegedy2016rethinking}. Experiment results are shown in Table~\ref{rcnncompare}. 
+We can see that RCNN(VGG) and RCNN(ResNet) trained by Lung Window Image perform better in sensitivity, but their specificity are lower than 0.9. ResNet50 trained by Three-Channel Image performs the best in accuracy, specificity, AUROC, so our RCNN use ResNet50 as its CNN part, and use one layer of LSTM cells as its RNN part. 
+This conclusion is similar to \cite{Wang2017ChestX}, their experiments showed that ResNet50 outperformed GoogLeNet and VGG16.
+
+\begin{table*}[htb]
+    \vspace{-0cm}
+    \caption{Comparison of All Kinds of RCNN}
+    \vspace{-0cm}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{\textit{Structure}} & \textbf{\textit{Data}}& \textbf{\textit{Accuracy}}  & \textbf{\textit{Sensitivity}} & \textbf{\textit{Specificity}} & \textbf{\textit{AUROC}}\\
+    \hline
+    RCNN(VGG) & Lung Window Image & 0.805 & {\bfseries 0.954} &0.626 &0.790 \\
+    RCNN(GoogLeNet) & Lung Window Image& 0.865 & 0.826 & 0.912 & 0.869 \\
+    RCNN(ResNet) & Lung Window Image & 0.925 & {\bfseries 0.954} & 0.890 & 0.922 \\
+    RCNN(GoogLeNet) & High Attenuation Image& 0.880 & 0.853 & 0.912 & 0.883 \\
+    RCNN(ResNet)& High Attenuation Image& 0.875 & 0.908 & 0.835 & 0.872 \\
+    RCNN(GoogLeNet) & Low Attenuation Image& 0.860 & 0.890 & 0.824 & 0.857 \\
+    RCNN(ResNet) & Low Attenuation Image& 0.865 & 0.900 & 0.824 & 0.861 \\
+    RCNN(VGG) & Three Channel Image& 0.890 & 0.927 &0.846 &0.886 \\
+    RCNN(GoogLeNet)& Three Channel Image & 0.905 & 0.900 & 0.912 & 0.906 \\
+    RCNN(ResNet) & Three Channel Image& {\bfseries 0.930} & 0.927 & {\bfseries 0.934} & {\bfseries 0.930} \\
+    \hline
+    \end{tabular}
+    \vspace{-0cm}
+    \label{rcnncompare}
+    \end{center}
+    \vspace{-0cm}
+    \end{table*}
+
+\subsection{Multimodal Data Fusion}
+\label{MMDDtxt}
+
+The whole RCNN, as mentioned in section~\ref{RCNN}, can be seen as a encoder of CT images.
+Besides CT image information, we also have clinical information about patients gender, age, and chief complaints. 
+
+Details of processing steps have been discussed in section~\ref{textdata}. The second LSTM is used to encode chief complaint. It is calculated in the same way as Eq.~\ref{hvt}:
+\begin{equation}
+    hc_{ct} = LSTM(Cx_{ct}, hc_{ct-1}, z_{ct-1})
+    \label{hct}
+\end{equation}
+$Cx_{ct}$ is word embedding matrix of the $ct$-th word in chief complaint, $hc_{ct-1}$ is LSTM hidden state of $ct-1$ step. $ct$ is the length of chief complaint, which is 16. 
+
+After getting $hv_t$, $hc_{ct}$, we can calculate the prediction and loss $\Phi_1$ as follows:
+\begin{align*}\label{classifyandloss1}
+    \Phi_1 &= \sum_i{y_i log(\Delta_i)}, \\
+    \Delta &= Softmax(F(hv_t \bigotimes hc_{ct} \bigotimes A \bigotimes G))
+\end{align*}
+where $y_i$ are vectors for labels, $\Delta$ is prediction after Softmax layer, $\bigotimes$ is the concatenation operation, $A$ is patient age, $G$ is patient gender. $F$ is a function to calculate joint distributions of $hv_t$, $hc_{ct}$, $A$ and $G$. In this study, we use two fully-connected layers to fit the function. $\Phi_1$ is cross-entropy that can be used as classification loss \cite{Zreik2018A}.
+
+Since each case has 32 slices and calculate loss for only one time, we assume that the gradients propagate to CNN will be very weak, so that CNN will not be trained properly. Invoked by study in \cite{szegedy2016rethinking}, we use a auxiliary loss to enhance signal of gradient for CNN.
+The auxiliary loss $\Phi_2$ and loss of whole model $Loss$ are defined as follow: 
+\begin{align*}
+Loss &=  (1 - \omega) \times \Phi_1 +  \omega \times \Phi_2 \\
+\Phi_2 &= \sum_i{y_i log(\Delta^c_i)}
+\end{align*}
+where $\omega$ is a parameter within the interval (0, 1). $\Phi_2$ is classification cross-entropy loss from CNN, $\Delta^c_i$ is Softmax prediction of CNN. $\omega$ can adjust the weight of two losses at different training phases.
+We expect that at the beginning of training, CNN get stronger gradient and learn to capture features from CT images more quickly. After parameters of CNN get stable, $\Phi_1$ tends to get small and keep updating parameters of LSTM. We output weights of two losses during training MDNet, as shown in Table~\ref{weights}, weight for LSTM loss ($1 - \omega$) is 0.6238 at the beginning of training (602 steps), however, ($1 - \omega$) will increase to 0.7234 when training process comes to 36120 steps, it meas weight for CNN is 0.3762 at 602 steps, and it will drop to 0.2766 at the end. Experiments also show that RCNN with auxiliary loss can have a better performance, which will be discussed latter in section~\ref{experiments}.
+
+Finally, MDNet is built, RCNN for image data and LSTM for clinical information will be trained jointly.
+
+\begin{table}[t]
+\vspace{-0cm}
+\caption{Weights of Two Losses at Different Training Step}
+\vspace{-0cm}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{\textit{Number of Steps}} & \textbf{\textit{$1 - \omega$}} & \textbf{\textit{$\omega$}}\\
+\hline
+602 &0.6238 & 0.3762  \\
+9030 &0.6547 & 0.3453  \\
+18060 &0.7027 & 0.2973  \\
+27090 &0.7185 & 0.2815  \\
+36120 &0.7234 & 0.2766  \\
+
+\hline
+\end{tabular}
+\vspace{-0cm}
+\label{weights}
+\end{center}
+\vspace{-0cm}
+\end{table}
+
+
+\section{Experiments}
+\label{experiments}
+
+\subsection{Experimental Setup}
+\label{experimentalsetup}
+There two steps in training process.
+The first step is to train different kinds of RCNN to get the best combination between CNN models and LSTM, the outputs from RCNN($1 \times 256$) will be feed into two fully connected layers to get classification results. Moreover, we use CNN models pre-trained on ImageNet \cite{ILSVRC15}. Experiments show that using pre-trained models can significantly improve the converging speed, as shown in Table~\ref{pretrain}.
+\begin{table}[htb]
+    \vspace{-0cm}
+    \caption{Comparison between Training from Scratch and Training with Pre-trained Weights}
+    \vspace{-0cm}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{\textit{Structure}} & \textbf{\textit{Pre-trained}} & \textbf{\textit{Data}}& \textbf{\textit{Accuracy}}  \\
+    \hline
+    RCNN(ResNet) &No & LW Image & 0.545\\
+    RCNN(GoogLeNet) & No & LW Image & 0.545\\
+    RCNN(ResNet) & Yes & LW Image & 0.925\\
+    RCNN(GoogLeNet) & Yes & LW Image & 0.865\\
+    
+    \hline
+    \end{tabular}
+    \vspace{-0cm}
+    \label{pretrain}
+    \end{center}
+    \vspace{-0cm}
+    \end{table}
+    
+The second step is to train MDNet model. We use RCNN as encoder for CT scan visual features, use LSTM as encoder for chief complaint features, and combine them with information of age and gender. All these features will be feed into two fully-connected layers and one Softmax layer to get final classification results. Initial learning rate is set to 0.0005 and drops 50\% every 3000 training steps. The dropout rate in fully-connected layers is set to 0.5. MDNet will be trained for 4 epoch, and each epoch contains 15 iteration for all training data.
+
+
+\subsection{Effect of Three-Channel Image}
+\label{effectiveness}
+In order to verify the effect of three-channel image, we train four RCNNs with three-channel images, LW(Lung Window) images, HA(High Attenuation) images and LA(Low Attenuation) images and output the feature maps of convolutional layer. Sample feature mapes are shown in Fig~\ref{show}. More specificity, we output the feature maps after one convolutional layer, one max pooling layer, and three ResNet blocks, the size of feature maps are $128 \times 128$. In order to keep experiments environment consistent, all experiments carried on in this part are based on RCNN with ResNet50. We can see that CNN trained by three-channel images has advantages over CNNs trained by other kinds of images as shown in Fig~\ref{show}. 
+In Fig~\ref{show}, images in the first column are original false color CT images, which are direct outputs from CT slices. The second, the third and the forth columes are feature maps from LW CNN, HA CNN and LA CNN. Images in the last colume are feature mapes from three-channel CNN.
+
+
+\begin{figure*}[t]
+\centerline{\includegraphics[width=180mm]{show.pdf}}
+\vspace{-0cm}
+\caption{Convolutional Feature Maps from CNN Models Trained by Different Images. In the first and the second rows, three-channel CNN can capture the low dense tissues of lungs, which are not very clear in LW(Lung Windws) CNN and HA(High Attenuation) CNN. LA(Low Attenuation) CNN can notice the low dense tissues, but apparently the details of heart and vessels are ignored in the low attenuation CNN. 
+In the third and the forth row, three-channel CNN still has ability to capture high dense tissues, which is the same as LW CNN and HA CNN, but LA CNN has difficulty in doing so. In the third row, LA CNN cannot distinguish the normal and unnormal tissues. Moreover, in the forth row, LA CNN ignores high dense tissues. The last row shows a healthy case. Healthy case has a clear view in LW CNN, HA CNN and three-channel CNN, but shows nothing in LA CNN.}
+\vspace{-0cm}
+\label{show}
+\end{figure*}
+
+
+\subsection{Effect of Chief Complaints, Age and Gender}
+\label{complaintsagegender}
+As mentioned in \ref{intro}, information about age, gender and chief complaints can enhance the features extracted from CT image or become a supplement. Chief complaints can provied information like symptoms, location.
+We count word frequency about symptoms. The frequency is shown in Table~\ref{frequency1} and Table~\ref{frequency2}. We can see that top 10 key words in HC(healthy cases) and PC(pneumonic cases) have certain regularity. `Cough' is the most frequent key word in both HC and PC. It apperas 256 times(46.4\%) in PC, 183 times(40.7\%) in HC. However, symptoms like `Expectoration', `Fever', `Coughing blood' appear more frequently in PC. For example, `Coughing blood' appears 47 times in PC, but only appears 1 time in HC. 
+Moreover, in Fig~\ref{txtpic}, according to the location and symptom information provided by chief complaints, we can accurately locate lesions in CT. It means information from chief complaints is related to CT images and can assist deep learning model.
+
+\begin{table*}[htb]
+\vspace{-0cm}
+\caption{Top 10 Frequent Key Words in Pneumonic Cases}
+\vspace{-0cm}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{\textit{Key Words}} & \textbf{\textit{Frequency in PC}} & \textbf{\textit{Percentage}}& \textbf{\textit{Frequency in HC}}& \textbf{\textit{Percentage}} \\
+\hline
+\begin{CJK}{UTF8}{gbsn}\textbf{咳嗽}\end{CJK}, \textbf{Cough} & 256 & 0.464 & 183 & 0.407\\
+\begin{CJK}{UTF8}{gbsn}\textbf{咳痰}\end{CJK}, \textbf{Expectoration} & 103 & 0.187 & 42 & 0.093\\
+\begin{CJK}{UTF8}{gbsn}\textbf{反复}\end{CJK}, \textbf{Repeat Condition} & 65 & 0.118 & 48 & 0.107\\
+\begin{CJK}{UTF8}{gbsn}\textbf{气促}\end{CJK}, \textbf{Shortness of Breath} & 60 & 0.109 & 17 & 0.038\\
+\begin{CJK}{UTF8}{gbsn}发热\end{CJK}, Fever & 51 & 0.092 & 14 & 0.031\\
+\begin{CJK}{UTF8}{gbsn}咯血\end{CJK}, Coughing Blood & 47 & 0.085 & 1 & 0.002\\
+\begin{CJK}{UTF8}{gbsn}加重\end{CJK}, Aggravation & 46 & 0.081 & 13 & 0.029\\
+\begin{CJK}{UTF8}{gbsn}\textbf{痰}\end{CJK}, \textbf{Sputum} & 32 & 0.058 & 19 & 0.042\\
+\begin{CJK}{UTF8}{gbsn}乏力\end{CJK}, Weak& 29 & 0.053 & 7 & 0.016\\
+\begin{CJK}{UTF8}{gbsn}感染\end{CJK}, Infection& 28 & 0.051 & 1 & 0.002\\
+
+\hline
+\end{tabular}
+\vspace{0.1cm}
+\label{frequency1}\\
+\footnotesize{Percentage is frequency divided by number of cases. PC is Pneumonic Cases. HC is Healthy Cases}
+
+\end{center}
+\vspace{-0.0cm}
+\end{table*}
+
+\begin{table*}[htb]
+    \vspace{-0cm}
+    \caption{Top 10 Frequent Key Words in Healthy Cases}
+    \vspace{-0cm}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{\textit{Key Words}} & \textbf{\textit{Frequency in HC}} & \textbf{\textit{Percentage}}& \textbf{\textit{Frequency in PC}}& \textbf{\textit{Percentage}} \\
+    \hline
+    \begin{CJK}{UTF8}{gbsn}\textbf{咳嗽}\end{CJK}, \textbf{Cough},  & 183 & 0.407 & 256 & 0.464\\
+    \begin{CJK}{UTF8}{gbsn}胸痛\end{CJK}, Chest Pain & 67 & 0.149 & 17 & 0.031\\
+    \begin{CJK}{UTF8}{gbsn}不适\end{CJK}, Unconfortable & 54 & 0.120 & 25 & 0.045\\
+    \begin{CJK}{UTF8}{gbsn}疼痛\end{CJK}, Pain & 53 & 0.118 & 25 & 0.045\\
+    \begin{CJK}{UTF8}{gbsn}\textbf{反复}\end{CJK}, \textbf{Repeat Condition} & 48 & 0.107 & 65 & 0.118\\
+    \begin{CJK}{UTF8}{gbsn}\textbf{咳痰}\end{CJK}, \textbf{Expectoration} & 42 & 0.093 & 103 & 0.187\\
+    \begin{CJK}{UTF8}{gbsn}背痛\end{CJK}, Backache & 28 & 0.062 & 8 & 0.014\\
+    \begin{CJK}{UTF8}{gbsn}\textbf{痰}\end{CJK}, \textbf{Sputum}& 19 & 0.042 & 32 & 0.058\\
+    \begin{CJK}{UTF8}{gbsn}胸闷\end{CJK}, Chest Tightness & 19 & 0.042 & 16 & 0.029\\
+    \begin{CJK}{UTF8}{gbsn}\textbf{气促}\end{CJK}, \textbf{Shortness of Breath}& 17 & 0.038 & 60 & 0.109\\
+    
+    \hline
+    \end{tabular}
+    \vspace{0.1cm}
+    \label{frequency2}\\
+    \footnotesize{Percentage is frequency divided by number of cases. PC is Pneumonic Cases. HC is Healthy Cases}
+
+    \end{center}
+    \vspace{-0.0cm}
+    \end{table*}
+
+
+
+\begin{figure*}[t]
+\centerline{\includegraphics[width=180mm]{txtpic.pdf}}
+\vspace{-0cm}
+\caption{Chief complaints can provide information that related to CT images. In this figure, we show two cases which are pneumonic, each case has chief complaints provided by patients. Words marked red provide location, words marked blue provide symptoms. English chief complaints are translated from Chinese above. We can see that location and symptoms information provided by chief complaints are related to abnormal tissues in CT images.}
+\vspace{-0cm}
+\label{txtpic}
+\end{figure*}
+
+\subsection{Results}
+\label{results}
+In order to prove the effect of auxiliary loss and multimodal data, we run a lot of experiments to compare with each other, and the results of experiments is shown in Table~\ref{comparison}.
+
+We run a experiment to prove the effectiveness of auxiliary loss. We train RCNN(ResNet) with three channel image, but we set $\omega$ to $1$, which means we remove the gradient propagates directly to CNN, this model actually has only one loss. We can see that the performance of RCNN with single loss drops around 1\% in all four indications. It proves that, by using auxiliary loss, CNN will be trained in a better way. 
+
+Then, we run experiments to prove that Multimodal Data can enhance the performance of CAD system. As shown in section~\ref{MMDD}, the output of RCNN, features of chief complaints, gender and age will be concatenated together and fused by two fully-connected layers. It is simple, but effective. We can see that MDNet trained by multimodal data has the highest score in accuracy, specificity and AUROC score. But it achieves 0.936 in sensitivity, 0.009 lower than the highest 0.945. It means MDNet has the best performance of binary classification according to its AUROC score. 
+Besides, we remove the information about age and gender, we found that MDNet without age and gender has a higher sensitivity and lower specificity than MDNet with information about age and gender. 
+\begin{table*}[htb]
+\vspace{-0cm}
+\caption{Comparison of All Kinds of MDNet}
+\vspace{-0cm}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{\textit{Structure}} & \textbf{\textit{Data}}& \textbf{\textit{Accuracy}}  & \textbf{\textit{Sensitivity}} & \textbf{\textit{Specificity}} & \textbf{\textit{AUROC}}& \textbf{\textit{AUROC Rank}}\\
+\hline
+RCNN(ResNet) & Three Channel Image& 0.930 & 0.927 & 0.934 & 0.930 &2\\
+RCNN(ResNet), One Loss & Three Channel Image& 0.920 & 0.917 & 0.923 & 0.920 &4\\
+MDNet & Three Channel Image \& Complaints & 0.925 & {\bfseries 0.945} & 0.901 & 0.923 &3\\
+MDNet & Multimodal Data&  {\bfseries 0.945} & 0.936 & {\bfseries 0.956} & {\bfseries 0.945} &1\\
+\hline
+\end{tabular}
+\vspace{-0cm}
+\label{comparison}
+\end{center}
+\vspace{-0cm}
+\end{table*}
+    
+
+
+\section{Discussion}
+\label{discuss}
+If we treat RCNN(ResNet) trained with three-channel image as our baseline, we can see that complaint information can increase sensitivity with 1.8\% to 94.5\%, it means chief complaints do have information which can help to detect pneumonia. Meanwhile this information also decrease specificity to 90.1\%, which is not hard to understand cause patients sometimes cannot accurately describe his feelings or even exaggerate his condition. If we add information about age and gender, the sensitivity drops a little bit, but the specificity increases to 95.6\%, which means age and gender add information strongly connected to specificity.
+
+The validation loss and accuracy during training is shown in Fig~\ref{loss}. We can see that MDNet has the lowest loss and the highest accuracy during training.
+According to Fig~\ref{loss}, we can see that information about age and gender can improve accuracy to 0.7 at the very beginning, it means the dataset we are using must be influenced by some certain distribution. So we count the number of male patients and female patients in healthy cases and pneumonic cases(Table~\ref{malefemale}) and number of patients in different ages(Table~\ref{differentages}). 
+
+
+\begin{figure*}[t]
+    \centerline{\includegraphics[width=200mm]{losses.pdf}}
+    \vspace{-0cm}
+    \caption{Validation Loss and Accuracy During Training}
+    \vspace{-0cm}
+    \label{loss}
+    \end{figure*}
+
+
+In Table~\ref{malefemale}, we can see that a male patient has a larger chance of getting pneumonia. In 601 male cases, about 60\% of them are pneumonic, however, in 401 female cases, only 47.6\% are pneumonic. This may be related to smoking since male in Chinese suffer a serious smoking problem. 
+In Table~\ref{differentages}, we can see that age is also related to the chance of getting pneumonia. We can still observe that people older than 40 have much larger chance of getting pneumonia. There are about half of healthy cases between 40-50, but this indication drops so quickly that it goes down to 28.8\% between 50-60. These two tables explain why accuracy can achieve 0.7 at very beginning of training and why information about age and gender can imporve specificity to 95.6\%.
+
+
+\begin{table}[htb]
+    \vspace{-0cm}
+    \caption{Number of Male and Female Patients in Healthy and Pneumonic Cases}
+    \vspace{-0cm}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{\textit{}} & \textbf{\textit{Healthy}} & \textbf{\textit{Pneumonic}}& \textbf{\textit{Total}}& \textbf{\textit{Percentage*}} \\
+    \hline
+    Male & 240 & 361 & 601 & 60.1\%\\
+    Female & 210 & 191 & 401 &47.6\% \\
+    \hline
+    \textbf{\textit{Total}} & 450 & 552 & 1002 & 55.1\% \\
+    
+    \hline
+    \end{tabular}
+    \vspace{0.1cm}
+    \label{malefemale} \\
+    \footnotesize{Percentage* is Percentage of Pneumonia Patients}
+
+    \end{center}
+
+    \vspace{-0.0cm}
+    \end{table}
+
+\begin{table}[htb]
+    \vspace{-0cm}
+    \caption{Number of Healthy and Pneumonic Cases in Different Ages}
+    \vspace{-0cm}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{\textit{}} & \textbf{\textit{Healthy}} & \textbf{\textit{Pneumonic}}& \textbf{\textit{Total}}& \textbf{\textit{Percentage*}} \\
+    \hline
+    0-10 & 6 & 1 & 7 & 14.3\%\\
+    10-20 & 31 & 2 & 33 & 6.1\%\\
+    20-30 & 122 & 30 & 152 & 19.7\%\\
+    30-40 & 124 & 45 & 169 &26.6\%\\
+    40-50 & 109 & 108 & 217 &49.8\%\\
+    50-60 & 53 & 131 & 184 &71.2\%\\
+    60-70 & 5 & 126 & 131 &96.2\%\\
+    70-80 & 0 & 82 & 82 &100\%\\
+    $>90$& 0 & 27 & 27 &100\%\\
+    \hline 
+    \textbf{\textit{Total}} & 450 & 552 & 1002 & 55.1\% \\
+    
+    \hline
+    \end{tabular}
+    \vspace{0.1cm}
+    \label{differentages}\\
+    \footnotesize{Percentage* is Percentage of Pneumonia Patients}
+
+    \end{center}
+    \vspace{-0.0cm}
+    \end{table}
+
+\section{Conclusion}
+\label{conclude}
+In this study, we propose a novel model MDNet(Multimodal Data Network), which combines CT visual features with patients' age, gender and chief complaints. In MDNet, CT scans will be treated like video frames, and analyzed by RCNN(Recurrent Convolutional Neural Network), chief complaints will be transformed into word vectors by word2vec and analyzed by LSTM. Features from CT images and chief complaints will be fused together with patients' age and gender. All these features will be used to classify cases into healthy cases or pneumonic cases.
+
+We analyze 1002 cases(450 healthy cases and 552 pneumonic cases). In fact, 1002 cases is far small than `big data', so our model's performance is restricted by data distribution and quality. However, in clinical practice, it is very difficult to construct a big scale medical dataset for deep learning, cause raw data is affected by radiologists' personal habits, data acquisition equipments, and hospital work rules. Our future work will focus on methods which can over come difficulties mentioned above.
+Moreover, our future work will also focus on diagnosing pneumonia like seasonal influenza virus pneumonia using more source of information, like medical history, family history, blood test and other information which will be considered during clinical practice. All works above will be carried out under the premise of respecting the privacy of the patients.
+ 
+Source code for data pre-processing and MDNet will be released very soon. We will also release model with trained parameters and some sample cases for demo. But we cannot release dataset because of the privacy of patients. 
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+
+% An example of a floating table. Note that, for IEEE style tables, the
+% \caption command should come BEFORE the table and, given that table
+% captions serve much like titles, are usually capitalized except for words
+% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
+% and up, which are usually not capitalized unless they are the first or
+% last word of the caption. Table text will default to \footnotesize as
+% the IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that the IEEE does not put floats in the very first column
+% - or typically anywhere on the first page for that matter. Also,
+% in-text middle ("here") positioning is typically not used, but it
+% is allowed and encouraged for Computer Society conferences (but
+% not Computer Society journals). Most IEEE journals/conferences use
+% top floats exclusively. 
+% Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the
+% \fnbelowfloat command of the stfloats package.
+
+
+
+
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+% \appendices
+% \section{Proof of the First Zonklar Equation}
+% Appendix one text goes here.
+
+% % you can choose not to have a title for an appendix
+% % if you want by leaving the argument blank
+% \section{}
+% Appendix two text goes here.
+
+
+% use section* for acknowledgment
+\section*{Acknowledgment}
+
+
+The authors would like to thank...
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/thebibliography/bibtex/
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{refs}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+
+
+
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+\begin{IEEEbiography}{Michael Shell}
+Biography text here.
+\end{IEEEbiography}
+
+% if you will not have a photo at all:
+\begin{IEEEbiographynophoto}{John Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+\begin{IEEEbiographynophoto}{Jane Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+

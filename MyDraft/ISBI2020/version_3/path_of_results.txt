@@ -1,0 +1,15 @@
+1./raid/data/deformity/two_loss_X_nii 肺窗+骨窗生成的图片
+2./raid/data/deformity/voxel_X_nii 单纯肺窗用生成的图片
+
+3./raid/data/lizhihuan/voxel_appearance/src/X_nii 肺窗+骨窗+appearance 生成的假的图片
+
+4./raid/data/deformity/testnii/ 测试用例30个
+
+5./raid/data/test_Y_nii/ 利用1中假的图片训练得到unet模型,在30个测试集上得到的分割mask
+
+6./raid/data/lizhihuan/unet_lung/Y_pred 利用3中假的图片训练得到unet模型,在30个测试集上得到的分割mask
+
+7./raid/data/lizhihuan/unet_lung_vessel/Y_pre1 利用3中假的图片训练得到unet模型,在VESSEL上得到的分割mask,dice相似度0.96062
+
+8.只用一张vessel作为训练集 训练模型,在vessel上得到的结果是  0.9169
+

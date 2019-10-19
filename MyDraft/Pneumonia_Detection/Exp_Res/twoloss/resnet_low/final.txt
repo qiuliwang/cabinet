@@ -1,0 +1,22 @@
+ining complete.
+Testing the model ...test
+100%|█████████████████████████████████████████| 200/200 [02:32<00:00,  1.36it/s]
+164
+200
+('Sensitivity', 0.8508771929824561)
+('Specificity', 0.7790697674418605)
+('recall_score', 0.8508771929824561)
+('AUC', 0.8149734802121584)
+('accuracy: ', 0.82)
+Test completed.
+Testing the model ...validdata
+100%|█████████████████████████████████████████| 200/200 [02:32<00:00,  1.23it/s]
+169
+200
+('Sensitivity', 0.8715596330275229)
+('Specificity', 0.8131868131868132)
+('recall_score', 0.8715596330275229)
+('AUC', 0.8423732231071681)
+('accuracy: ', 0.845)
+Test completed.
+
