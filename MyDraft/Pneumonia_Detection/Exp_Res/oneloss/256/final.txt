@@ -1,7 +1,0 @@
-itivity', 0.8990825688073395)
-('Specificity', 0.9230769230769231)
-('recall_score', 0.8990825688073395)
-('AUC', 0.9110797459421314)
-('accuracy: ', 0.91)
-Test completed.
-
